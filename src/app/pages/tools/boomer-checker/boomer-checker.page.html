@@ -1,0 +1,132 @@
+<div class="row">
+    Over time, the combination of an increase in prices with stagnant wages has led to a bleaker financial outlook for younger generations. Take a look below to find out more.
+</div>
+<div class="row mt-3">
+    <mat-expansion-panel [expanded]="false" class="col-12">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <strong>In&nbsp;</strong>    
+                <select [(ngModel)]="startingYear" (click)="headerActionItemClicked($event)">
+                    <option *ngFor="let year of allowedYears" value={{year}}>{{year}}</option>
+                </select>
+                <strong>&nbsp;,&nbsp;</strong> 
+                <select class="text-center" [(ngModel)]="selectedPurchaseType" (click)="headerActionItemClicked($event)">
+                    <option *ngFor="let purchaseType of purchaseTypes" [ngValue]="purchaseType">{{ purchaseType.altName }}</option>
+                </select>  
+                <strong>&nbsp;was cheaper</strong>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="section-content">
+            <div>
+                <div class="text-center">
+                    Since {{ startingYear }} the price of a {{ selectedPurchaseType.name }} has increased by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseStartingPrice, true) }}%
+                    , and has increased
+                    <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice >= 1"> FASTER</span>
+                    <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice < 1"> SLOWER</span>
+                    than inflation by 
+                    {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseInflationAdjustedPrice, true) }}%
+                </div>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Average cost in {{startingYear}}: </td>
+                            <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseStartingPrice) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Adjusted to {{currentYear}} dollars: </td>
+                            <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseInflationAdjustedPrice) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Actual {{currentYear}} cost:</td>
+                            <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseCurrentPrice) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mt-3 justify-content-center">
+                <google-chart
+                    [title]="priceInflationChart.title"
+                    [type]="priceInflationChart.type"
+                    [data]="priceInflationChart.data"
+                    [columns]="priceInflationChart.columns"
+                    [options]="priceInflationChart.options"
+                    class="price-chart w-100"
+                >
+                </google-chart>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+<div class="row mt-3">
+    <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+            <mat-panel-title><strong>Wages Have Struggled to Keep the Same Pace</strong></mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="section-content col-12">
+            <wage-data
+                [startYear]="startingYear"
+                [endYear]="currentYear"
+                [startingAnnualData]="startingAnnualData"
+                [endingAnnualData]="currentAnnualData"
+                [selectedTimeFrame]="selectedTimeFrame"
+                [selectedPurchaseType]="selectedPurchaseType">
+            </wage-data>
+            <div class="col-12">
+                <google-chart
+                    [title]="wageDataChart.title"
+                    [type]="wageDataChart.type"
+                    [data]="wageDataChart.data"
+                    [columns]="wageDataChart.columns"
+                    [options]="wageDataChart.options"
+                    class="price-chart w-100"
+                >
+                </google-chart>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+<div class="row mt-3">
+    <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+            <mat-panel-title><strong>Result: More Work Is Required for the Same Purchases</strong></mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="section-content col-12">
+            <work-time
+                #workTime
+                [startYear]="startingYear"
+                [endYear]="currentYear"
+                [purchaseStartingPrice]="purchaseStartingPrice"
+                [purchaseCurrentPrice]="purchaseCurrentPrice"
+                [startingAnnualData]="startingAnnualData"
+                [endingAnnualData]="currentAnnualData"
+                [purchaseType]="selectedPurchaseType"
+                [timeFrames]="timeFrames"
+                [(selectedTimeFrame)]="selectedTimeFrame">
+            </work-time>
+            <div class="mt-2 justify-content-center">
+                <work-time-chart
+                    #workTimeChart
+                    [startYear]="startingYear"
+                    [endYear]="currentYear"
+                    [annualData]="allAnnualData"
+                    [purchaseType]="selectedPurchaseType"
+                    [timeFrames]="timeFrames"
+                    [(selectedTimeFrame)]="selectedTimeFrame">
+                </work-time-chart>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</div>
+<!-- <div class="row mt-3">
+    <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+            <mat-panel-title><strong>Wage Brackets over Time</strong></mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="section-content col-12">
+            <wage-progression></wage-progression>
+        </div>
+        <div class="section-content col-12">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/12540467"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+        </div>
+    </mat-expansion-panel>
+</div> -->

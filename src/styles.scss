@@ -1,0 +1,78 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$BoomerChecker-primary: mat.define-palette(mat.$indigo-palette);
+$BoomerChecker-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$BoomerChecker-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$BoomerChecker-theme: mat.define-light-theme((
+  color: (
+    primary: $BoomerChecker-primary,
+    accent: $BoomerChecker-accent,
+    warn: $BoomerChecker-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($BoomerChecker-theme);
+
+/* You can add global styles to this file, and also import other style files */
+$light: #ffffff;
+$dark: #011100;
+
+
+body.dark-mode {
+    background-color: $dark;
+    color: $light !important;
+}
+
+.w-5 {
+    width: 5%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.comparison-table, .max-width {
+    max-width: 625px;
+}
+
+.fa-info-circle {
+    cursor: pointer;
+    color: mediumblue;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

@@ -1,0 +1,81 @@
+<div class="col-12 text-center">
+    <p>
+        Inflation makes it hard to compare dollar amounts over time. Instead, here's a comparison of how many
+        <select [(ngModel)]="selectedTimeFrame" class="d-inline">
+            <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
+        </select> 
+        of work are required at each wage bracket in order to afford a {{purchaseType.name}}
+    </p>
+</div>
+<div class="col-12 d-flex justify-content-center">
+    <table class="table-sm comparison-table no-borders col-12 col-sm-10">
+        <thead>
+            <th class="w-40"></th>
+            <th class="text-end w-20">
+                {{ startYear }} 
+                <span class="fas fa-info-circle" (click)="toggleWageData($event,'startYear')"></span>
+            </th>
+            <th class="text-end w-20">
+                {{ endYear }} 
+                <span class="fas fa-info-circle" (click)="toggleWageData($event,'endYear')"></span>
+            </th>
+            <th class="text-end w-20">% Change</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="fw-bold text-end">Minimum Wage</td>
+                <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.minWageWorkTime, 2) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.minWageWorkTime, 2) }}</td>
+                <td class="text-end">
+                    <span *ngIf="percentDifferences.minWageDifference >= 0" class="text-danger">
+                        <span class="fas fa-arrow-up"></span>
+                        {{ absoluteValue(percentDifferences.minWageDifference).toFixed(2) }}%
+                    </span>
+                    <span *ngIf="percentDifferences.minWageDifference < 0" class="text-success">
+                        <span class="fas fa-arrow-down"></span>
+                        {{ absoluteValue(percentDifferences.minWageDifference).toFixed(2) }}%
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="fw-bold text-end">Median Wage</td>
+                <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.medianWageWorkTime, 2) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.medianWageWorkTime, 2) }}</td>
+                <td class="text-end">
+                    <span *ngIf="percentDifferences.medianWageDifference >= 0" class="text-danger">
+                        <span class="fas fa-arrow-up"></span>
+                        {{ absoluteValue(percentDifferences.medianWageDifference).toFixed(2) }}%
+                    </span>
+                    <span *ngIf="percentDifferences.medianWageDifference < 0" class="text-success">
+                        <span class="fas fa-arrow-down"></span>
+                        {{ absoluteValue(percentDifferences.medianWageDifference).toFixed(2) }}%
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="fw-bold text-end">Top 5% Wage</td>
+                <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.top5PctWorkTime, 2) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.top5PctWorkTime, 2) }}</td>
+                <td class="text-end">
+                    <span *ngIf="percentDifferences.top5PctWageDifference >= 0" class="text-danger">
+                        <span class="fas fa-arrow-up"></span>
+                        {{ absoluteValue(percentDifferences.top5PctWageDifference).toFixed(2) }}%
+                    </span>
+                    <span *ngIf="percentDifferences.top5PctWageDifference < 0" class="text-success">
+                        <span class="fas fa-arrow-down"></span>
+                        {{ absoluteValue(percentDifferences.top5PctWageDifference).toFixed(2) }}%
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- <wage-comparison
+    id="wage-comparison"
+    [selectedYear]="1980"
+    [data]="startingAnnualData"
+    [timeFrame]="_selectedTimeFrame"
+    [visible]="false"
+    >
+</wage-comparison> -->

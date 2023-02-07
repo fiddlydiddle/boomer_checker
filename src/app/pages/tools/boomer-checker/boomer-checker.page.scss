@@ -1,0 +1,28 @@
+.collapsible-section {
+    border: 1px solid black;
+    border-radius: 10px;
+
+    &.expanded {
+        .section-header::before {
+            content: '\02C5';
+            cursor: pointer;
+        }
+    }
+
+    &.collapsed {
+        .section-header::before {
+            content: '\276f';
+            cursor: pointer;
+        }
+    }
+
+    .section-header {
+        font-size: large;
+        font-weight: bold;
+        
+    }
+
+    .section-content {
+        justify-content: center;
+    }
+}

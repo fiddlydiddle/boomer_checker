@@ -1,0 +1,50 @@
+<div>
+    <p>
+        While the cost of {{ selectedPurchaseType.name }} has changed by {{ percentChange }}% since {{ startYear }}, have wages kept up? 
+        Here's how the average {{ selectedTimeFrame.altName.toLowerCase() }} individual wage for three different wage levels has changed in the same time period.
+    </p>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th class="text-center">Wage Level</th>
+                <th class="text-center">{{ startYear }} Wage</th>
+                <th class="text-center">Inflation Adjusted</th>
+                <th class="text-center">{{ endYear }} Wage</th>
+                <th class="text-center">Nominal % Change</th>
+                <th class="text-center">Inflation Adjusted % Change</th>
+            </tr>
+            <tr>
+                <td>Minimum Wage</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency(startingAnnualData.minWage * selectedTimeFrame.annualFactor) }}</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.minWage * selectedTimeFrame.annualFactor)) }}</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency(endingAnnualData.minWage * selectedTimeFrame.annualFactor) }}</td>
+                <td class="text-center">{{ dataFormatter.calculatePercentage(endingAnnualData.minWage, startingAnnualData.minWage) }}%</td>
+                <!-- TOODOO: The following line is horrendous -->
+                <td class="text-center">{{ dataFormatter.calculatePercentage(endingAnnualData.minWage, (endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.minWage * selectedTimeFrame.annualFactor)) }}%</td>
+            </tr>
+            <tr>
+                <td>Median Wage</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency(startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor) }}</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor)) }}</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency(endingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor) }}</td>
+                <td class="text-center">{{ dataFormatter.calculatePercentage(endingAnnualData.medianWage3rdQuintile, startingAnnualData.medianWage3rdQuintile) }}%</td>
+                <!-- TOODOO: The following line is horrendous -->
+                <td class="text-center">{{ dataFormatter.calculatePercentage(endingAnnualData.medianWage3rdQuintile, (endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.annualFactor)) }}%</td>
+            </tr>
+            <tr>
+                <td>Top 5% Wage</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency(startingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor) }}</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor)) }}</td>
+                <td class="text-end">{{ dataFormatter.formatCurrency(endingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor) }}</td>
+                <td class="text-center">{{ dataFormatter.calculatePercentage(endingAnnualData.medianWageTop5Pct, startingAnnualData.medianWageTop5Pct) }}%</td>
+                <!-- TOODOO: The following line is horrendous -->
+                <td class="text-center">{{ dataFormatter.calculatePercentage(endingAnnualData.medianWageTop5Pct, (endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWageTop5Pct * selectedTimeFrame.annualFactor)) }}%</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mt-3">
+        Here's how the 
+        Minimum Wage
+        has risen compared to inflation:
+    </div>
+</div>

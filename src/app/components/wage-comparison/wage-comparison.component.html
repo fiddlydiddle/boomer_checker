@@ -1,0 +1,27 @@
+<div class="small wage-comparison" >
+    <div class="content-holder" *ngIf="visible">
+        <div class="text-center">
+            {{ selectedYear }} {{ timeFrame.altName }} wages
+        </div>
+        <table class="table-sm comparison-table no-borders">
+            <thead>
+                <th class="w-90"></th>
+                <th class="text-end w-10"></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="fw-bold text-end">Minimum Wage:</td>
+                    <td class="text-end">{{ _dataFormatter.formatCurrency(data.minWage * timeFrame.annualFactor) }}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold text-end">Median Wage:</td>
+                    <td class="text-end">{{ _dataFormatter.formatCurrency(data.medianWage3rdQuintile * timeFrame.hourlyFactor) }}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold text-end">Top 5% Wage:</td>
+                    <td class="text-end">{{ _dataFormatter.formatCurrency(data.medianWageTop5Pct * timeFrame.hourlyFactor) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

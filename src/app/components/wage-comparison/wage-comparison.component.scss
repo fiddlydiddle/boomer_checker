@@ -1,0 +1,14 @@
+.wage-comparison {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    
+
+    .content-holder {
+        width: 185px;
+        border: 2px solid darkgrey;
+        box-shadow: 5px 2px 2px darkgrey;
+    }
+}
