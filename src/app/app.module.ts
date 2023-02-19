@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LineChartComponent } from './components/d3-charts/line-chart/line-chart.component';
+import { LineChartRaceComponent } from './components/d3-charts/line-chart-race/line-chart-race.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LineChartComponent } from './components/d3-charts/line-chart/line-chart
     WorkTimeChartComponent,
     WageDataComponent,
     WageProgressionComponent,
-    LineChartComponent
+    LineChartComponent,
+    LineChartRaceComponent
   ],
   imports: [
     BrowserModule,

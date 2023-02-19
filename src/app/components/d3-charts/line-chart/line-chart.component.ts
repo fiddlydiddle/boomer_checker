@@ -24,11 +24,11 @@ export class LineChartComponent implements AfterViewInit {
 
   // Private properties
   private host: d3.Selection<HTMLElement, {}, d3.BaseType, any> = {} as d3.Selection<HTMLElement, {}, d3.BaseType, any>;
+  private htmlElement: HTMLElement = {} as HTMLElement;
   private svg: d3.Selection<SVGGElement, {}, d3.BaseType, any> = {} as d3.Selection<SVGGElement, {}, d3.BaseType, any>;
   private width: number = 250;
   private height: number = 250;
   private margin = { left: 50, right: 0, top: 10, bottom: 50};
-  private htmlElement: HTMLElement = {} as HTMLElement;
 
   constructor() {}
 
@@ -44,17 +44,17 @@ export class LineChartComponent implements AfterViewInit {
 
   private buildSVG(): void {
     // Intialize chart dimensions
-    this.host.html('');
+    this.host.selectAll('*').remove();
     this.svg = this.host.append('svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
       .attr('transform', `translate(${this.margin.left}, ${this. margin.top})`);
-    
-    
   }
 
   private drawChart(shouldBeAnimated: boolean): void {
+    if (!this.host.selectAll) return;
+
     this.animationInProgress = true;
 
     this.buildSVG();
