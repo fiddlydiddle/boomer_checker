@@ -127,7 +127,7 @@ export class LineChartComponent implements AfterViewInit {
         const pathLength = lines[i].node()?.getTotalLength();
         const transitionPath = d3
           .transition()
-          .ease(d3.easeSin)
+          .ease(d3.easeLinear)
           .duration(5000);
   
         lines[i].attr('stroke-dashoffset', pathLength)

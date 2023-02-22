@@ -8,6 +8,7 @@ import annualData from '../../../datafiles/annual-data.json';
 import { WageChartService } from 'src/app/services/wage-chart.service';
 import { DataFormatterService } from 'src/app/services/data-formatter.service';
 import { LineChartDataPoint } from 'src/app/datamodels/d3-charts/line-chart-data-point.model';
+import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
 
 
 @Component({
@@ -99,7 +100,7 @@ export class BoomerCheckerComponent implements OnInit {
   startingAnnualData: AnnualDataPoint = { year: 0, cpiValue: 0, minWage: 0, medianWage3rdQuintile: 0, medianWageTop5Pct: 0, medianHomePrice: 0, medianRent: 0,
                                           averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0 };
                             
-  priceInflationDataSeries: LineChartDataPoint[][] = [];
+  priceInflationDataSeries: LineChartSeries[] = [];
 
   ////////////////
   // Charts
@@ -189,12 +190,18 @@ export class BoomerCheckerComponent implements OnInit {
     let dataArray: any[] = this._dataArrayConverter.convert(priceData, visibleColumns);
     this.priceInflationChart.data = Object.assign([], dataArray);
     this.priceInflationDataSeries = [];
-    this.priceInflationDataSeries.push(priceData.map(dataPoint => {
-      return { year: dataPoint.year, value: dataPoint.dollarValue };
-    }));
-    this.priceInflationDataSeries.push(priceData.map(dataPoint => {
-      return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
-    }));
+    this.priceInflationDataSeries.push({
+      name: 'Actual Value',
+      dataPoints: priceData.map(dataPoint => {
+        return { year: dataPoint.year, value: dataPoint.dollarValue };
+      })
+    });
+    this.priceInflationDataSeries.push({
+      name: 'Inflation Adjusted Value',
+      dataPoints: priceData.map(dataPoint => {
+        return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
+      })
+    });
   }
 
   private drawWageDataChart(): void {
