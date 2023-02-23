@@ -192,12 +192,14 @@ export class BoomerCheckerComponent implements OnInit {
     this.priceInflationDataSeries = [];
     this.priceInflationDataSeries.push({
       name: 'Actual Value',
+      className: 'actual-value',
       dataPoints: priceData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.dollarValue };
       })
     });
     this.priceInflationDataSeries.push({
       name: 'Inflation Adjusted Value',
+      className: 'inflation-adjusted-value',
       dataPoints: priceData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
       })
