@@ -137,7 +137,7 @@ export class LineChartRaceComponent implements AfterViewInit {
 
         // Create the Y axis:
         const maxValueOfEachSeries = this._data.map((series) => {
-            const seriesChunk = series.dataPoints.slice(0, this.iteration + 1);
+            const seriesChunk = series.dataPoints.slice(0, this.iteration + 5);
             const seriesValues = seriesChunk.map(dataPoint => dataPoint.value);
             return Math.max(...seriesValues);
         });
@@ -177,12 +177,14 @@ export class LineChartRaceComponent implements AfterViewInit {
                 .transition()
                 .ease(d3.easeLinear)
                 .duration(this.duration)
-                .call(d3.axisBottom(this.xScale) as any);
+                .call(d3.axisBottom(this.xScale)
+                    .ticks(5)
+                    .tickFormat(d3.timeFormat("%Y") as any) as any);
 
             // update y axis
             this.svg.selectAll(".y-axis")
                 .transition()
-                .ease(d3.easeCubic)
+                .ease(d3.easeLinear)
                 .duration(this.duration)
                 .call(d3.axisLeft(this.yScale) as any);
         }
@@ -199,7 +201,7 @@ export class LineChartRaceComponent implements AfterViewInit {
         });
 
         if (this.iteration === 1) {
-            chunkedData.forEach(dataSeries => {
+            this._data.forEach(dataSeries => {
                 this.svg.append('path')
                     .datum(dataSeries.dataPoints)
                     .attr('fill', 'none')
@@ -213,7 +215,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             });
         }
         else {
-            chunkedData.forEach(dataSeries => {
+            this._data.forEach(dataSeries => {
                 // generate line paths
                 const line = this.svg.selectAll(`.${dataSeries.className}`)
                     .datum(dataSeries.dataPoints)
@@ -231,30 +233,18 @@ export class LineChartRaceComponent implements AfterViewInit {
                         .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
                         .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); }) as any
                     )
-                // .attr("stroke", (d) => "url(#linear-gradient-" + d.name + ")");
 
                 // enter any new data
-                line
-                    .enter()
-                    .append("path")
-                    .attr("class", dataSeries.className)
-                    .attr("fill", "none")
-                    .attr("clip-path", "url(#clip)")
-                    .attr("stroke-width", 1.5)
-                    .transition()
-                    .ease(d3.easeLinear)
-                    .duration(this.duration);
-
-                // .attr("stroke", (d) => "url(#linear-gradient-" + d.name + ")");
-
-                // exit
                 // line
-                //     .exit()
+                //     .enter()
+                //     .append("path")
+                //     .attr("class", dataSeries.className)
+                //     .attr("fill", "none")
+                //     .attr("clip-path", "url(#clip)")
+                //     .attr("stroke-width", 1.5)
                 //     .transition()
                 //     .ease(d3.easeLinear)
-                //     .duration(this.duration)
-                //     .remove();
-
+                //     .duration(this.duration);
             });
         }
     }
