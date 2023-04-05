@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "boomerchecker": {
+      "hosting": {
+        "BoomerChecker": [
+          "boomerchecker"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "boomerchecker"
+  }
+}

@@ -44,15 +44,10 @@
                 </table>
             </div>
             <div class="row mt-3 justify-content-center">
-                <google-chart
-                    [title]="priceInflationChart.title"
-                    [type]="priceInflationChart.type"
-                    [data]="priceInflationChart.data"
-                    [columns]="priceInflationChart.columns"
-                    [options]="priceInflationChart.options"
-                    class="price-chart w-100"
-                >
-                </google-chart>
+                <line-chart-race
+                    #priceInflationChart
+                    [data]="priceInflationDataSeries">
+                </line-chart-race>
             </div>
         </div>
     </mat-expansion-panel>
@@ -72,15 +67,10 @@
                 [selectedPurchaseType]="selectedPurchaseType">
             </wage-data>
             <div class="col-12">
-                <google-chart
-                    [title]="wageDataChart.title"
-                    [type]="wageDataChart.type"
-                    [data]="wageDataChart.data"
-                    [columns]="wageDataChart.columns"
-                    [options]="wageDataChart.options"
-                    class="price-chart w-100"
-                >
-                </google-chart>
+                <line-chart-race
+                    #wageDataChart
+                    [data]="wageDataSeries">
+                </line-chart-race>
             </div>
         </div>
     </mat-expansion-panel>
@@ -117,22 +107,3 @@
         </div>
     </mat-expansion-panel>
 </div>
-<!-- <line-chart
-    [data]="priceInflationDataSeries">
-</line-chart> -->
-<line-chart-race
-    [data]="priceInflationDataSeries">
-</line-chart-race>
-<!-- <div class="row mt-3">
-    <mat-expansion-panel [expanded]="false">
-        <mat-expansion-panel-header>
-            <mat-panel-title><strong>Wage Brackets over Time</strong></mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="section-content col-12">
-            <wage-progression></wage-progression>
-        </div>
-        <div class="section-content col-12">
-            <div class="flourish-embed flourish-chart" data-src="visualisation/12540467"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
-        </div>
-    </mat-expansion-panel>
-</div> -->

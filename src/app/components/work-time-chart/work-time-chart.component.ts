@@ -5,6 +5,7 @@ import { PurchaseType } from "src/app/datamodels/purchase-type.model";
 import { WorkTimeChartService } from "src/app/services/work-time-chart.service";
 import { WorkTimeChartModel } from "src/app/datamodels/work-time-chart.model";
 import { DataArrayConverterService } from "src/app/services/data-array-converter.service";
+import { LineChartSeries } from "src/app/datamodels/d3-charts/line-chart-series.model";
 
 @Component({
     selector: 'work-time-chart',
@@ -43,8 +44,9 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
           {name: 'Top 5% Wage', label: 'Top 5% Wage', type: 'number'}
         ],
         options: { 'legend': { 'position': 'top' } }
-      };
-    
+    };
+
+    workTimeDataSeries: LineChartSeries[] = [];
 
     constructor(private _workTimeChartService: WorkTimeChartService, private _dataArrayConverter: DataArrayConverterService) { }
 
@@ -62,6 +64,28 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
         let dataArray: any[] = this._dataArrayConverter.convert(chartData, visibleColumns);
         this.workTimeChart.title = `${this._selectedTimeFrame.name} of Work Required to Purchase over Time`;
         this.workTimeChart.data = Object.assign([], dataArray);
+        this.workTimeDataSeries = [];
+        this.workTimeDataSeries.push({
+            name: 'Minimum Wage Work Time',
+            className: 'minimum-wage-time',
+            dataPoints: chartData.map(dataPoint => {
+                return { year: dataPoint.year, value: dataPoint.minWageWorkTime };
+            })
+        });
+        this.workTimeDataSeries.push({
+            name: 'Median Wage Work Time',
+            className: 'median-wage-time',
+            dataPoints: chartData.map(dataPoint => {
+                return { year: dataPoint.year, value: dataPoint.medianWageWorkTime };
+            })
+        });
+        this.workTimeDataSeries.push({
+            name: 'Top 5% Work Time',
+            className: 'top5pct-wage-time',
+            dataPoints: chartData.map(dataPoint => {
+                return { year: dataPoint.year, value: dataPoint.top5PctWorkTime };
+            })
+        });
     }
 }
   

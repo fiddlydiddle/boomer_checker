@@ -1,4 +1,6 @@
-<div>
-    <button class="btn btn-primary" (click)="playAnimation()" [disabled]="animationInProgress">Play</button>
-    <div #d3linechart></div>
+<div class="chart-container w-100">
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" (click)="playAnimation()" [disabled]="animationInProgress">Play</button>
+    </div>
+    <div #d3linechart class="d-flex justify-content-center"></div>
 </div>

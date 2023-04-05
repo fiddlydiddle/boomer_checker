@@ -5,7 +5,7 @@ import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.
 @Component({
     selector: 'line-chart-race',
     templateUrl: 'line-chart-race.component.html',
-    styleUrls: []
+    styleUrls: ['line-chart-race.component.scss']
 })
 export class LineChartRaceComponent implements AfterViewInit {
     private _data: LineChartSeries[] = [];
@@ -24,14 +24,17 @@ export class LineChartRaceComponent implements AfterViewInit {
     private host = {} as d3.Selection<HTMLElement, {}, d3.BaseType, any>;
     private htmlElement = {} as HTMLElement;
     private svg = {} as d3.Selection<SVGGElement, {}, d3.BaseType, any>;
-    private width: number = 250;
-    private height: number = 250;
+    private defaultWidth: number = 250;
+    private height: number = 400;
     private margin = { left: 50, right: 0, top: 10, bottom: 50 };
     private xScale = {} as d3.ScaleTime<number, number, never>;
     private yScale = {} as d3.ScaleLinear<number, number, never>;
     private yAxisUpperBound = 2;
     private duration = 500;
     private iteration = 1;
+    private chartOptions = {
+        colors: ["firebrick", "darkslateblue", "darkorange"]
+    };
 
     constructor() { }
 
@@ -39,22 +42,21 @@ export class LineChartRaceComponent implements AfterViewInit {
         this.htmlElement = this.element.nativeElement;
         this.host = d3.select(this.htmlElement);
         this.drawStaticChart();
-        this.drawAnimatedChart();
     }
 
     public playAnimation() {
-        this.drawStaticChart();
         this.drawAnimatedChart();
     }
 
     private buildSVG(): void {
         // Intialize chart dimensions
         this.host.selectAll('*').remove();
+        const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
         this.svg = this.host.append('svg')
-            .attr('width', this.width + this.margin.left + this.margin.right)
+            .attr('width', chartWidth - this.margin.left - this.margin.right)
             .attr('height', this.height + this.margin.top + this.margin.bottom)
             .append('g')
-            .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+            .attr('transform', `translate(0, ${this.margin.top})`);
     }
 
     private drawStaticChart(): void {
@@ -75,9 +77,10 @@ export class LineChartRaceComponent implements AfterViewInit {
                 seriesYValues.push(dataPoint.value);
             });
         });
+        const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
         this.xScale = d3.scaleTime()
             .domain(d3.extent(seriesXValues) as [number, number])
-            .range([0, this.width]);
+            .range([this.margin.left, chartWidth - this.margin.left - this.margin.right - 15]);
         this.yScale = d3.scaleLinear()
             .domain(d3.extent(seriesYValues) as [number, number])
             .range([this.height, 0]);
@@ -86,20 +89,23 @@ export class LineChartRaceComponent implements AfterViewInit {
         this.svg.append('g')
             .attr('class', 'x-axis')
             .attr('transform', `translate(0, ${this.height})`)
-            .call(d3.axisBottom(this.xScale));
+            .call(d3.axisBottom(this.xScale)
+                    .ticks(8)
+                    .tickFormat(d3.format('d')) as any);
 
         this.svg.append('g')
             .attr('class', 'y-axis')
+            .attr('transform', `translate(${this.margin.left},0)`)
             .call(d3.axisLeft(this.yScale));
 
 
         // Add lines
         const lines: any = [];
-        this._data.forEach(dataSeries => {
+        this._data.forEach((dataSeries, index) => {
             const path = this.svg.append('path')
                 .datum(dataSeries.dataPoints)
                 .attr('fill', 'none')
-                .attr('stroke', 'steelblue')
+                .attr('stroke', this.chartOptions.colors[index])
                 .attr('stroke-width', 1.5)
                 .attr('class', dataSeries.name)
                 .attr('d', d3.line()
@@ -131,13 +137,16 @@ export class LineChartRaceComponent implements AfterViewInit {
     private updateLines(): void {
         // Create the X axis:
         const startYear = this._data[0].dataPoints[0].year;
-        const endYear = this._data[0].dataPoints[this.iteration].year + 5;
+        const endYear = this._data[0].dataPoints[this.iteration].year;
 
-        this.xScale.domain([startYear, endYear]);
+        const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
+        this.xScale
+            .domain([startYear, endYear])
+            .range([this.margin.left, chartWidth - this.margin.left - this.margin.right - 15]);
 
         // Create the Y axis:
         const maxValueOfEachSeries = this._data.map((series) => {
-            const seriesChunk = series.dataPoints.slice(0, this.iteration + 5);
+            const seriesChunk = series.dataPoints.slice(0, this.iteration + 2);
             const seriesValues = seriesChunk.map(dataPoint => dataPoint.value);
             return Math.max(...seriesValues);
         });
@@ -147,7 +156,9 @@ export class LineChartRaceComponent implements AfterViewInit {
             this.yAxisUpperBound = overallMaxValue;
         }
 
-        this.yScale.domain([0, overallMaxValue]).nice();
+        this.yScale
+            .domain([0, overallMaxValue])
+            .range([this.height, 0]);;
 
         this.updateAxes();
 
@@ -169,6 +180,7 @@ export class LineChartRaceComponent implements AfterViewInit {
 
             this.svg.append('g')
                 .attr('class', 'y-axis')
+                .attr('transform', `translate(${this.margin.left}, 0)`)
                 .call(d3.axisLeft(this.yScale));
         }
         else {
@@ -178,11 +190,12 @@ export class LineChartRaceComponent implements AfterViewInit {
                 .ease(d3.easeLinear)
                 .duration(this.duration)
                 .call(d3.axisBottom(this.xScale)
-                    .ticks(5)
-                    .tickFormat(d3.timeFormat("%Y") as any) as any);
+                    .ticks(8)
+                    .tickFormat(d3.format('d')) as any);
 
             // update y axis
             this.svg.selectAll(".y-axis")
+                .attr('transform', `translate(${this.margin.left},0)`)
                 .transition()
                 .ease(d3.easeLinear)
                 .duration(this.duration)
@@ -192,20 +205,12 @@ export class LineChartRaceComponent implements AfterViewInit {
     }
 
     private makeLines() {
-        const chunkedData = this._data.map(series => {
-            return {
-                name: series.name,
-                className: series.className,
-                dataPoints: series.dataPoints.slice(0, this.iteration + 1)
-            } as LineChartSeries
-        });
-
         if (this.iteration === 1) {
-            this._data.forEach(dataSeries => {
+            this._data.forEach((dataSeries, index) => {
                 this.svg.append('path')
                     .datum(dataSeries.dataPoints)
                     .attr('fill', 'none')
-                    .attr('stroke', 'steelblue')
+                    .attr('stroke', this.chartOptions.colors[index])
                     .attr('stroke-width', 1.5)
                     .attr('class', dataSeries.className)
                     .attr('d', d3.line()
@@ -226,25 +231,11 @@ export class LineChartRaceComponent implements AfterViewInit {
                     .transition()
                     .ease(d3.easeLinear)
                     .duration(this.duration)
-                    // .attr('fill', 'none')
-                    // .attr('stroke', 'steelblue')
                     .attr('stroke-width', 1.5)
                     .attr('d', d3.line()
                         .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
                         .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); }) as any
                     )
-
-                // enter any new data
-                // line
-                //     .enter()
-                //     .append("path")
-                //     .attr("class", dataSeries.className)
-                //     .attr("fill", "none")
-                //     .attr("clip-path", "url(#clip)")
-                //     .attr("stroke-width", 1.5)
-                //     .transition()
-                //     .ease(d3.easeLinear)
-                //     .duration(this.duration);
             });
         }
     }
