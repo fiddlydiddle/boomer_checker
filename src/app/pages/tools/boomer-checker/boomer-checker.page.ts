@@ -7,6 +7,8 @@ import { DataArrayConverterService } from 'src/app/services/data-array-converter
 import annualData from '../../../datafiles/annual-data.json';
 import { WageChartService } from 'src/app/services/wage-chart.service';
 import { DataFormatterService } from 'src/app/services/data-formatter.service';
+import { LineChartDataPoint } from 'src/app/datamodels/d3-charts/line-chart-data-point.model';
+import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
 
 
 @Component({
@@ -97,6 +99,9 @@ export class BoomerCheckerComponent implements OnInit {
                                           averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0 };
   startingAnnualData: AnnualDataPoint = { year: 0, cpiValue: 0, minWage: 0, medianWage3rdQuintile: 0, medianWageTop5Pct: 0, medianHomePrice: 0, medianRent: 0,
                                           averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0 };
+                            
+  priceInflationDataSeries: LineChartSeries[] = [];
+  wageDataSeries: LineChartSeries[] = [];
 
   ////////////////
   // Charts
@@ -142,6 +147,7 @@ export class BoomerCheckerComponent implements OnInit {
   public headerActionItemClicked(event:Event) {
     event.stopPropagation();
   }
+
   private getPrices() {
     this.startingAnnualData = this.allAnnualData.find((annualRecord) => {
       return annualRecord.year == this._startingYear;
@@ -184,12 +190,42 @@ export class BoomerCheckerComponent implements OnInit {
     let visibleColumns: string[] = ['year', 'dollarValue', 'inflationAdjustedDollarValue']
     let dataArray: any[] = this._dataArrayConverter.convert(priceData, visibleColumns);
     this.priceInflationChart.data = Object.assign([], dataArray);
+    this.priceInflationDataSeries = [];
+    this.priceInflationDataSeries.push({
+      name: 'Actual Value',
+      className: 'actual-value',
+      dataPoints: priceData.map(dataPoint => {
+        return { year: dataPoint.year, value: dataPoint.dollarValue };
+      })
+    });
+    this.priceInflationDataSeries.push({
+      name: 'Inflation Adjusted Value',
+      className: 'inflation-adjusted-value',
+      dataPoints: priceData.map(dataPoint => {
+        return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
+      })
+    });
   }
 
   private drawWageDataChart(): void {
-    let priceData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this._startingYear, 'minWage' );
+    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this._startingYear, 'minWage' );
     let visibleColumns: string[] = ['year', 'dollarValue', 'inflationAdjustedDollarValue']
-    let dataArray: any[] = this._dataArrayConverter.convert(priceData, visibleColumns);
+    let dataArray: any[] = this._dataArrayConverter.convert(wageData, visibleColumns);
     this.wageDataChart.data = Object.assign([], dataArray);
+    this.wageDataSeries = [];
+    this.wageDataSeries.push({
+      name: 'Actual Value',
+      className: 'actual-value',
+      dataPoints: wageData.map(dataPoint => {
+        return { year: dataPoint.year, value: dataPoint.dollarValue };
+      })
+    });
+    this.wageDataSeries.push({
+      name: 'Inflation Adjusted Value',
+      className: 'inflation-adjusted-value',
+      dataPoints: wageData.map(dataPoint => {
+        return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
+      })
+    });
   }
 }
