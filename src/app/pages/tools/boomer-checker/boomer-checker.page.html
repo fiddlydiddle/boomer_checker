@@ -17,6 +17,13 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content">
+            <div class="row mt-3 justify-content-center">
+                <line-chart-race
+                    #priceInflationChart
+                    [data]="priceInflationDataSeries"
+                    [valueFormat]="'currency'">
+                </line-chart-race>
+            </div>
             <div>
                 <div class="text-center">
                     Since {{ startingYear }} the price of a {{ selectedPurchaseType.name }} has increased by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseStartingPrice, true) }}%
@@ -43,12 +50,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row mt-3 justify-content-center">
-                <line-chart-race
-                    #priceInflationChart
-                    [data]="priceInflationDataSeries">
-                </line-chart-race>
-            </div>
         </div>
     </mat-expansion-panel>
 </div>
@@ -69,7 +70,8 @@
             <div class="col-12">
                 <line-chart-race
                     #wageDataChart
-                    [data]="wageDataSeries">
+                    [data]="wageDataSeries"
+                    [valueFormat]="'currency'">
                 </line-chart-race>
             </div>
         </div>
@@ -81,6 +83,17 @@
             <mat-panel-title><strong>Result: More Work Is Required for the Same Purchases</strong></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content col-12">
+            <div class="mt-2 justify-content-center">
+                <work-time-chart
+                    #workTimeChart
+                    [startYear]="startingYear"
+                    [endYear]="currentYear"
+                    [annualData]="allAnnualData"
+                    [purchaseType]="selectedPurchaseType"
+                    [timeFrames]="timeFrames"
+                    [(selectedTimeFrame)]="selectedTimeFrame">
+                </work-time-chart>
+            </div>
             <work-time
                 #workTime
                 [startYear]="startingYear"
@@ -93,17 +106,6 @@
                 [timeFrames]="timeFrames"
                 [(selectedTimeFrame)]="selectedTimeFrame">
             </work-time>
-            <div class="mt-2 justify-content-center">
-                <work-time-chart
-                    #workTimeChart
-                    [startYear]="startingYear"
-                    [endYear]="currentYear"
-                    [annualData]="allAnnualData"
-                    [purchaseType]="selectedPurchaseType"
-                    [timeFrames]="timeFrames"
-                    [(selectedTimeFrame)]="selectedTimeFrame">
-                </work-time-chart>
-            </div>
         </div>
     </mat-expansion-panel>
 </div>

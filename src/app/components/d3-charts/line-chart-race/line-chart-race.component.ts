@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
+import { DataFormatterService } from 'src/app/services/data-formatter.service';
 
 @Component({
     selector: 'line-chart-race',
@@ -13,14 +14,21 @@ export class LineChartRaceComponent implements AfterViewInit {
     set data(newData: LineChartSeries[]) {
         this._data = newData;
         this.drawStaticChart();
-        this.drawAnimatedChart();
+    }
+
+    private _valueFormat: string = 'number';
+    @Input()
+    set valueFormat(newFormat: string) {
+        this._valueFormat = newFormat;
     }
 
     // Public properties
     @ViewChild('d3linechart') element: ElementRef<HTMLInputElement> = {} as ElementRef;
+    @ViewChild('chartlegend') legendElement: ElementRef<HTMLInputElement> = {} as ElementRef;
     animationInProgress: boolean = false;
 
     // Private properties
+    private _dataFormatter: DataFormatterService;
     private host = {} as d3.Selection<HTMLElement, {}, d3.BaseType, any>;
     private htmlElement = {} as HTMLElement;
     private svg = {} as d3.Selection<SVGGElement, {}, d3.BaseType, any>;
@@ -33,10 +41,27 @@ export class LineChartRaceComponent implements AfterViewInit {
     private duration = 500;
     private iteration = 1;
     private chartOptions = {
-        colors: ["firebrick", "darkslateblue", "darkorange"]
-    };
+        colors: ["firebrick", "darkslateblue", "darkorange"],
+        legend: {
+            itemSize: 10,
+            spacing: 150,
+            xOffset: 50,
+            yOffset: 0
+        },
+        tipCircles: {
+            radius: 8,
+            lineWidth: 3,
+            labels: {
+                xOffset: -125,
+                yOffset: 2
+            }
+        }
+    }
+    private chartIdentifierGUID = this.newGuid();
 
-    constructor() { }
+    constructor(dataFormatter: DataFormatterService) {
+        this._dataFormatter = dataFormatter;
+      }
 
     ngAfterViewInit(): void {
         this.htmlElement = this.element.nativeElement;
@@ -54,8 +79,17 @@ export class LineChartRaceComponent implements AfterViewInit {
         const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
         this.svg = this.host.append('svg')
             .attr('width', chartWidth - this.margin.left - this.margin.right)
-            .attr('height', this.height + this.margin.top + this.margin.bottom)
-            .append('g')
+            .attr('height', this.height + this.margin.top + this.margin.bottom) as any;
+        
+        // Create clip path to prevent lines from running off side of chart
+        this.svg.append('g')
+            .append('clipPath')
+            .attr('id', `lineClip${this.chartIdentifierGUID}`)
+            .append("rect")
+            .attr("width", chartWidth - this.margin.left - this.margin.right - 15)
+            .attr("height", this.height) as any;
+        
+        this.svg = this.svg.append('g')
             .attr('transform', `translate(0, ${this.margin.top})`);
     }
 
@@ -83,7 +117,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .range([this.margin.left, chartWidth - this.margin.left - this.margin.right - 15]);
         this.yScale = d3.scaleLinear()
             .domain(d3.extent(seriesYValues) as [number, number])
-            .range([this.height, 0]);
+            .range([this.height, 20]);
 
         // Append axes to svg
         this.svg.append('g')
@@ -116,6 +150,8 @@ export class LineChartRaceComponent implements AfterViewInit {
 
             lines.push(path);
         });
+
+        this.addLegend();
     }
 
     private async drawAnimatedChart() {
@@ -158,15 +194,15 @@ export class LineChartRaceComponent implements AfterViewInit {
 
         this.yScale
             .domain([0, overallMaxValue])
-            .range([this.height, 0]);;
+            .range([this.height, 20]);
 
         this.updateAxes();
 
         this.makeLines();
 
-        // makeTipCircle(data)
+        this.updateTipCircles();
 
-        // makeLabels(data)
+        this.updateCircleLabels();
 
     }
 
@@ -209,6 +245,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             this._data.forEach((dataSeries, index) => {
                 this.svg.append('path')
                     .datum(dataSeries.dataPoints)
+                    .attr("clip-path", `url(#lineClip${this.chartIdentifierGUID}`)
                     .attr('fill', 'none')
                     .attr('stroke', this.chartOptions.colors[index])
                     .attr('stroke-width', 1.5)
@@ -228,6 +265,7 @@ export class LineChartRaceComponent implements AfterViewInit {
 
                 // transition from previous paths to new paths
                 line
+                    .attr("clip-path", `url(#lineClip${this.chartIdentifierGUID}`)
                     .transition()
                     .ease(d3.easeLinear)
                     .duration(this.duration)
@@ -238,5 +276,129 @@ export class LineChartRaceComponent implements AfterViewInit {
                     )
             });
         }
+    }
+
+    private addLegend() {
+        const legendHtmlElement = this.legendElement.nativeElement;
+        d3.select(`#legend${this.chartIdentifierGUID}`).remove();
+
+        const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
+        const legend = d3
+            .select(legendHtmlElement)
+            .append('svg')
+                .attr('id', `legend${this.chartIdentifierGUID}`)
+                .attr('width', chartWidth)
+                .attr('height', 20)
+                .selectAll('.legendItem')
+                .data(this._data);
+
+        //Create legend items
+        legend
+            .enter()
+            .append('rect')
+            .attr('class', 'legendItem')
+            .attr('width', this.chartOptions.legend.itemSize)
+            .attr('height', this.chartOptions.legend.itemSize)
+            .style('fill', (dataSeries, index) => this.chartOptions.colors[index])
+            .attr('transform', (dataSeries, index) => {
+                const x = this.chartOptions.legend.xOffset + (this.chartOptions.legend.itemSize + this.chartOptions.legend.spacing) * index;
+                const y = this.chartOptions.legend.yOffset + 5;
+                return `translate(${x}, ${y})`;
+            });
+
+        //Create legend labels
+        legend
+            .enter()
+            .append('text')
+            .attr('transform', (dataSeries, index) => {
+                const x = this.chartOptions.legend.xOffset + this.chartOptions.legend.itemSize + 5 + (this.chartOptions.legend.itemSize + this.chartOptions.legend.spacing) * index;
+                const y = this.chartOptions.legend.yOffset + this.chartOptions.legend.itemSize + 5;
+                return `translate(${x}, ${y})`;
+            })
+            .text(dataSeries => dataSeries.name);  
+    }
+
+    private updateTipCircles() {
+        // Generate new circles
+        const circles = this.svg.selectAll(".circle").data(this._data);
+            
+        // Transition from previous circles to new
+        circles
+            .enter()
+            .append("circle")
+            .attr("class","circle")
+            .attr("fill", "white")
+            .attr("stroke", (dataSeries, index) => this.chartOptions.colors[index])
+            .attr("stroke-width", this.chartOptions.tipCircles.lineWidth)
+            .attr("cx", dataSeries => this.xScale(dataSeries.dataPoints[this.iteration].year))
+            .attr("cy", dataSeries => this.yScale(dataSeries.dataPoints[this.iteration].value))
+            .attr("r", this.chartOptions.tipCircles.radius)
+            .transition()
+            .ease(d3.easeLinear)
+            .duration(this.duration);
+
+
+
+        // enter new circles
+        circles
+            .transition()
+            .ease(d3.easeLinear)
+            .duration(this.duration)
+            .attr("cx", dataSeries => this.xScale(dataSeries.dataPoints[this.iteration].year))
+            .attr("cy", dataSeries => this.yScale(dataSeries.dataPoints[this.iteration].value))
+            .attr("r", this.chartOptions.tipCircles.radius)
+            .attr("fill", "white")
+            .attr("stroke", (dataSeries, index) => this.chartOptions.colors[index])
+            .attr("stroke-width", this.chartOptions.tipCircles.lineWidth);
+    }
+
+    private updateCircleLabels() {
+        //generate labels
+        const labels = this.svg.selectAll(".label").data(this._data);
+
+        //transition from previous labels to new labels
+        labels
+            .enter()
+            .append("text")
+            .attr("class","label")
+            .attr("font-size","18px")
+            .attr("clip-path", "url(#clip)")
+            .style("fill", (dataSeries, index) => this.chartOptions.colors[index])
+            .transition()
+            .ease(d3.easeLinear)
+            .attr("x", (dataSeries) => this.xScale(dataSeries.dataPoints[this.iteration].year) + this.chartOptions.tipCircles.labels.xOffset)
+            .attr("y", (dataSeries) => this.yScale(dataSeries.dataPoints[this.iteration].value) + this.chartOptions.tipCircles.labels.yOffset)
+            .style('text-anchor', 'start')
+            .text(dataSeries => {
+                let formattedNumber = `${this._dataFormatter.formatNumber(dataSeries.dataPoints[this.iteration].value, 0)}`;
+                if (this._valueFormat === 'currency') {
+                    formattedNumber = `$${formattedNumber}`;
+                }
+                return formattedNumber;
+            });
+
+        // add new labels
+        labels
+            .transition()
+            .ease(d3.easeLinear)
+            .duration(this.duration)
+            .attr("x", (dataSeries) => this.xScale(dataSeries.dataPoints[this.iteration].year) + this.chartOptions.tipCircles.labels.xOffset)
+            .attr("y", (dataSeries) => this.yScale(dataSeries.dataPoints[this.iteration].value) + this.chartOptions.tipCircles.labels.yOffset)
+            .attr("font-size","18px")
+            .style("fill", (dataSeries, index) => this.chartOptions.colors[index])
+            .style('text-anchor', 'start')
+            .text(dataSeries => {
+                let formattedNumber = `${this._dataFormatter.formatNumber(dataSeries.dataPoints[this.iteration].value, 0)}`;
+                if (this._valueFormat === 'currency') {
+                    formattedNumber = `$${formattedNumber}`;
+                }
+                return formattedNumber;
+            });
+    }
+
+    private newGuid() {
+        return ([1e7] as any + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c: any) =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
     }
 }

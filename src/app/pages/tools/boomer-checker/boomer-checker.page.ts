@@ -192,14 +192,14 @@ export class BoomerCheckerComponent implements OnInit {
     this.priceInflationChart.data = Object.assign([], dataArray);
     this.priceInflationDataSeries = [];
     this.priceInflationDataSeries.push({
-      name: 'Actual Value',
+      name: 'Actual Cost',
       className: 'actual-value',
       dataPoints: priceData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.dollarValue };
       })
     });
     this.priceInflationDataSeries.push({
-      name: 'Inflation Adjusted Value',
+      name: 'Inflation-Adjusted Cost',
       className: 'inflation-adjusted-value',
       dataPoints: priceData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
@@ -214,14 +214,14 @@ export class BoomerCheckerComponent implements OnInit {
     this.wageDataChart.data = Object.assign([], dataArray);
     this.wageDataSeries = [];
     this.wageDataSeries.push({
-      name: 'Actual Value',
+      name: 'Actual Wage',
       className: 'actual-value',
       dataPoints: wageData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.dollarValue };
       })
     });
     this.wageDataSeries.push({
-      name: 'Inflation Adjusted Value',
+      name: 'Inflation-Adjusted Wage',
       className: 'inflation-adjusted-value',
       dataPoints: wageData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };

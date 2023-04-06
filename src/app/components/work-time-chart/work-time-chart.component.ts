@@ -66,21 +66,21 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
         this.workTimeChart.data = Object.assign([], dataArray);
         this.workTimeDataSeries = [];
         this.workTimeDataSeries.push({
-            name: 'Minimum Wage Work Time',
+            name: 'Min Wage',
             className: 'minimum-wage-time',
             dataPoints: chartData.map(dataPoint => {
                 return { year: dataPoint.year, value: dataPoint.minWageWorkTime };
             })
         });
         this.workTimeDataSeries.push({
-            name: 'Median Wage Work Time',
+            name: 'Median Wage',
             className: 'median-wage-time',
             dataPoints: chartData.map(dataPoint => {
                 return { year: dataPoint.year, value: dataPoint.medianWageWorkTime };
             })
         });
         this.workTimeDataSeries.push({
-            name: 'Top 5% Work Time',
+            name: 'Top 5% Wage',
             className: 'top5pct-wage-time',
             dataPoints: chartData.map(dataPoint => {
                 return { year: dataPoint.year, value: dataPoint.top5PctWorkTime };
