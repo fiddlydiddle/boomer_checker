@@ -9,6 +9,12 @@ import { DataFormatterService } from 'src/app/services/data-formatter.service';
     styleUrls: ['line-chart-race.component.scss']
 })
 export class LineChartRaceComponent implements AfterViewInit {
+    private _title: string = "";
+    @Input()
+    set title(newTitle: string) {
+        this._title = newTitle;
+    }
+
     private _data: LineChartSeries[] = [];
     @Input()
     set data(newData: LineChartSeries[]) {
@@ -25,6 +31,7 @@ export class LineChartRaceComponent implements AfterViewInit {
     // Public properties
     @ViewChild('d3linechart') element: ElementRef<HTMLInputElement> = {} as ElementRef;
     @ViewChild('chartlegend') legendElement: ElementRef<HTMLInputElement> = {} as ElementRef;
+    @ViewChild('charttitle') titleElement: ElementRef<HTMLInputElement> = {} as ElementRef;
     animationInProgress: boolean = false;
 
     // Private properties
@@ -91,6 +98,7 @@ export class LineChartRaceComponent implements AfterViewInit {
         
         this.svg = this.svg.append('g')
             .attr('transform', `translate(0, ${this.margin.top})`);
+
     }
 
     private drawStaticChart(): void {
@@ -151,7 +159,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             lines.push(path);
         });
 
-        this.addLegend();
+        this.addTitleAndLegend();
     }
 
     private async drawAnimatedChart() {
@@ -278,11 +286,29 @@ export class LineChartRaceComponent implements AfterViewInit {
         }
     }
 
-    private addLegend() {
+    private addTitleAndLegend() {
+        const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
+
+        // Add title to chart
+        const titleHtmlElement = this.titleElement.nativeElement;
+        d3.select(`#title${this.chartIdentifierGUID}`).remove();
+        const title = d3
+            .select(titleHtmlElement)
+            .append('text')
+                .attr('id', `title${this.chartIdentifierGUID}`)
+                .attr('class', 'title')
+                .style('display', 'block')
+                .style('font-weight', 'bold')
+                .style('width', '100%')
+                .style('text-align', 'center')
+                .style('margin-top', '10px')
+                .style('margin-bottom', '5px')
+                .text(this._title);
+
+        // Add legend to chart
         const legendHtmlElement = this.legendElement.nativeElement;
         d3.select(`#legend${this.chartIdentifierGUID}`).remove();
 
-        const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
         const legend = d3
             .select(legendHtmlElement)
             .append('svg')

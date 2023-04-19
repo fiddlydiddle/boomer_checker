@@ -6,6 +6,7 @@ import { WorkTimeChartService } from "src/app/services/work-time-chart.service";
 import { WorkTimeChartModel } from "src/app/datamodels/work-time-chart.model";
 import { DataArrayConverterService } from "src/app/services/data-array-converter.service";
 import { LineChartSeries } from "src/app/datamodels/d3-charts/line-chart-series.model";
+import { LineChartRaceComponent } from "../d3-charts/line-chart-race/line-chart-race.component";
 
 @Component({
     selector: 'work-time-chart',
@@ -13,15 +14,17 @@ import { LineChartSeries } from "src/app/datamodels/d3-charts/line-chart-series.
     styleUrls: []
 })
 export class WorkTimeChartComponent implements OnInit, OnChanges {
+    @ViewChild('workTimeChart', {static: false}) workTimeChart: LineChartRaceComponent | undefined;
+
     //////////////////////////////
     //        Properties        //
     //////////////////////////////
     @Input() startYear!: number;
     @Input() endYear!: number;
     @Input() annualData!: AnnualDataPoint[];
-    @Input() purchaseType!: PurchaseType;
     @Input() timeFrames!: TimeFrame[];
-    _selectedTimeFrame: TimeFrame = { name: 'Hours', altName: 'Hourly', hourlyFactor: .0004807692308, annualFactor: 1 };
+    
+    private _selectedTimeFrame: TimeFrame = { name: 'Hours', altName: 'Hourly', hourlyFactor: .0004807692308, annualFactor: 1 };
     @Input() 
         get selectedTimeFrame() {
             return this._selectedTimeFrame;
@@ -33,20 +36,24 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
         }
     @Output() selectedTimeFrameChange: EventEmitter<TimeFrame> = new EventEmitter<TimeFrame>();
 
-    workTimeChart: any = {
-        title: '',
-        type: 'LineChart',
-        data: [],
-        columns: [
-          {name: 'Year', label: 'Year', type: 'string'},
-          {name: 'Minimum Wage', label: 'Minimum Wage', type: 'number'},
-          {name: 'Median Wage', label: 'Median Wage', type: 'number'},
-          {name: 'Top 5% Wage', label: 'Top 5% Wage', type: 'number'}
-        ],
-        options: { 'legend': { 'position': 'top' } }
-    };
+    private _purchaseType: PurchaseType = { 
+        name: 'Year\'s University Tuition',
+        altName: 'University Tuition',
+        key: 'averageUniversityTuition',
+        defaultTimeFrame: { name: 'Years', altName: 'Annual', hourlyFactor: 1, annualFactor: 2080 } };
+    @Input()
+        get purchaseType() {
+            return this._purchaseType;
+        }
+        set purchaseType(value: PurchaseType) {
+            this._purchaseType = value;
+            this.updateChart();
+        }
+
 
     workTimeDataSeries: LineChartSeries[] = [];
+    chartTitle: string = "";
+    
 
     constructor(private _workTimeChartService: WorkTimeChartService, private _dataArrayConverter: DataArrayConverterService) { }
 
@@ -59,11 +66,9 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
     }
 
     private updateChart() {
+        this.chartTitle = `${this._selectedTimeFrame.name} of Work Required to Purchase ${this.purchaseType.name}`
+
         let chartData: WorkTimeChartModel[] = this._workTimeChartService.getWorkTimeDataData(this.annualData, this.startYear, this.purchaseType, this._selectedTimeFrame);
-        let visibleColumns: string[] = ['year', 'minWageWorkTime', 'medianWageWorkTime', 'top5PctWorkTime']
-        let dataArray: any[] = this._dataArrayConverter.convert(chartData, visibleColumns);
-        this.workTimeChart.title = `${this._selectedTimeFrame.name} of Work Required to Purchase over Time`;
-        this.workTimeChart.data = Object.assign([], dataArray);
         this.workTimeDataSeries = [];
         this.workTimeDataSeries.push({
             name: 'Min Wage',
