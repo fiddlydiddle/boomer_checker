@@ -85,7 +85,7 @@ export class LineChartRaceComponent implements AfterViewInit {
         this.host.selectAll('*').remove();
         const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
         this.svg = this.host.append('svg')
-            .attr('width', chartWidth - this.margin.left - this.margin.right)
+            .attr('width', chartWidth)
             .attr('height', this.height + this.margin.top + this.margin.bottom) as any;
         
         // Create clip path to prevent lines from running off side of chart
@@ -132,7 +132,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr('class', 'x-axis')
             .attr('transform', `translate(0, ${this.height})`)
             .call(d3.axisBottom(this.xScale)
-                    .ticks(8)
+                    .ticks(chartWidth < 500 ? 5 : 8) // Reduce number of ticks for small screens
                     .tickFormat(d3.format('d')) as any);
 
         this.svg.append('g')
@@ -229,12 +229,13 @@ export class LineChartRaceComponent implements AfterViewInit {
         }
         else {
             //update x axis
+            const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
             this.svg.selectAll(".x-axis")
                 .transition()
                 .ease(d3.easeLinear)
                 .duration(this.duration)
                 .call(d3.axisBottom(this.xScale)
-                    .ticks(8)
+                    .ticks(chartWidth < 500 ? 5 : 8) // Reduce ticks for small screens
                     .tickFormat(d3.format('d')) as any);
 
             // update y axis

@@ -1,10 +1,10 @@
-<h3 class="small">
+<h3 class="small mb-0 ps-2 pe-2">
     Many financial milestones that were easy for the Baby Boomer generation to achieve are out of reach for younger people today.
     Since the heyday of the Boomers, the combination of rising prices and stagnant wages has led to a bleaker financial outlook for the generations that followed. 
     Take a look below to find out more.
 </h3>
-<div class="row mt-3">
-    <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')" class="col-12">
+<div class="panel-container row mt-1">
+    <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <strong>In&nbsp;</strong>    
@@ -19,7 +19,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content">
-            <div class="row justify-content-center">
+            <div class="w-100">
                 <line-chart-race
                     #priceInflationChart
                     [title]="priceInflationChartTitle"
@@ -56,7 +56,7 @@
         </div>
     </mat-expansion-panel>
 </div>
-<div class="row mt-3">
+<div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('wageDataPanel')">
         <mat-expansion-panel-header>
             <mat-panel-title><strong>Wages Have Struggled to Keep the Same Pace</strong></mat-panel-title>
@@ -81,7 +81,7 @@
         </div>
     </mat-expansion-panel>
 </div>
-<div class="row mt-3">
+<div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('workTimePanel')">
         <mat-expansion-panel-header>
             <mat-panel-title><strong>Result: More Work Is Required for the Same Purchases</strong></mat-panel-title>
