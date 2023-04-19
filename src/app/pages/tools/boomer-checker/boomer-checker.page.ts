@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, NgModule, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { AnnualDataPoint } from 'src/app/datamodels/annual-datapoint.model';
 import { ValueInflationPoint } from 'src/app/datamodels/value-inflation.model';
 import { PurchaseType } from 'src/app/datamodels/purchase-type.model';
@@ -9,6 +9,10 @@ import { WageChartService } from 'src/app/services/wage-chart.service';
 import { DataFormatterService } from 'src/app/services/data-formatter.service';
 import { LineChartDataPoint } from 'src/app/datamodels/d3-charts/line-chart-data-point.model';
 import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
+import { LineChartRaceComponent } from 'src/app/components/d3-charts/line-chart-race/line-chart-race.component';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { WorkTimeComponent } from 'src/app/components/work-time/work-time.component';
+import { WorkTimeChartComponent } from 'src/app/components/work-time-chart/work-time-chart.component';
 
 
 @Component({
@@ -17,9 +21,15 @@ import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.
   styleUrls: ['boomer-checker.page.scss']
 })
 
-export class BoomerCheckerComponent implements OnInit {
+export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   @ViewChild('wageComparison', {static: false}) wageComparison: any;
   @ViewChild('workTime', {static: false}) workTime: any;
+  @ViewChild('priceInflationPanel', {static: false}) priceInflationPanel: MatExpansionPanel | undefined;
+  @ViewChild('priceInflationChart', {static: false}) priceInflationChart: LineChartRaceComponent | undefined;
+  @ViewChild('wageDataChart', {static: false}) wageDataChart: LineChartRaceComponent | undefined;
+  @ViewChild('workTimeContainer', {static: false}) workTimeContainer: WorkTimeChartComponent | undefined;
+  private _workTimeChart: LineChartRaceComponent | undefined;
+
   
   title = 'Boomer Checker';
   _dataArrayConverter: DataArrayConverterService;
@@ -101,36 +111,15 @@ export class BoomerCheckerComponent implements OnInit {
                                           averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0 };
                             
   priceInflationDataSeries: LineChartSeries[] = [];
+  priceInflationChartTitle: string = '';
   wageDataSeries: LineChartSeries[] = [];
+  
 
-  ////////////////
-  // Charts
-  ////////////////
-  priceInflationChart: any = {
-    title: 'Price vs Inflation over Time',
-    type: 'LineChart',
-    data: [],
-    columns: [
-      {name: 'Year', label: 'Year', type: 'string'},
-      {name: 'Actual Price', label: 'Actual Price', type: 'number'},
-      {name: 'Original Price Inflation Adjusted', label: 'Original Price Inflation Adjusted', type: 'number'}
-    ],
-    options: { 'legend': { 'position': 'top' } }
-  };
-
-  wageDataChart: any = {
-    title: '',
-    type: 'LineChart',
-    data: [],
-    columns: [
-      {name: 'Year', label: 'Year', type: 'string'},
-      {name: 'Wage', label: 'Minimum Wage', type: 'number'},
-      {name: 'Inflation Adjusted Minimum Wage', label: 'Inflation Adjusted Minimum Wage', type: 'number'}
-    ],
-    options: { 'legend': { 'position': 'top' } }
-  };
-
-  constructor(dataArrayConverter: DataArrayConverterService, wageChartService: WageChartService, dataFormatter: DataFormatterService) {
+  constructor(
+    dataArrayConverter: DataArrayConverterService
+    ,wageChartService: WageChartService
+    ,dataFormatter: DataFormatterService
+  ) {
     this._dataArrayConverter = dataArrayConverter;
     this._wageChartService = wageChartService;
     if (this.allAnnualData && this.allAnnualData.length > 0) {
@@ -144,8 +133,26 @@ export class BoomerCheckerComponent implements OnInit {
     this.drawCharts();
   }
 
+  ngAfterViewInit(): void {
+    if (this.priceInflationPanel) {
+      this.priceInflationPanel.open();
+    }
+  }
+
   public headerActionItemClicked(event:Event) {
     event.stopPropagation();
+  }
+
+  public panelOpened(panelName: string) {
+    if (panelName === 'priceInflationPanel' && this.priceInflationChart) {
+      this.priceInflationChart.playAnimation();
+    }
+    else if (panelName === 'wageDataPanel' && this.wageDataChart) {
+      this.wageDataChart.playAnimation();
+    }
+    else if (panelName === 'workTimePanel' && this.workTimeContainer?.workTimeChart) {
+      this.workTimeContainer.workTimeChart.playAnimation();
+    }
   }
 
   private getPrices() {
@@ -181,15 +188,13 @@ export class BoomerCheckerComponent implements OnInit {
   }
 
   private drawCharts(): void {
+    this.priceInflationChartTitle = `Cost of a ${this.selectedPurchaseType.name} since ${this.minYear}`;
     this.drawPriceChart();
     this.drawWageDataChart();
   }
 
   private drawPriceChart(): void {
     let priceData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this._startingYear, this._selectedPurchaseType.key );
-    let visibleColumns: string[] = ['year', 'dollarValue', 'inflationAdjustedDollarValue']
-    let dataArray: any[] = this._dataArrayConverter.convert(priceData, visibleColumns);
-    this.priceInflationChart.data = Object.assign([], dataArray);
     this.priceInflationDataSeries = [];
     this.priceInflationDataSeries.push({
       name: 'Actual Cost',
@@ -209,9 +214,6 @@ export class BoomerCheckerComponent implements OnInit {
 
   private drawWageDataChart(): void {
     let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this._startingYear, 'minWage' );
-    let visibleColumns: string[] = ['year', 'dollarValue', 'inflationAdjustedDollarValue']
-    let dataArray: any[] = this._dataArrayConverter.convert(wageData, visibleColumns);
-    this.wageDataChart.data = Object.assign([], dataArray);
     this.wageDataSeries = [];
     this.wageDataSeries.push({
       name: 'Actual Wage',
