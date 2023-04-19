@@ -50,6 +50,17 @@ body.dark-mode {
     }
 }
 
+div.panel-container {
+    width: 100%;
+    --bs-gutter-x: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    div.mat-expansion-panel-body {
+        padding: 0 10px 16px;
+    }
+}
+
 .w-5 {
     width: 5%;
 }
