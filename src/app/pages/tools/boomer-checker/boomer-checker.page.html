@@ -29,8 +29,9 @@
             </div>
             <div>
                 <div class="text-center">
-                    Since {{ startingYear }} the price of a {{ selectedPurchaseType.name }} has increased by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseStartingPrice, true) }}%
-                    , and has increased
+                    Since {{ startingYear }} the price of a {{ selectedPurchaseType.name }} has 
+                    {{ priceInflationDataSeries[0].dataPoints[0].value < priceInflationDataSeries[0].dataPoints[priceInflationDataSeries[0].dataPoints.length - 1].value ? 'increased' : 'decreased' }}
+                    by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseStartingPrice, true) }}%, and has increased
                     <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice >= 1"> FASTER</span>
                     <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice < 1"> SLOWER</span>
                     than inflation by 

@@ -180,15 +180,19 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
 
   private getYears(): number[] {
     let years: number[] = [];
-    let startYear = this.minYear;
-    while (startYear <= this.maxYear) {
-        years.push(startYear++);
+    let yearToAdd = this.minYear;
+    while (yearToAdd <= this.maxYear) {
+        years.push(yearToAdd);
+        yearToAdd += 5;
     }   
     return years;
   }
 
   private drawCharts(): void {
     this.priceInflationChartTitle = `Cost of a ${this.selectedPurchaseType.name} since ${this.minYear}`;
+    this.priceInflationChart?.stopAnimation();
+    this.wageDataChart?.stopAnimation();
+    this.workTimeContainer?.workTimeChart?.stopAnimation();
     this.drawPriceChart();
     this.drawWageDataChart();
   }

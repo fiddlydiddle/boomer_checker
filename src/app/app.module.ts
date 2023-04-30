@@ -16,11 +16,13 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LineChartComponent } from './components/d3-charts/line-chart/line-chart.component';
 import { LineChartRaceComponent } from './components/d3-charts/line-chart-race/line-chart-race.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    FooterComponent,
     BoomerCheckerComponent,
     WorkTimeComponent,
     WorkTimeChartComponent,

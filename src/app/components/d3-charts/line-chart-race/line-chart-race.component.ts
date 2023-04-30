@@ -80,6 +80,11 @@ export class LineChartRaceComponent implements AfterViewInit {
         this.drawAnimatedChart();
     }
 
+    public stopAnimation() {
+        this.animationInProgress = false;
+        this.drawStaticChart();
+    }
+
     private buildSVG(): void {
         // Intialize chart dimensions
         this.host.selectAll('*').remove();
@@ -169,7 +174,7 @@ export class LineChartRaceComponent implements AfterViewInit {
 
         this.animationInProgress = true;
         this.iteration = 1;
-        while (this.iteration < this._data[0].dataPoints.length) {
+        while (this.iteration < this._data[0].dataPoints.length && this.animationInProgress) {
             this.updateLines();
             this.iteration += 1;
             await new Promise(r => setTimeout(r, this.duration));
