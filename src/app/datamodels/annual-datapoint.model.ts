@@ -10,4 +10,6 @@ export interface AnnualDataPoint {
     averageGasPrice: number;
     averageMovieTicketPrice: number;
     averageHealthcareCost: number;
+    averageFoodCost: number;
+    averageChildCost: number;
 }
