@@ -1,5 +1,1010 @@
 [
   {
+    "year": 1913,
+    "cpiValue": 9.8,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1914,
+    "cpiValue": 10,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1915,
+    "cpiValue": 10.1,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1916,
+    "cpiValue": 10.4,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1917,
+    "cpiValue": 11.7,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1918,
+    "cpiValue": 14,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1919,
+    "cpiValue": 16.5,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1920,
+    "cpiValue": 19.3,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1921,
+    "cpiValue": 19,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1922,
+    "cpiValue": 16.9,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1923,
+    "cpiValue": 16.8,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1924,
+    "cpiValue": 17.3,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1925,
+    "cpiValue": 17.3,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1926,
+    "cpiValue": 17.9,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1927,
+    "cpiValue": 17.5,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1928,
+    "cpiValue": 17.3,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1929,
+    "cpiValue": 17.1,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1930,
+    "cpiValue": 17.1,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1931,
+    "cpiValue": 15.9,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1932,
+    "cpiValue": 14.3,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1933,
+    "cpiValue": 12.9,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1934,
+    "cpiValue": 13.2,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1935,
+    "cpiValue": 13.6,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1936,
+    "cpiValue": 13.8,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1937,
+    "cpiValue": 14.1,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1938,
+    "cpiValue": 14.2,
+    "minWage": 0,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1939,
+    "cpiValue": 14,
+    "minWage": 0.25,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1940,
+    "cpiValue": 13.9,
+    "minWage": 0.3,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1941,
+    "cpiValue": 14.1,
+    "minWage": 0.3,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1942,
+    "cpiValue": 15.7,
+    "minWage": 0.3,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1943,
+    "cpiValue": 16.9,
+    "minWage": 0.3,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1944,
+    "cpiValue": 17.4,
+    "minWage": 0.3,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1945,
+    "cpiValue": 17.8,
+    "minWage": 0.3,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1946,
+    "cpiValue": 18.2,
+    "minWage": 0.4,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1947,
+    "cpiValue": 21.5,
+    "minWage": 0.4,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1948,
+    "cpiValue": 23.7,
+    "minWage": 0.4,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1949,
+    "cpiValue": 24,
+    "minWage": 0.4,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1950,
+    "cpiValue": 23.5,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1951,
+    "cpiValue": 25.4,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1952,
+    "cpiValue": 26.5,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1953,
+    "cpiValue": 26.6,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1954,
+    "cpiValue": 26.9,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1955,
+    "cpiValue": 26.7,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1956,
+    "cpiValue": 26.8,
+    "minWage": 0.75,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1957,
+    "cpiValue": 27.6,
+    "minWage": 1,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1958,
+    "cpiValue": 28.6,
+    "minWage": 1,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1959,
+    "cpiValue": 29,
+    "minWage": 1,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1960,
+    "cpiValue": 29.3,
+    "minWage": 1,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1961,
+    "cpiValue": 29.8,
+    "minWage": 1,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1962,
+    "cpiValue": 30,
+    "minWage": 1.15,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1963,
+    "cpiValue": 30.4,
+    "minWage": 1.15,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1964,
+    "cpiValue": 30.9,
+    "minWage": 1.25,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1965,
+    "cpiValue": 31.2,
+    "minWage": 1.25,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1966,
+    "cpiValue": 31.8,
+    "minWage": 1.25,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 0,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1967,
+    "cpiValue": 32.9,
+    "minWage": 1.25,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 28110,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1968,
+    "cpiValue": 34.1,
+    "minWage": 1.4,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 28461,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 0,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1969,
+    "cpiValue": 35.6,
+    "minWage": 1.6,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 31585,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 321,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 0,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1970,
+    "cpiValue": 37.8,
+    "minWage": 1.6,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 33281,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 358,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 353,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1971,
+    "cpiValue": 39.8,
+    "minWage": 1.6,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 34638,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 394,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 387,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1972,
+    "cpiValue": 41.1,
+    "minWage": 1.6,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 38447,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 428,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 430,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1973,
+    "cpiValue": 42.6,
+    "minWage": 1.6,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 41516,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 503,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 474,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1974,
+    "cpiValue": 46.6,
+    "minWage": 1.6,
+    "medianWage3rdQuintile": 0,
+    "medianWageTop5Pct": 43355,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 514,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 533,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1975,
+    "cpiValue": 52.1,
+    "minWage": 2.1,
+    "medianWage3rdQuintile": 11800,
+    "medianWageTop5Pct": 45644,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 512,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 603,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1976,
+    "cpiValue": 55.6,
+    "minWage": 2.3,
+    "medianWage3rdQuintile": 12686,
+    "medianWageTop5Pct": 49700,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 542,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 685,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1977,
+    "cpiValue": 58.5,
+    "minWage": 2.3,
+    "medianWage3rdQuintile": 13572,
+    "medianWageTop5Pct": 54277,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 617,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 772,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1978,
+    "cpiValue": 62.5,
+    "minWage": 2.65,
+    "medianWage3rdQuintile": 15064,
+    "medianWageTop5Pct": 59486,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 655,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 859,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
+    "year": 1979,
+    "cpiValue": 68.3,
+    "minWage": 2.9,
+    "medianWage3rdQuintile": 16461,
+    "medianWageTop5Pct": 65984,
+    "medianHomePrice": 0,
+    "medianRent": 0,
+    "averageUniversityTuition": 688,
+    "averageGasPrice": 0,
+    "averageMovieTicketPrice": 0,
+    "averageHealthcareCost": 964,
+    "averageFoodCost": 0,
+    "averageChildCost": 0
+  },
+  {
     "year": 1980,
     "cpiValue": 77.8,
     "minWage": 3.1,
@@ -27,7 +1032,7 @@
     "averageMovieTicketPrice": 2.78,
     "averageHealthcareCost": 1262,
     "averageFoodCost": 1444,
-    "averageChildCost": 4087
+    "averageChildCost": 4256
   },
   {
     "year": 1982,
@@ -42,7 +1047,7 @@
     "averageMovieTicketPrice": 2.94,
     "averageHealthcareCost": 1408,
     "averageFoodCost": 1505,
-    "averageChildCost": 4087
+    "averageChildCost": 4425
   },
   {
     "year": 1983,
@@ -57,7 +1062,7 @@
     "averageMovieTicketPrice": 3.15,
     "averageHealthcareCost": 1537,
     "averageFoodCost": 1584,
-    "averageChildCost": 4087
+    "averageChildCost": 4594
   },
   {
     "year": 1984,
@@ -72,7 +1077,7 @@
     "averageMovieTicketPrice": 3.36,
     "averageHealthcareCost": 1679,
     "averageFoodCost": 1664,
-    "averageChildCost": 4087
+    "averageChildCost": 4763
   },
   {
     "year": 1985,
@@ -102,7 +1107,7 @@
     "averageMovieTicketPrice": 3.71,
     "averageHealthcareCost": 1937,
     "averageFoodCost": 1793,
-    "averageChildCost": 4933
+    "averageChildCost": 5245
   },
   {
     "year": 1987,
@@ -117,7 +1122,7 @@
     "averageMovieTicketPrice": 3.91,
     "averageHealthcareCost": 2091,
     "averageFoodCost": 1909,
-    "averageChildCost": 4933
+    "averageChildCost": 5557
   },
   {
     "year": 1988,
@@ -132,7 +1137,7 @@
     "averageMovieTicketPrice": 4.11,
     "averageHealthcareCost": 2321,
     "averageFoodCost": 2030,
-    "averageChildCost": 4933
+    "averageChildCost": 5869
   },
   {
     "year": 1989,
@@ -147,7 +1152,7 @@
     "averageMovieTicketPrice": 3.99,
     "averageHealthcareCost": 2559,
     "averageFoodCost": 2142,
-    "averageChildCost": 4933
+    "averageChildCost": 6181
   },
   {
     "year": 1990,
@@ -177,7 +1182,7 @@
     "averageMovieTicketPrice": 4.21,
     "averageHealthcareCost": 3066,
     "averageFoodCost": 2361,
-    "averageChildCost": 6495
+    "averageChildCost": 6625
   },
   {
     "year": 1992,
@@ -192,7 +1197,7 @@
     "averageMovieTicketPrice": 4.15,
     "averageHealthcareCost": 3285,
     "averageFoodCost": 2376,
-    "averageChildCost": 6495
+    "averageChildCost": 6755
   },
   {
     "year": 1993,
@@ -207,7 +1212,7 @@
     "averageMovieTicketPrice": 4.14,
     "averageHealthcareCost": 3486,
     "averageFoodCost": 2440,
-    "averageChildCost": 6495
+    "averageChildCost": 6885
   },
   {
     "year": 1994,
@@ -222,7 +1227,7 @@
     "averageMovieTicketPrice": 4.18,
     "averageHealthcareCost": 3645,
     "averageFoodCost": 2514,
-    "averageChildCost": 6495
+    "averageChildCost": 7015
   },
   {
     "year": 1995,
@@ -252,7 +1257,7 @@
     "averageMovieTicketPrice": 4.42,
     "averageHealthcareCost": 3969,
     "averageFoodCost": 2626,
-    "averageChildCost": 7143
+    "averageChildCost": 7342
   },
   {
     "year": 1997,
@@ -267,7 +1272,7 @@
     "averageMovieTicketPrice": 4.59,
     "averageHealthcareCost": 4144,
     "averageFoodCost": 2611.11,
-    "averageChildCost": 7143
+    "averageChildCost": 7541
   },
   {
     "year": 1998,
@@ -282,7 +1287,7 @@
     "averageMovieTicketPrice": 4.69,
     "averageHealthcareCost": 4339,
     "averageFoodCost": 2673.5,
-    "averageChildCost": 7143
+    "averageChildCost": 7740
   },
   {
     "year": 1999,
@@ -297,7 +1302,7 @@
     "averageMovieTicketPrice": 5.08,
     "averageHealthcareCost": 4564,
     "averageFoodCost": 2785.01,
-    "averageChildCost": 7143
+    "averageChildCost": 7939
   },
   {
     "year": 2000,
@@ -327,7 +1332,7 @@
     "averageMovieTicketPrice": 5.66,
     "averageHealthcareCost": 5211,
     "averageFoodCost": 3005.04,
-    "averageChildCost": 8140
+    "averageChildCost": 8322
   },
   {
     "year": 2002,
@@ -342,7 +1347,7 @@
     "averageMovieTicketPrice": 5.81,
     "averageHealthcareCost": 5678,
     "averageFoodCost": 3070.74,
-    "averageChildCost": 8140
+    "averageChildCost": 8504
   },
   {
     "year": 2003,
@@ -357,7 +1362,7 @@
     "averageMovieTicketPrice": 6.03,
     "averageHealthcareCost": 6111,
     "averageFoodCost": 3189.67,
-    "averageChildCost": 8140
+    "averageChildCost": 8686
   },
   {
     "year": 2004,
@@ -372,7 +1377,7 @@
     "averageMovieTicketPrice": 6.21,
     "averageHealthcareCost": 6482,
     "averageFoodCost": 3357.99,
-    "averageChildCost": 8140
+    "averageChildCost": 8868
   },
   {
     "year": 2005,
@@ -402,7 +1407,7 @@
     "averageMovieTicketPrice": 6.55,
     "averageHealthcareCost": 7268,
     "averageFoodCost": 3685.13,
-    "averageChildCost": 9050
+    "averageChildCost": 9170
   },
   {
     "year": 2007,
@@ -417,7 +1422,7 @@
     "averageMovieTicketPrice": 6.88,
     "averageHealthcareCost": 7665,
     "averageFoodCost": 3845.13,
-    "averageChildCost": 9050
+    "averageChildCost": 9290
   },
   {
     "year": 2008,
@@ -432,7 +1437,7 @@
     "averageMovieTicketPrice": 7.18,
     "averageHealthcareCost": 7909,
     "averageFoodCost": 3954.94,
-    "averageChildCost": 9050
+    "averageChildCost": 9410
   },
   {
     "year": 2009,
@@ -447,7 +1452,7 @@
     "averageMovieTicketPrice": 7.5,
     "averageHealthcareCost": 8135,
     "averageFoodCost": 3876.45,
-    "averageChildCost": 9050
+    "averageChildCost": 9530
   },
   {
     "year": 2010,
@@ -477,7 +1482,7 @@
     "averageMovieTicketPrice": 7.93,
     "averageHealthcareCost": 8600,
     "averageFoodCost": 4146.68,
-    "averageChildCost": 9650
+    "averageChildCost": 10256
   },
   {
     "year": 2012,
@@ -492,7 +1497,7 @@
     "averageMovieTicketPrice": 7.96,
     "averageHealthcareCost": 8877,
     "averageFoodCost": 4365.87,
-    "averageChildCost": 9650
+    "averageChildCost": 10862
   },
   {
     "year": 2013,
@@ -507,7 +1512,7 @@
     "averageMovieTicketPrice": 8.13,
     "averageHealthcareCost": 9043,
     "averageFoodCost": 4500.98,
-    "averageChildCost": 9650
+    "averageChildCost": 11468
   },
   {
     "year": 2014,
@@ -522,7 +1527,7 @@
     "averageMovieTicketPrice": 8.17,
     "averageHealthcareCost": 9438,
     "averageFoodCost": 4711.63,
-    "averageChildCost": 9650
+    "averageChildCost": 12074
   },
   {
     "year": 2015,
@@ -614,4 +1619,4 @@
     "averageFoodCost": 5456.7,
     "averageChildCost": 14214
   }
- ]
+]
