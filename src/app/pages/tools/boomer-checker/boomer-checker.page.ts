@@ -55,9 +55,10 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     { name: 'Year\'s University Tuition', altName: 'University Tuition', key: 'averageUniversityTuition', defaultTimeFrame: this.timeFrames[2] },
     { name: 'House', altName: 'Home Prices', key: 'medianHomePrice', defaultTimeFrame: this.timeFrames[2] },
     { name: 'Month\'s Rent', altName: 'Rent', key: 'medianRent', defaultTimeFrame: this.timeFrames[1] },
-    { name: 'Year\'s Healthcare', altName: 'Healthcare', key: 'averageHealthcareCost', defaultTimeFrame: this.timeFrames[0] },
+    { name: 'Year\'s Healthcare', altName: 'Healthcare', key: 'averageHealthcareCost', defaultTimeFrame: this.timeFrames[2] },
+    { name: 'Year\'s Child Care', altName: 'Raising Children', key: 'averageChildCost', defaultTimeFrame: this.timeFrames[2] },
+    { name: 'Year\'s Food', altName: 'Food', key: 'averageFoodCost', defaultTimeFrame: this.timeFrames[2] },
     { name: 'Gallon of Gas', altName: 'Gasoline', key: 'averageGasPrice', defaultTimeFrame: this.timeFrames[0] },
-    { name: 'Movie Ticket', altName: 'Seeing Movies', key: 'averageMovieTicketPrice', defaultTimeFrame: this.timeFrames[0] },
   ];
   wageBrackets: string[] = [
     'Minimum Wage',
@@ -106,14 +107,14 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   get purchaseCurrentPrice() { return this._purchaseCurrentPrice; }
 
   currentAnnualData: AnnualDataPoint = { year: 0, cpiValue: 0, minWage: 0, medianWage3rdQuintile: 0, medianWageTop5Pct: 0, medianHomePrice: 0, medianRent: 0,
-                                          averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0 };
+                                          averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0, averageChildCost: 0, averageFoodCost: 0 };
   startingAnnualData: AnnualDataPoint = { year: 0, cpiValue: 0, minWage: 0, medianWage3rdQuintile: 0, medianWageTop5Pct: 0, medianHomePrice: 0, medianRent: 0,
-                                          averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0 };
+                                          averageUniversityTuition: 0, averageGasPrice: 0, averageMovieTicketPrice: 0, averageHealthcareCost: 0, averageChildCost: 0, averageFoodCost: 0 };
                             
   priceInflationDataSeries: LineChartSeries[] = [];
   priceInflationChartTitle: string = '';
   wageDataSeries: LineChartSeries[] = [];
-  
+   
 
   constructor(
     dataArrayConverter: DataArrayConverterService

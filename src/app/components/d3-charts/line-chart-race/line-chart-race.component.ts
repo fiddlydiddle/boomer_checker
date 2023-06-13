@@ -402,10 +402,18 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr("y", (dataSeries) => this.yScale(dataSeries.dataPoints[this.iteration].value) + this.chartOptions.tipCircles.labels.yOffset)
             .style('text-anchor', 'start')
             .text(dataSeries => {
-                let formattedNumber = `${this._dataFormatter.formatNumber(dataSeries.dataPoints[this.iteration].value, 0)}`;
+                let numericValue = dataSeries.dataPoints[this.iteration].value;
+                let formattedNumber = '';
                 if (this._valueFormat === 'currency') {
-                    formattedNumber = `$${formattedNumber}`;
+                    formattedNumber = `$${this._dataFormatter.formatNumber(numericValue, 2)}`;
                 }
+                else if (this._valueFormat === 'currencyRounded') {
+                    formattedNumber = `$${this._dataFormatter.formatNumber(numericValue, 0)}`;
+                }
+                else {
+                    formattedNumber = `$${numericValue}`;
+                }
+
                 return formattedNumber;
             });
 
@@ -420,10 +428,18 @@ export class LineChartRaceComponent implements AfterViewInit {
             .style("fill", (dataSeries, index) => this.chartOptions.colors[index])
             .style('text-anchor', 'start')
             .text(dataSeries => {
-                let formattedNumber = `${this._dataFormatter.formatNumber(dataSeries.dataPoints[this.iteration].value, 0)}`;
+                let numericValue = dataSeries.dataPoints[this.iteration].value;
+                let formattedNumber = '';
                 if (this._valueFormat === 'currency') {
-                    formattedNumber = `$${formattedNumber}`;
+                    formattedNumber = `$${this._dataFormatter.formatNumber(numericValue, 2)}`;
                 }
+                else if (this._valueFormat === 'currencyRounded') {
+                    formattedNumber = `$${this._dataFormatter.formatNumber(numericValue, 0)}`;
+                }
+                else {
+                    formattedNumber = `${this._dataFormatter.formatNumber(numericValue, 2)}`;
+                }
+
                 return formattedNumber;
             });
     }
