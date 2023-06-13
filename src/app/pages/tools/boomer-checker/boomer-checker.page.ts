@@ -13,6 +13,10 @@ import { LineChartRaceComponent } from 'src/app/components/d3-charts/line-chart-
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { WorkTimeComponent } from 'src/app/components/work-time/work-time.component';
 import { WorkTimeChartComponent } from 'src/app/components/work-time-chart/work-time-chart.component';
+import { FilterPanelComponent } from 'src/app/components/filter-panel/filter-panel.component';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { ModalConfig } from 'src/app/datamodels/modal-config.model';
+import { PageFilters } from 'src/app/datamodels/page-filters.model';
 
 
 @Component({
@@ -28,6 +32,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   @ViewChild('priceInflationChart', {static: false}) priceInflationChart: LineChartRaceComponent | undefined;
   @ViewChild('wageDataChart', {static: false}) wageDataChart: LineChartRaceComponent | undefined;
   @ViewChild('workTimeContainer', {static: false}) workTimeContainer: WorkTimeChartComponent | undefined;
+  @ViewChild('modal') private modalComponent: ModalComponent | undefined;
   private _workTimeChart: LineChartRaceComponent | undefined;
 
   
@@ -114,7 +119,23 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   priceInflationDataSeries: LineChartSeries[] = [];
   priceInflationChartTitle: string = '';
   wageDataSeries: LineChartSeries[] = [];
-   
+
+  openFilterModal: boolean = false;
+  filterModalConfig: ModalConfig = {
+    modalTitle: 'Filters',
+    dismissButtonLabel: 'Cancel',
+    closeButtonLabel: 'Apply',
+    // onClose?(): Promise<boolean> | boolean
+    // onDismiss?(): Promise<boolean> | boolean
+    // disableCloseButton?(): boolean
+    // disableDismissButton?(): boolean
+    // hideCloseButton?(): boolean
+    // hideDismissButton?(): boolean
+  };
+  pageFilters: PageFilters = {
+    selectedYear: 1980,
+    selectedPurchaseType: this.purchaseTypes[0]
+  }; 
 
   constructor(
     dataArrayConverter: DataArrayConverterService
@@ -140,6 +161,9 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ///////////////////////
+  // Public Methods
+  ///////////////////////
   public headerActionItemClicked(event:Event) {
     event.stopPropagation();
   }
@@ -156,6 +180,19 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public toggleFilterPanel() {
+    this.openFilterModal = !this.openFilterModal
+    if (this.openFilterModal) {
+      this.modalComponent?.open();
+    }
+    else {
+      this.modalComponent?.close();
+    }
+  }
+
+  ////////////////////////
+  // Private methods
+  ////////////////////////
   private getPrices() {
     this.startingAnnualData = this.allAnnualData.find((annualRecord) => {
       return annualRecord.year == this._startingYear;

@@ -3,6 +3,9 @@
     Since the heyday of the Boomers, the combination of rising prices and stagnant wages has led to a bleaker financial outlook for the generations that followed. 
     Take a look below to find out more.
 </h3>
+<div class="ps-1">
+    <button class="btn btn-primary" (click)="toggleFilterPanel()">Filters</button>
+</div>
 <div class="panel-container row mt-1">
     <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')">
         <mat-expansion-panel-header>
@@ -114,3 +117,12 @@
         </div>
     </mat-expansion-panel>
 </div>
+<modal 
+    #modal
+    [modalConfig]="filterModalConfig"
+>
+    <filter-panel
+        [filters]="pageFilters"
+    >
+    </filter-panel>
+</modal>
