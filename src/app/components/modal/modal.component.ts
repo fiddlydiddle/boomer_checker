@@ -1,5 +1,5 @@
 
-import { Component, Injectable, Input, OnInit, TemplateRef, ViewChild } from '@angular/core'
+import { Component, Injectable, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 import { ModalConfig } from 'src/app/datamodels/modal-config.model';
 
@@ -20,8 +20,9 @@ export class ModalComponent implements OnInit {
 
     open(): Promise<boolean> {
         return new Promise<boolean>(resolve => {
-            this.modalRef = this.modalService.open(this.modalContent)
-            this.modalRef.result.then(resolve, resolve)
+            this.modalRef = this.modalService.open(this.modalContent);
+            this.modalRef.result.then(resolve, resolve);
+            this.modalRef.hidden.subscribe(() => this.dismiss());
         });
     }
 
@@ -34,8 +35,10 @@ export class ModalComponent implements OnInit {
 
     async dismiss(): Promise<void> {
         if (this.modalConfig?.shouldDismiss === undefined || (await this.modalConfig.shouldDismiss())) {
-            const result = this.modalConfig?.onDismiss === undefined || (await this.modalConfig.onDismiss())
-            this.modalRef?.dismiss(result)
+            const result = this.modalConfig?.onDismiss === undefined || (await this.modalConfig.onDismiss());
+            this.modalRef?.dismiss(result);
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-<ng-template #modal>
+<ng-template #modal (clickOutside)="dismiss()">
     <div class="modal-header">
       <h5 class="modal-title">{{ modalConfig?.modalTitle }}</h5>
     </div>
