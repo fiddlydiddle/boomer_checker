@@ -17,6 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LineChartComponent } from './components/d3-charts/line-chart/line-chart.component';
 import { LineChartRaceComponent } from './components/d3-charts/line-chart-race/line-chart-race.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { FooterComponent } from './components/footer/footer.component';
     WageDataComponent,
     WageProgressionComponent,
     LineChartComponent,
-    LineChartRaceComponent
+    LineChartRaceComponent,
+    ModalComponent,
+    FilterPanelComponent
   ],
   imports: [
     BrowserModule,

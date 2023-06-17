@@ -13,6 +13,10 @@ import { LineChartRaceComponent } from 'src/app/components/d3-charts/line-chart-
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { WorkTimeComponent } from 'src/app/components/work-time/work-time.component';
 import { WorkTimeChartComponent } from 'src/app/components/work-time-chart/work-time-chart.component';
+import { FilterPanelComponent } from 'src/app/components/filter-panel/filter-panel.component';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { ModalConfig } from 'src/app/datamodels/modal-config.model';
+import { PageFilters } from 'src/app/datamodels/page-filters.model';
 
 
 @Component({
@@ -28,7 +32,8 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   @ViewChild('priceInflationChart', {static: false}) priceInflationChart: LineChartRaceComponent | undefined;
   @ViewChild('wageDataChart', {static: false}) wageDataChart: LineChartRaceComponent | undefined;
   @ViewChild('workTimeContainer', {static: false}) workTimeContainer: WorkTimeChartComponent | undefined;
-  private _workTimeChart: LineChartRaceComponent | undefined;
+  @ViewChild('modal') private modalComponent: ModalComponent | undefined;
+  @ViewChild('filterPanel') private filterPanelComponent: FilterPanelComponent | undefined;
 
   
   title = 'Boomer Checker';
@@ -66,23 +71,6 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     'Top 5% Wage',
   ];
 
-  // Inputed and calculated values
-  _startingYear: number = 1980;
-  get startingYear() { return this._startingYear; }
-  set startingYear(value: number) {
-    this._startingYear = value;
-    this.getPrices();
-    this.drawCharts();
-  }
-
-  _selectedPurchaseType: PurchaseType = this.purchaseTypes[0]; // Home Purchase
-  get selectedPurchaseType() { return this._selectedPurchaseType; }
-  set selectedPurchaseType(value: PurchaseType) {
-    this._selectedPurchaseType = value;
-    this.getPrices();
-    this.drawCharts();
-  }
-
   _selectedTimeFrame: TimeFrame = this.timeFrames[0]; // Hourly
   get selectedTimeFrame() { return this._selectedTimeFrame; }
   set selectedTimeFrame(value: TimeFrame) {
@@ -114,7 +102,32 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   priceInflationDataSeries: LineChartSeries[] = [];
   priceInflationChartTitle: string = '';
   wageDataSeries: LineChartSeries[] = [];
-   
+
+  filterModalConfig: ModalConfig = {
+    modalTitle: 'Filters',
+    dismissButtonLabel: 'Cancel',
+    closeButtonLabel: 'Apply',
+    onClose: () => {
+      this.filterPanelComponent?.applyFilters();
+      return true;
+    },
+    onDismiss: () => {
+      return true;
+    }
+  };
+
+  _pageFilters: PageFilters = {
+    selectedStartingYear: 1980,
+    selectedPurchaseType: this.purchaseTypes[0]
+  }; 
+  get pageFilters() { return this._pageFilters; }
+  set pageFilters(value: PageFilters) {
+    if (value !== this._pageFilters) {
+      this._pageFilters = value;
+      this.getPrices();
+      this.drawCharts();
+    }
+  }
 
   constructor(
     dataArrayConverter: DataArrayConverterService
@@ -140,6 +153,9 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ///////////////////////
+  // Public Methods
+  ///////////////////////
   public headerActionItemClicked(event:Event) {
     event.stopPropagation();
   }
@@ -156,19 +172,26 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public openFilterPanel() {
+    this.modalComponent?.open();
+  }
+
+  ////////////////////////
+  // Private methods
+  ////////////////////////
   private getPrices() {
     this.startingAnnualData = this.allAnnualData.find((annualRecord) => {
-      return annualRecord.year == this._startingYear;
+      return annualRecord.year == this.pageFilters.selectedStartingYear;
     }) ?? this.currentAnnualData;
-    this._purchaseStartingPrice = this.startingAnnualData[this._selectedPurchaseType.key];
-    this._purchaseCurrentPrice = this.currentAnnualData[this._selectedPurchaseType.key];
+    this._purchaseStartingPrice = this.startingAnnualData[this.pageFilters.selectedPurchaseType.key];
+    this._purchaseCurrentPrice = this.currentAnnualData[this.pageFilters.selectedPurchaseType.key];
     this._purchaseInflationAdjustedPrice = this.calcInflationAdjustedValue(this._purchaseStartingPrice);
   }
 
   private calcInflationAdjustedValue(startValue: number): number {
     let inflationAdjustedValue: number = 0;
     // Check for inputted starting year in range
-    if (this._startingYear < this.minYear || this._startingYear > this.maxYear)
+    if (this.pageFilters.selectedStartingYear < this.minYear || this.pageFilters.selectedStartingYear > this.maxYear)
       return inflationAdjustedValue;
 
     // Run Calculation. Value is (currentCpi / startingCpi) * startingPrice
@@ -190,7 +213,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawCharts(): void {
-    this.priceInflationChartTitle = `Cost of a ${this.selectedPurchaseType.name} since ${this.minYear}`;
+    this.priceInflationChartTitle = `Cost of a ${this.pageFilters.selectedPurchaseType.name} since ${this.pageFilters.selectedStartingYear}`;
     this.priceInflationChart?.stopAnimation();
     this.wageDataChart?.stopAnimation();
     this.workTimeContainer?.workTimeChart?.stopAnimation();
@@ -199,7 +222,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawPriceChart(): void {
-    let priceData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this._startingYear, this._selectedPurchaseType.key );
+    let priceData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.pageFilters.selectedPurchaseType.key );
     this.priceInflationDataSeries = [];
     this.priceInflationDataSeries.push({
       name: 'Actual Cost',
@@ -218,7 +241,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawWageDataChart(): void {
-    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this._startingYear, 'minWage' );
+    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, 'minWage' );
     this.wageDataSeries = [];
     this.wageDataSeries.push({
       name: 'Actual Wage',

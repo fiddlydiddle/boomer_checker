@@ -3,19 +3,15 @@
     Since the heyday of the Boomers, the combination of rising prices and stagnant wages has led to a bleaker financial outlook for the generations that followed. 
     Take a look below to find out more.
 </h3>
+<div class="pe-1 d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="openFilterPanel()">Filters</button>
+</div>
 <div class="panel-container row mt-1">
     <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <strong>In&nbsp;</strong>    
-                <select [(ngModel)]="startingYear" (click)="headerActionItemClicked($event)">
-                    <option *ngFor="let year of allowedYears" value={{year}}>{{year}}</option>
-                </select>
-                <strong>&nbsp;,&nbsp;</strong> 
-                <select class="text-center" [(ngModel)]="selectedPurchaseType" (click)="headerActionItemClicked($event)">
-                    <option *ngFor="let purchaseType of purchaseTypes" [ngValue]="purchaseType">{{ purchaseType.altName }}</option>
-                </select>  
-                <strong>&nbsp;was {{ priceInflationDataSeries[0].dataPoints[0].value < priceInflationDataSeries[0].dataPoints[priceInflationDataSeries[0].dataPoints.length - 1].value ? 'cheaper' : 'more expensive' }}</strong>
+                <strong>In {{ pageFilters.selectedStartingYear }}, {{ pageFilters.selectedPurchaseType.altName }} was&nbsp;</strong>    
+                <strong>{{ priceInflationDataSeries[0].dataPoints[0].value < priceInflationDataSeries[0].dataPoints[priceInflationDataSeries[0].dataPoints.length - 1].value ? 'cheaper' : 'more expensive' }}</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content">
@@ -29,7 +25,7 @@
             </div>
             <div>
                 <div class="text-center">
-                    Since {{ startingYear }} the price of a {{ selectedPurchaseType.name }} has 
+                    Since {{ pageFilters.selectedStartingYear }} the price of a {{ pageFilters.selectedPurchaseType.name }} has 
                     {{ priceInflationDataSeries[0].dataPoints[0].value < priceInflationDataSeries[0].dataPoints[priceInflationDataSeries[0].dataPoints.length - 1].value ? 'increased' : 'decreased' }}
                     by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseStartingPrice, true) }}%, and has increased
                     <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice >= 1"> FASTER</span>
@@ -40,7 +36,7 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td>Average cost in {{startingYear}}: </td>
+                            <td>Average cost in {{ pageFilters.selectedStartingYear }}: </td>
                             <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseStartingPrice) }}</td>
                         </tr>
                         <tr>
@@ -64,12 +60,12 @@
         </mat-expansion-panel-header>
         <div class="section-content col-12">
             <wage-data
-                [startYear]="startingYear"
+                [startYear]="pageFilters.selectedStartingYear"
                 [endYear]="currentYear"
                 [startingAnnualData]="startingAnnualData"
                 [endingAnnualData]="currentAnnualData"
                 [selectedTimeFrame]="selectedTimeFrame"
-                [selectedPurchaseType]="selectedPurchaseType">
+                [selectedPurchaseType]="pageFilters.selectedPurchaseType">
             </wage-data>
             <div class="col-12">
                 <line-chart-race
@@ -91,26 +87,41 @@
             <div class="mt-2 justify-content-center">
                 <work-time-chart
                     #workTimeContainer
-                    [startYear]="startingYear"
+                    [startYear]="pageFilters.selectedStartingYear"
                     [endYear]="currentYear"
                     [annualData]="allAnnualData"
-                    [purchaseType]="selectedPurchaseType"
+                    [purchaseType]="pageFilters.selectedPurchaseType"
                     [timeFrames]="timeFrames"
                     [(selectedTimeFrame)]="selectedTimeFrame">
                 </work-time-chart>
             </div>
             <work-time
                 #workTime
-                [startYear]="startingYear"
+                [startYear]="pageFilters.selectedStartingYear"
                 [endYear]="currentYear"
                 [purchaseStartingPrice]="purchaseStartingPrice"
                 [purchaseCurrentPrice]="purchaseCurrentPrice"
                 [startingAnnualData]="startingAnnualData"
                 [endingAnnualData]="currentAnnualData"
-                [purchaseType]="selectedPurchaseType"
+                [purchaseType]="pageFilters.selectedPurchaseType"
                 [timeFrames]="timeFrames"
                 [(selectedTimeFrame)]="selectedTimeFrame">
             </work-time>
         </div>
     </mat-expansion-panel>
 </div>
+<div class="pe-1 mt-3 d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="openFilterPanel()">Filters</button>
+</div>
+<modal 
+    #modal
+    [modalConfig]="filterModalConfig"
+>
+    <filter-panel
+        #filterPanel
+        [(filters)]="pageFilters"
+        [allowedYears]="allowedYears"
+        [purchaseTypes]="purchaseTypes"
+    >
+    </filter-panel>
+</modal>
