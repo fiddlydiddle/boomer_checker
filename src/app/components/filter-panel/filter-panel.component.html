@@ -1,11 +1,11 @@
-<div class="row">
-    <label class="col-5 text-end">Start Year:</label>
+<div class="row filter-row">
+    <label class="col-5 fw-bold text-end">Start Year:</label>
     <select class="col-7 text-center" [(ngModel)]="filterSelections.selectedStartingYear">
         <option *ngFor="let year of allowedYears" value={{year}}>{{year}}</option>
     </select>
 </div>
-<div class="row">
-    <label class="col-5 text-end">Purchase Type:</label>
+<div class="row filter-row mt-2">
+    <label class="col-5 fw-bold text-end">Purchase Type:</label>
     <select class="col-7 text-center" [(ngModel)]="filterSelections.selectedPurchaseType">
         <option *ngFor="let purchaseType of purchaseTypes" [ngValue]="purchaseType">{{ purchaseType.altName }}</option>
     </select>

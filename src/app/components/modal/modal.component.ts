@@ -20,7 +20,7 @@ export class ModalComponent implements OnInit {
 
     open(): Promise<boolean> {
         return new Promise<boolean>(resolve => {
-            this.modalRef = this.modalService.open(this.modalContent);
+            this.modalRef = this.modalService.open(this.modalContent, { windowClass : "page-filter-modal d-flex"});
             this.modalRef.result.then(resolve, resolve);
             this.modalRef.hidden.subscribe(() => this.dismiss());
         });
@@ -39,6 +39,4 @@ export class ModalComponent implements OnInit {
             this.modalRef?.dismiss(result);
         }
     }
-
-
 }

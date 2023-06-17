@@ -6,7 +6,8 @@ import { TimeFrame } from "src/app/datamodels/timeframe.model";
 
 @Component({
     selector: 'filter-panel',
-    templateUrl: 'filter-panel.component.html'
+    templateUrl: 'filter-panel.component.html',
+    styleUrls: ['./filter-panel.component.scss']
 })
 export class FilterPanelComponent implements OnInit {
     
