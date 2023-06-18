@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WageProgressionComponent } from './components/wage-progression/wage-progression.component';
 import { WageDataComponent } from './components/wage-data/wage-data.component';
 import { WorkTimeComponent } from './components/work-time/work-time.component';
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -19,6 +18,7 @@ import { LineChartRaceComponent } from './components/d3-charts/line-chart-race/l
 import { FooterComponent } from './components/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
+import { SourcesListComponent } from './components/sources-list/sources-list.component';
 
 @NgModule({
   declarations: [
@@ -29,11 +29,11 @@ import { FilterPanelComponent } from './components/filter-panel/filter-panel.com
     WorkTimeComponent,
     WorkTimeChartComponent,
     WageDataComponent,
-    WageProgressionComponent,
     LineChartComponent,
     LineChartRaceComponent,
     ModalComponent,
-    FilterPanelComponent
+    FilterPanelComponent,
+    SourcesListComponent
   ],
   imports: [
     BrowserModule,

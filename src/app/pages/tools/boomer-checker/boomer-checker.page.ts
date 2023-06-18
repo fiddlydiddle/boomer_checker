@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, NgModule, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AnnualDataPoint } from 'src/app/datamodels/annual-datapoint.model';
 import { ValueInflationPoint } from 'src/app/datamodels/value-inflation.model';
 import { PurchaseType } from 'src/app/datamodels/purchase-type.model';
@@ -7,11 +7,9 @@ import { DataArrayConverterService } from 'src/app/services/data-array-converter
 import annualData from '../../../datafiles/annual-data.json';
 import { WageChartService } from 'src/app/services/wage-chart.service';
 import { DataFormatterService } from 'src/app/services/data-formatter.service';
-import { LineChartDataPoint } from 'src/app/datamodels/d3-charts/line-chart-data-point.model';
 import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
 import { LineChartRaceComponent } from 'src/app/components/d3-charts/line-chart-race/line-chart-race.component';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { WorkTimeComponent } from 'src/app/components/work-time/work-time.component';
 import { WorkTimeChartComponent } from 'src/app/components/work-time-chart/work-time-chart.component';
 import { FilterPanelComponent } from 'src/app/components/filter-panel/filter-panel.component';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
