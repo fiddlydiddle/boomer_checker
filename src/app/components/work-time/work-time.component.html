@@ -1,25 +1,10 @@
-<div class="col-12 text-center">
-    <p>
-        Inflation makes it hard to compare dollar amounts over time. Instead, here's a comparison of how many
-        <select [(ngModel)]="selectedTimeFrame" class="d-inline">
-            <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
-        </select> 
-        of work are required at each wage bracket in order to afford a {{purchaseType.name}}
-    </p>
-</div>
-<div class="col-12 d-flex justify-content-center">
+<div class="col-12 d-flex justify-content-center mt-1">
     <table class="table-sm comparison-table no-borders col-12 col-sm-10">
         <thead>
-            <th class="w-40"></th>
-            <th class="text-end w-20">
-                {{ startYear }} 
-                <span class="fas fa-info-circle" (click)="toggleWageData($event,'startYear')"></span>
-            </th>
-            <th class="text-end w-20">
-                {{ endYear }} 
-                <span class="fas fa-info-circle" (click)="toggleWageData($event,'endYear')"></span>
-            </th>
-            <th class="text-end w-20">% Change</th>
+            <th class="w-35"></th>
+            <th class="text-end w-25">{{ startYear }}</th>
+            <th class="text-end w-25">{{ endYear }}</th>
+            <th class="text-end w-25">% Change</th>
         </thead>
         <tbody>
             <tr>

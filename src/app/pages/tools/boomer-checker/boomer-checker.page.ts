@@ -15,6 +15,7 @@ import { FilterPanelComponent } from 'src/app/components/filter-panel/filter-pan
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ModalConfig } from 'src/app/datamodels/modal-config.model';
 import { PageFilters } from 'src/app/datamodels/page-filters.model';
+import { WageBracket } from 'src/app/datamodels/wage-bracket.model';
 
 
 @Component({
@@ -63,10 +64,10 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     { name: 'Year\'s Food', altName: 'Food', key: 'averageFoodCost', defaultTimeFrame: this.timeFrames[2] },
     { name: 'Gallon of Gas', altName: 'Gasoline', key: 'averageGasPrice', defaultTimeFrame: this.timeFrames[0] },
   ];
-  wageBrackets: string[] = [
-    'Minimum Wage',
-    'Median Wage',
-    'Top 5% Wage',
+  wageBrackets: WageBracket[] = [
+    { name: 'Minimum Wage', key: 'minWage' },
+    { name: 'Median Wage', key: 'medianWage3rdQuintile' },
+    { name: 'Top 5% Wage', key: 'medianWageTop5Pct' }
   ];
 
   _selectedTimeFrame: TimeFrame = this.timeFrames[0]; // Hourly
@@ -76,11 +77,12 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     this.getPrices();
   }
 
-  _selectedWageBracket: string = this.wageBrackets[0]; // Hourly
+  _selectedWageBracket: WageBracket = this.wageBrackets[0]; // Minimum Wage
   get selectedWageBracket() { return this._selectedWageBracket; }
-  set selectedWageBracket(value: string) {
+  set selectedWageBracket(value: WageBracket ) {
     this._selectedWageBracket = value;
     this.getPrices();
+    this.drawCharts();
   }
 
   _purchaseStartingPrice: number = 0;
@@ -174,6 +176,20 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     this.modalComponent?.open();
   }
 
+  public selectedPurchaseTypeChanged(newPurchaseType: PurchaseType) {
+    this.pageFilters = {
+      selectedPurchaseType: newPurchaseType,
+      selectedStartingYear: this.pageFilters.selectedStartingYear
+    };
+  }
+
+  public selectedStartingYearChanged(newStartingYear: number) {
+    this.pageFilters = {
+      selectedPurchaseType: this.pageFilters.selectedPurchaseType,
+      selectedStartingYear: newStartingYear
+    };
+  }
+
   ////////////////////////
   // Private methods
   ////////////////////////
@@ -211,7 +227,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawCharts(): void {
-    this.priceInflationChartTitle = `Cost of a ${this.pageFilters.selectedPurchaseType.name} since ${this.pageFilters.selectedStartingYear}`;
+    this.priceInflationChartTitle = '';
     this.priceInflationChart?.stopAnimation();
     this.wageDataChart?.stopAnimation();
     this.workTimeContainer?.workTimeChart?.stopAnimation();
@@ -239,7 +255,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawWageDataChart(): void {
-    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, 'minWage' );
+    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.selectedWageBracket.key );
     this.wageDataSeries = [];
     this.wageDataSeries.push({
       name: 'Actual Wage',

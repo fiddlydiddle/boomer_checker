@@ -1,17 +1,24 @@
-<h3 class="small mb-0 ps-2 pe-2">
-    Many financial milestones that were easy for the Baby Boomer generation to achieve are out of reach for younger people today.
-    Since the heyday of the Boomers, the combination of rising prices and stagnant wages has led to a bleaker financial outlook for the generations that followed. 
-    Take a look below to find out more.
+<h3 class="small mb-0 ps-2 pe-2 text-center">
+    -- Settle the debate --
 </h3>
-<div class="pe-1 d-flex justify-content-end">
-    <button class="btn btn-primary" (click)="openFilterPanel()">Filters</button>
+<div class="d-flex justify-content-center mt-3">
+    <strong>Compare&nbsp;</strong> 
+    <select class="text-center" [(ngModel)]="pageFilters.selectedPurchaseType" (ngModelChange)="selectedPurchaseTypeChanged($event)">
+        <option *ngFor="let purchaseType of purchaseTypes" [ngValue]="purchaseType">{{ purchaseType.altName }}</option>
+    </select>  
+</div>
+<div class="d-flex justify-content-center mt-3 mb-3">
+    <strong>in&nbsp;</strong>    
+    <select [(ngModel)]="pageFilters.selectedStartingYear" (ngModelChange)="selectedStartingYearChanged($event)">
+        <option *ngFor="let year of allowedYears" [ngValue]="year">{{year}}</option>
+    </select>
+    <strong>&nbsp; to {{ maxYear }}</strong>
 </div>
 <div class="panel-container row mt-1">
     <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <strong>In {{ pageFilters.selectedStartingYear }}, {{ pageFilters.selectedPurchaseType.altName }} was&nbsp;</strong>    
-                <strong>{{ priceInflationDataSeries[0].dataPoints[0].value < priceInflationDataSeries[0].dataPoints[priceInflationDataSeries[0].dataPoints.length - 1].value ? 'cheaper' : 'more expensive' }}</strong>
+                <strong>Average Price of a {{ pageFilters.selectedPurchaseType.name }}</strong>    
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content">
@@ -23,32 +30,34 @@
                     [valueFormat]="'currency'">
                 </line-chart-race>
             </div>
-            <div>
-                <div class="text-center">
-                    Since {{ pageFilters.selectedStartingYear }} the price of a {{ pageFilters.selectedPurchaseType.name }} has 
-                    {{ priceInflationDataSeries[0].dataPoints[0].value < priceInflationDataSeries[0].dataPoints[priceInflationDataSeries[0].dataPoints.length - 1].value ? 'increased' : 'decreased' }}
-                    by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseStartingPrice, true) }}%, and has increased
-                    <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice >= 1"> FASTER</span>
-                    <span *ngIf="purchaseCurrentPrice/purchaseInflationAdjustedPrice < 1"> SLOWER</span>
-                    than inflation by 
-                    {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseInflationAdjustedPrice, true) }}%
-                </div>
-                <table class="table table-bordered">
+            <div class="mt-1">
+                <table class="table red-dashed-border no-inside-border">
                     <tbody>
                         <tr>
-                            <td>Average cost in {{ pageFilters.selectedStartingYear }}: </td>
+                            <td><strong>{{ pageFilters.selectedStartingYear }} cost:</strong></td>
                             <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseStartingPrice) }}</td>
                         </tr>
                         <tr>
-                            <td>Adjusted to {{currentYear}} dollars: </td>
+                            <td><strong>Inflation Adjusted:</strong></td>
                             <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseInflationAdjustedPrice) }}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <table class="table blue-dashed-border no-inside-border">
+                    <tbody>
                         <tr>
-                            <td>Actual {{currentYear}} cost:</td>
+                            <td><strong>Actual {{currentYear}} cost:</strong></td>
                             <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseCurrentPrice) }}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="alert alert-warning">
+                    Since {{ pageFilters.selectedStartingYear }} the price of a {{ pageFilters.selectedPurchaseType.name }} has 
+                    <strong>
+                        increased by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseInflationAdjustedPrice, true) }}%
+                    </strong>
+                    when adjusted for inflation
+                </div>
             </div>
         </div>
     </mat-expansion-panel>
@@ -56,34 +65,48 @@
 <div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('wageDataPanel')">
         <mat-expansion-panel-header>
-            <mat-panel-title><strong>Wages Have Struggled to Keep the Same Pace</strong></mat-panel-title>
+            <mat-panel-title><strong>Compare Wages</strong></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content col-12">
+            <div class="col-12">
+                <h3>
+                    Actual {{ selectedTimeFrame.altName }}
+                    <select [(ngModel)]="selectedWageBracket">
+                        <option *ngFor="let wageBracket of wageBrackets" [ngValue]="wageBracket">{{ wageBracket.name }}</option>
+                    </select>
+                    vs Inflation Adjusted Wage
+                </h3>
+                <line-chart-race
+                    #wageDataChart
+                    [title]="''"
+                    [data]="wageDataSeries"
+                    [valueFormat]="'currency'">
+                </line-chart-race>
+            </div>
             <wage-data
                 [startYear]="pageFilters.selectedStartingYear"
                 [endYear]="currentYear"
                 [startingAnnualData]="startingAnnualData"
                 [endingAnnualData]="currentAnnualData"
                 [selectedTimeFrame]="selectedTimeFrame"
-                [selectedPurchaseType]="pageFilters.selectedPurchaseType">
+                [selectedWageBracket]="selectedWageBracket"
+            >
             </wage-data>
-            <div class="col-12">
-                <line-chart-race
-                    #wageDataChart
-                    [title]="'Wage Increases over Time'"
-                    [data]="wageDataSeries"
-                    [valueFormat]="'currency'">
-                </line-chart-race>
-            </div>
         </div>
     </mat-expansion-panel>
 </div>
 <div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('workTimePanel')">
         <mat-expansion-panel-header>
-            <mat-panel-title><strong>Result: More Work Is Required for the Same Purchases</strong></mat-panel-title>
+            <mat-panel-title><strong>Time Spent Saving</strong></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content col-12">
+            <div>
+                <select [(ngModel)]="selectedTimeFrame" class="d-inline">
+                    <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
+                </select> 
+                of work required to purchase a {{ pageFilters.selectedPurchaseType.name }}
+            </div>
             <div class="mt-2 justify-content-center">
                 <work-time-chart
                     #workTimeContainer

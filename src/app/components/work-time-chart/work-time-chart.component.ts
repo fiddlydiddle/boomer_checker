@@ -32,6 +32,7 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
         set selectedTimeFrame(value: TimeFrame) {
             this.selectedTimeFrameChange.emit(value);
             this._selectedTimeFrame = value;
+            this.workTimeChart?.stopAnimation();
             this.updateChart();
         }
     @Output() selectedTimeFrameChange: EventEmitter<TimeFrame> = new EventEmitter<TimeFrame>();
@@ -52,8 +53,6 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
 
 
     workTimeDataSeries: LineChartSeries[] = [];
-    chartTitle: string = "";
-    
 
     constructor(private _workTimeChartService: WorkTimeChartService, private _dataArrayConverter: DataArrayConverterService) { }
 
@@ -66,12 +65,10 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
     }
 
     private updateChart() {
-        this.chartTitle = `${this._selectedTimeFrame.name} of Work Required to Purchase ${this.purchaseType.name}`
-
         let chartData: WorkTimeChartModel[] = this._workTimeChartService.getWorkTimeDataData(this.annualData, this.startYear, this.purchaseType, this._selectedTimeFrame);
         this.workTimeDataSeries = [];
         this.workTimeDataSeries.push({
-            name: 'Min Wage',
+            name: 'Minimum Wage',
             className: 'minimum-wage-time',
             dataPoints: chartData.map(dataPoint => {
                 return { year: dataPoint.year, value: dataPoint.minWageWorkTime };
