@@ -1,39 +1,62 @@
 <div>
-    <p>
-        While the cost of a {{ selectedPurchaseType.name }} has changed by {{ percentChange }}% since {{ startYear }}, have wages kept up? 
-        Here's how the average {{ selectedTimeFrame.altName.toLowerCase() }} individual wage for three different wage levels has changed in the same time period.
-    </p>
-    <table class="table table-bordered">
+    <table class="table red-dashed-border no-inside-border">
         <tbody>
             <tr>
-                <th class="text-center">Wage Level</th>
-                <th class="text-center">{{ startYear }} Wage</th>
-                <th class="text-center">Inflation Adjusted</th>
-                <th class="text-center">{{ endYear }} Wage</th>
+                <td><strong>{{ startYear }} {{ selectedWageBracket.name }}:</strong></td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(initialWage) }}</td>
             </tr>
             <tr>
-                <td>Minimum Wage</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency(startingAnnualData.minWage * selectedTimeFrame.annualFactor) }}</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.minWage * selectedTimeFrame.annualFactor)) }}</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency(endingAnnualData.minWage * selectedTimeFrame.annualFactor) }}</td>
-            </tr>
-            <tr>
-                <td>Median Wage</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency(startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor) }}</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor)) }}</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency(endingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor) }}</td>
-            </tr>
-            <tr>
-                <td>Top 5% Wage</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency(startingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor) }}</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor)) }}</td>
-                <td class="text-end">{{ dataFormatter.formatCurrency(endingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor) }}</td>
+                <td><strong>Inflation Adjusted:</strong></td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(inflationAdjustedWage) }}</td>
             </tr>
         </tbody>
     </table>
-    <div class="mt-3">
-        Here's how the 
-        Minimum Wage
-        has risen compared to inflation:
+    <table class="table blue-dashed-border no-inside-border">
+        <tbody>
+            <tr>
+                <td><strong>Actual {{ endYear }} {{ selectedWageBracket.name }}:</strong></td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(currentWage) }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-warning">
+        Since {{ startYear }} the {{ selectedWageBracket.name }} has 
+        <strong>
+            <span *ngIf="currentWage/inflationAdjustedWage >= 1"> increased</span>
+            <span *ngIf="currentWage/inflationAdjustedWage < 1"> decreased</span>
+            by {{ _dataFormatter.calculatePercentage(currentWage, inflationAdjustedWage, true) }}%
+        </strong>
+        when adjusted for inflation.
     </div>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th class="text-center"></th>
+                <th class="text-center">
+                    {{ startYear }} Wage<br />
+                    <small>Inflation Adjusted</small>
+                </th>
+                <th class="text-center">{{ endYear }} Wage</th>
+                <th class="text-center">Change</th>
+            </tr>
+            <tr>
+                <td>Minimum Wage</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.minWage * selectedTimeFrame.annualFactor)) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(endingAnnualData.minWage * selectedTimeFrame.annualFactor) }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Median Wage</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor)) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(endingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor) }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Top 5% Wage</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor)) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(endingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor) }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

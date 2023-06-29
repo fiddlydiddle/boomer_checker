@@ -51,7 +51,7 @@ export class LineChartRaceComponent implements AfterViewInit {
         colors: ["firebrick", "darkslateblue", "darkorange"],
         legend: {
             itemSize: 10,
-            spacing: 150,
+            ySpacing: 30,
             xOffset: 50,
             yOffset: 0
         },
@@ -298,19 +298,21 @@ export class LineChartRaceComponent implements AfterViewInit {
         // Add title to chart
         const titleHtmlElement = this.titleElement.nativeElement;
         d3.select(`#title${this.chartIdentifierGUID}`).remove();
-        const title = d3
-            .select(titleHtmlElement)
-            .append('text')
-                .attr('id', `title${this.chartIdentifierGUID}`)
-                .attr('class', 'title')
-                .style('display', 'block')
-                .style('font-weight', 'bold')
-                .style('width', '100%')
-                .style('text-align', 'center')
-                .style('margin-top', '10px')
-                .style('margin-bottom', '5px')
-                .text(this._title);
-
+        // if (this._title) {
+            const title = d3
+                .select(titleHtmlElement)
+                .append('text')
+                    .attr('id', `title${this.chartIdentifierGUID}`)
+                    .attr('class', 'title')
+                    .style('display', 'block')
+                    .style('font-weight', 'bold')
+                    .style('width', '100%')
+                    .style('text-align', 'center')
+                    .style('margin-top', '10px')
+                    .style('margin-bottom', '5px')
+                    .text(this._title);
+        // }
+        
         // Add legend to chart
         const legendHtmlElement = this.legendElement.nativeElement;
         d3.select(`#legend${this.chartIdentifierGUID}`).remove();
@@ -320,7 +322,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .append('svg')
                 .attr('id', `legend${this.chartIdentifierGUID}`)
                 .attr('width', chartWidth)
-                .attr('height', 20)
+                .attr('height', 50)
                 .selectAll('.legendItem')
                 .data(this._data);
 
@@ -333,8 +335,8 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr('height', this.chartOptions.legend.itemSize)
             .style('fill', (dataSeries, index) => this.chartOptions.colors[index])
             .attr('transform', (dataSeries, index) => {
-                const x = this.chartOptions.legend.xOffset + (this.chartOptions.legend.itemSize + this.chartOptions.legend.spacing) * index;
-                const y = this.chartOptions.legend.yOffset + 5;
+                const x = this.chartOptions.legend.xOffset;
+                const y = this.chartOptions.legend.yOffset + this.chartOptions.legend.itemSize + (this.chartOptions.legend.ySpacing * index);
                 return `translate(${x}, ${y})`;
             });
 
@@ -343,8 +345,8 @@ export class LineChartRaceComponent implements AfterViewInit {
             .enter()
             .append('text')
             .attr('transform', (dataSeries, index) => {
-                const x = this.chartOptions.legend.xOffset + this.chartOptions.legend.itemSize + 5 + (this.chartOptions.legend.itemSize + this.chartOptions.legend.spacing) * index;
-                const y = this.chartOptions.legend.yOffset + this.chartOptions.legend.itemSize + 5;
+                const x = this.chartOptions.legend.xOffset + 15;
+                const y = this.chartOptions.legend.yOffset + this.chartOptions.legend.itemSize + 10 + (this.chartOptions.legend.ySpacing * index);
                 return `translate(${x}, ${y})`;
             })
             .text(dataSeries => dataSeries.name);  

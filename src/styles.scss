@@ -108,3 +108,21 @@ body {
         width: 100%;
     }
 }
+
+.table {
+    &.red-dashed-border {
+        border: 2px dashed red;
+        border-radius: 15px;
+    }
+
+    &.blue-dashed-border {
+        border: 2px dashed blue;
+        border-radius: 15px;
+    }
+
+    &.no-inside-border {
+        thead, tbody, tr, td {
+            border: none;
+        }
+    }
+}

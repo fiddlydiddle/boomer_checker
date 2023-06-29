@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/cor
 import { AnnualDataPoint } from "src/app/datamodels/annual-datapoint.model";
 import { PurchaseType } from "src/app/datamodels/purchase-type.model";
 import { TimeFrame } from "src/app/datamodels/timeframe.model";
+import { WageBracket } from "src/app/datamodels/wage-bracket.model";
 import { DataFormatterService } from "src/app/services/data-formatter.service";
 
 
@@ -19,25 +20,27 @@ export class WageDataComponent implements OnInit, OnChanges {
     @Input() startingAnnualData!: AnnualDataPoint;
     @Input() endingAnnualData!: AnnualDataPoint;
     @Input() selectedTimeFrame!: TimeFrame;
-    @Input() selectedPurchaseType!: PurchaseType;
+    @Input() selectedWageBracket!: WageBracket;
     
-    initialPurchaesPrice: number = 0;
-    currentPurchasePrice: number = 0;
+    initialWage: number = 0;
+    inflationAdjustedWage: number = 0;
+    currentWage: number = 0;
     percentChange: number = 0;
     
-    constructor(public dataFormatter:DataFormatterService) {}
+    constructor(public _dataFormatter:DataFormatterService) {}
 
     ngOnInit(): void {
-        this.getPurchasePrices();
+        this.getWageData();
     }
     ngOnChanges(changes: SimpleChanges): void {
-        this.getPurchasePrices();
+        this.getWageData();
     }
 
-    private getPurchasePrices(): void {
-        this.initialPurchaesPrice = this.startingAnnualData[this.selectedPurchaseType.key];
-        this.currentPurchasePrice = this.endingAnnualData[this.selectedPurchaseType.key];
-        this.percentChange = this.dataFormatter.calculatePercentage(this.currentPurchasePrice, this.initialPurchaesPrice, false);
+    private getWageData() {
+        this.initialWage = this.startingAnnualData[this.selectedWageBracket.key];
+        this.inflationAdjustedWage = (this.endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * this.initialWage;
+        this.currentWage = this.endingAnnualData[this.selectedWageBracket.key];
+        this.percentChange = this._dataFormatter.calculatePercentage(this.currentWage, this.initialWage, true);
     }
 }
   
