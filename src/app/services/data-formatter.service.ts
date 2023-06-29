@@ -16,12 +16,13 @@ export class DataFormatterService {
     };
 
     calculatePercentage (value1: number, value2: number, returnAbsoluteValue: boolean = false) {
-        let ratio: number = value1 / value2 - 1;
+        const ratio: number = value1 / value2 - 1;
         let asPercentage: number = ratio * 100;
         asPercentage = Math.round(asPercentage);
 
-        if (returnAbsoluteValue)
+        if (returnAbsoluteValue) {
             asPercentage = Math.abs(asPercentage);
+        }
         
         return asPercentage;
     }

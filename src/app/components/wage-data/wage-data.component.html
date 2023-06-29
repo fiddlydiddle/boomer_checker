@@ -1,4 +1,4 @@
-<div>
+<div class="mt-1">
     <table class="table red-dashed-border no-inside-border">
         <tbody>
             <tr>
@@ -7,7 +7,7 @@
             </tr>
             <tr>
                 <td><strong>Inflation Adjusted:</strong></td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency(inflationAdjustedWage) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(inflationAdjustedInitialWage) }}</td>
             </tr>
         </tbody>
     </table>
@@ -22,9 +22,9 @@
     <div class="alert alert-warning">
         Since {{ startYear }} the {{ selectedWageBracket.name }} has 
         <strong>
-            <span *ngIf="currentWage/inflationAdjustedWage >= 1"> increased</span>
-            <span *ngIf="currentWage/inflationAdjustedWage < 1"> decreased</span>
-            by {{ _dataFormatter.calculatePercentage(currentWage, inflationAdjustedWage, true) }}%
+            <span *ngIf="currentWage/inflationAdjustedInitialWage >= 1"> increased</span>
+            <span *ngIf="currentWage/inflationAdjustedInitialWage < 1"> decreased</span>
+            by {{ _dataFormatter.calculatePercentage(currentWage, inflationAdjustedInitialWage, true) }}%
         </strong>
         when adjusted for inflation.
     </div>
@@ -32,30 +32,42 @@
         <tbody>
             <tr>
                 <th class="text-center"></th>
-                <th class="text-center">
+                <th class="text-center align-bottom">
                     {{ startYear }} Wage<br />
                     <small>Inflation Adjusted</small>
                 </th>
-                <th class="text-center">{{ endYear }} Wage</th>
-                <th class="text-center">Change</th>
+                <th class="text-center align-bottom">{{ endYear }} Wage</th>
+                <th class="text-center align-bottom">Change</th>
             </tr>
             <tr>
                 <td>Minimum Wage</td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.minWage * selectedTimeFrame.annualFactor)) }}</td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency(endingAnnualData.minWage * selectedTimeFrame.annualFactor) }}</td>
-                <td></td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(wageBracketWages[0].inflationAdjustedInitialWage) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(wageBracketWages[0].currentWage) }}</td>
+                <td>
+                    <span *ngIf="wageBracketWages[0].currentWage >= wageBracketWages[0].inflationAdjustedInitialWage">+</span>
+                    <span *ngIf="wageBracketWages[0].currentWage < wageBracketWages[0].inflationAdjustedInitialWage">-</span>
+                    {{ _dataFormatter.calculatePercentage(wageBracketWages[0].currentWage, wageBracketWages[0].inflationAdjustedInitialWage, true)}}%
+                </td>
             </tr>
             <tr>
                 <td>Median Wage</td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor)) }}</td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency(endingAnnualData.medianWage3rdQuintile * selectedTimeFrame.hourlyFactor) }}</td>
-                <td></td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(wageBracketWages[1].inflationAdjustedInitialWage) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(wageBracketWages[1].currentWage) }}</td>
+                <td>
+                    <span *ngIf="wageBracketWages[1].currentWage >= wageBracketWages[1].inflationAdjustedInitialWage">+</span>
+                    <span *ngIf="wageBracketWages[1].currentWage < wageBracketWages[1].inflationAdjustedInitialWage">-</span>
+                    {{ _dataFormatter.calculatePercentage(wageBracketWages[1].currentWage, wageBracketWages[1].inflationAdjustedInitialWage, true)}}%
+                </td>
             </tr>
             <tr>
                 <td>Top 5% Wage</td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency((endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * (startingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor)) }}</td>
-                <td class="text-end">{{ _dataFormatter.formatCurrency(endingAnnualData.medianWageTop5Pct * selectedTimeFrame.hourlyFactor) }}</td>
-                <td></td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(wageBracketWages[2].inflationAdjustedInitialWage) }}</td>
+                <td class="text-end">{{ _dataFormatter.formatCurrency(wageBracketWages[2].currentWage) }}</td>
+                <td>
+                    <span *ngIf="wageBracketWages[2].currentWage >= wageBracketWages[2].inflationAdjustedInitialWage">+</span>
+                    <span *ngIf="wageBracketWages[2].currentWage < wageBracketWages[2].inflationAdjustedInitialWage">-</span>
+                    {{ _dataFormatter.calculatePercentage(wageBracketWages[2].currentWage, wageBracketWages[2].inflationAdjustedInitialWage, true)}}%
+                </td>
             </tr>
         </tbody>
     </table>
