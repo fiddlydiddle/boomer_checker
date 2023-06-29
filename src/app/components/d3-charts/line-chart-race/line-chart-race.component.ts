@@ -51,7 +51,7 @@ export class LineChartRaceComponent implements AfterViewInit {
         colors: ["firebrick", "darkslateblue", "darkorange"],
         legend: {
             itemSize: 10,
-            ySpacing: 30,
+            ySpacing: 15,
             xOffset: 50,
             yOffset: 0
         },
@@ -322,7 +322,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .append('svg')
                 .attr('id', `legend${this.chartIdentifierGUID}`)
                 .attr('width', chartWidth)
-                .attr('height', 50)
+                .attr('height', this._data.length * (this.chartOptions.legend.ySpacing + 5))
                 .selectAll('.legendItem')
                 .data(this._data);
 

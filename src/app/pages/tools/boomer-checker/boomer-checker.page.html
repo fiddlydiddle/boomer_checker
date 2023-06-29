@@ -98,9 +98,15 @@
 <div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('workTimePanel')">
         <mat-expansion-panel-header>
-            <mat-panel-title><strong>Result: More Work Is Required for the Same Purchases</strong></mat-panel-title>
+            <mat-panel-title><strong>Time Spent Saving</strong></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content col-12">
+            <div>
+                <select [(ngModel)]="selectedTimeFrame" class="d-inline">
+                    <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
+                </select> 
+                of work required to purchase a {{ pageFilters.selectedPurchaseType.name }}
+            </div>
             <div class="mt-2 justify-content-center">
                 <work-time-chart
                     #workTimeContainer
