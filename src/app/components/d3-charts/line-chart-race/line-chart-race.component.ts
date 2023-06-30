@@ -65,6 +65,7 @@ export class LineChartRaceComponent implements AfterViewInit {
         }
     }
     private chartIdentifierGUID = this.newGuid();
+    private svgIdentifierGUID = this.newGuid();
 
     constructor(dataFormatter: DataFormatterService) {
         this._dataFormatter = dataFormatter;
@@ -74,6 +75,15 @@ export class LineChartRaceComponent implements AfterViewInit {
         this.htmlElement = this.element.nativeElement;
         this.host = d3.select(this.htmlElement);
         this.drawStaticChart();
+    }
+
+    public toggleAnimation() {
+        if (this.animationInProgress) {
+            this.stopAnimation();
+        }
+        else {
+            this.drawAnimatedChart();
+        }
     }
 
     public playAnimation() {
@@ -87,11 +97,16 @@ export class LineChartRaceComponent implements AfterViewInit {
 
     private buildSVG(): void {
         // Intialize chart dimensions
-        this.host.selectAll('*').remove();
+        
         const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
+        const newSvgGuid = this.newGuid();
         this.svg = this.host.append('svg')
+            .attr('id', `svg${newSvgGuid}`)
             .attr('width', chartWidth)
             .attr('height', this.height + this.margin.top + this.margin.bottom) as any;
+
+        this.host.selectAll(`#svg${this.svgIdentifierGUID}`).remove();
+        this.svgIdentifierGUID = newSvgGuid;
         
         // Create clip path to prevent lines from running off side of chart
         this.svg.append('g')
@@ -165,6 +180,13 @@ export class LineChartRaceComponent implements AfterViewInit {
         });
 
         this.addTitleAndLegend();
+
+        // Set iterator to max value so circles and labels will be in the right spot
+        this.iteration = this._data[0].dataPoints.length - 1;
+
+        this.updateTipCircles();
+
+        this.updateCircleLabels();
     }
 
     private async drawAnimatedChart() {
@@ -298,20 +320,18 @@ export class LineChartRaceComponent implements AfterViewInit {
         // Add title to chart
         const titleHtmlElement = this.titleElement.nativeElement;
         d3.select(`#title${this.chartIdentifierGUID}`).remove();
-        // if (this._title) {
-            const title = d3
-                .select(titleHtmlElement)
-                .append('text')
-                    .attr('id', `title${this.chartIdentifierGUID}`)
-                    .attr('class', 'title')
-                    .style('display', 'block')
-                    .style('font-weight', 'bold')
-                    .style('width', '100%')
-                    .style('text-align', 'center')
-                    .style('margin-top', '10px')
-                    .style('margin-bottom', '5px')
-                    .text(this._title);
-        // }
+        const title = d3
+            .select(titleHtmlElement)
+            .append('text')
+                .attr('id', `title${this.chartIdentifierGUID}`)
+                .attr('class', 'title')
+                .style('display', 'block')
+                .style('font-weight', 'bold')
+                .style('width', '100%')
+                .style('text-align', 'center')
+                .style('margin-top', '10px')
+                .style('margin-bottom', '5px')
+                .text(this._title);
         
         // Add legend to chart
         const legendHtmlElement = this.legendElement.nativeElement;
@@ -413,7 +433,7 @@ export class LineChartRaceComponent implements AfterViewInit {
                     formattedNumber = `$${this._dataFormatter.formatNumber(numericValue, 0)}`;
                 }
                 else {
-                    formattedNumber = `$${numericValue}`;
+                    formattedNumber = `${this._dataFormatter.formatNumber(numericValue, 2)}`;
                 }
 
                 return formattedNumber;

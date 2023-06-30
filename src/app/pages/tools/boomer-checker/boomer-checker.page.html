@@ -1,18 +1,22 @@
 <h3 class="small mb-0 ps-2 pe-2 text-center">
     -- Settle the debate --
 </h3>
-<div class="d-flex justify-content-center mt-3">
-    <strong>Compare&nbsp;</strong> 
-    <select class="text-center" [(ngModel)]="pageFilters.selectedPurchaseType" (ngModelChange)="selectedPurchaseTypeChanged($event)">
-        <option *ngFor="let purchaseType of purchaseTypes" [ngValue]="purchaseType">{{ purchaseType.altName }}</option>
-    </select>  
-</div>
-<div class="d-flex justify-content-center mt-3 mb-3">
-    <strong>in&nbsp;</strong>    
-    <select [(ngModel)]="pageFilters.selectedStartingYear" (ngModelChange)="selectedStartingYearChanged($event)">
-        <option *ngFor="let year of allowedYears" [ngValue]="year">{{year}}</option>
-    </select>
-    <strong>&nbsp; to {{ maxYear }}</strong>
+<div class="d-flex justify-content-center">
+    <div>
+        <div class="mt-3">
+            <strong>Compare&nbsp;</strong> 
+            <select class="text-center" [(ngModel)]="pageFilters.selectedPurchaseType" (ngModelChange)="selectedPurchaseTypeChanged($event)">
+                <option *ngFor="let purchaseType of purchaseTypes" [ngValue]="purchaseType">{{ purchaseType.altName }}</option>
+            </select>  
+        </div>
+        <div class="mt-3 mb-3">
+            <strong>in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>    
+            <select [(ngModel)]="pageFilters.selectedStartingYear" (ngModelChange)="selectedStartingYearChanged($event)">
+                <option *ngFor="let year of allowedYears" [ngValue]="year">{{year}}</option>
+            </select>
+            <strong>&nbsp; to {{ maxYear }}</strong>
+        </div>
+    </div>
 </div>
 <div class="panel-container row mt-1">
     <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')">
@@ -31,19 +35,19 @@
                 </line-chart-race>
             </div>
             <div class="mt-1">
-                <table class="table red-dashed-border no-inside-border">
+                <table class="table red-dashed-border no-inside-border max-width m-auto">
                     <tbody>
                         <tr>
                             <td><strong>{{ pageFilters.selectedStartingYear }} cost:</strong></td>
                             <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseStartingPrice) }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Inflation Adjusted:</strong></td>
+                            <td><strong>Inflation-Adjusted:</strong></td>
                             <td class="text-end">{{ _dataFormatter.formatCurrency(purchaseInflationAdjustedPrice) }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <table class="table blue-dashed-border no-inside-border">
+                <table class="table blue-dashed-border no-inside-border max-width m-auto mt-2">
                     <tbody>
                         <tr>
                             <td><strong>Actual {{currentYear}} cost:</strong></td>
@@ -51,12 +55,12 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="alert alert-warning">
+                <div class="alert alert-warning max-width m-auto mt-3">
                     Since {{ pageFilters.selectedStartingYear }} the price of a {{ pageFilters.selectedPurchaseType.name }} has 
                     <strong>
                         increased by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseInflationAdjustedPrice, true) }}%
                     </strong>
-                    when adjusted for inflation
+                    when adjusted for inflation.
                 </div>
             </div>
         </div>
@@ -69,13 +73,15 @@
         </mat-expansion-panel-header>
         <div class="section-content col-12">
             <div class="col-12">
-                <h3>
-                    Actual {{ selectedTimeFrame.altName }}
-                    <select [(ngModel)]="selectedWageBracket">
-                        <option *ngFor="let wageBracket of wageBrackets" [ngValue]="wageBracket">{{ wageBracket.name }}</option>
-                    </select>
-                    vs Inflation Adjusted Wage
-                </h3>
+                <div class="section-header d-flex justify-content-center">
+                    <span>
+                        Actual {{ selectedTimeFrame.altName }}
+                        <select [(ngModel)]="selectedWageBracket" class="fw-500">
+                            <option *ngFor="let wageBracket of wageBrackets" [ngValue]="wageBracket">{{ wageBracket.name }}</option>
+                        </select>
+                        vs Inflation-Adjusted Wage
+                    </span>
+                </div>
                 <line-chart-race
                     #wageDataChart
                     [title]="''"
@@ -101,11 +107,13 @@
             <mat-panel-title><strong>Time Spent Saving</strong></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content col-12">
-            <div>
-                <select [(ngModel)]="selectedTimeFrame" class="d-inline">
-                    <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
-                </select> 
-                of work required to purchase a {{ pageFilters.selectedPurchaseType.name }}
+            <div class="section-header d-flex justify-content-center">
+                <span>
+                    <select [(ngModel)]="selectedTimeFrame" class="fw-500">
+                        <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
+                    </select> 
+                    of work required to purchase a {{ pageFilters.selectedPurchaseType.name }}
+                </span>
             </div>
             <div class="mt-2 justify-content-center">
                 <work-time-chart
@@ -132,9 +140,6 @@
             </work-time>
         </div>
     </mat-expansion-panel>
-</div>
-<div class="pe-1 mt-3 d-flex justify-content-end">
-    <button class="btn btn-primary" (click)="openFilterPanel()">Filters</button>
 </div>
 <modal 
     #modal
