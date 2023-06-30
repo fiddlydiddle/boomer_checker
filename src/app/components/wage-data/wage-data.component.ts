@@ -42,7 +42,7 @@ export class WageDataComponent implements OnInit, OnChanges {
     }
 
     private getWageData() {
-        const wageFactor = this.selectedTimeFrame.name === 'Hours' ? 'annualFactor' : 'hourlyFactor'
+        const wageFactor = this.selectedTimeFrame.name === 'Hours' ? 'hourlyFactor' : 'annualFactor'
         this.initialWage = this.startingAnnualData[this.selectedWageBracket.key] * this.selectedTimeFrame[wageFactor];
         this.inflationAdjustedInitialWage = (this.endingAnnualData.cpiValue / this.startingAnnualData.cpiValue) * this.initialWage;
         this.currentWage = this.endingAnnualData[this.selectedWageBracket.key] * this.selectedTimeFrame[wageFactor];

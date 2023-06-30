@@ -76,6 +76,10 @@ div.panel-container {
     width: 40%;
 }
 
+.fw-500 {
+    font-weight: 500;
+}
+
 .comparison-table,
 .max-width {
     max-width: 625px;
@@ -101,6 +105,7 @@ body {
 
 .modal.page-filter-modal {
     align-items: center;
+    justify-content: center;
 
     .modal-dialog {
         margin: 0;
