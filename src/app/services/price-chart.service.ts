@@ -5,29 +5,29 @@ import { ValueInflationPoint } from "../datamodels/value-inflation.model";
 @Injectable({
     providedIn: 'root'
 })
-export class WageChartService {
+export class PriceChartService {
 
-    public getWageData(annualData: AnnualDataPoint[], startingYear: number, wageType: keyof AnnualDataPoint, wageFactor: number): ValueInflationPoint[] {
+    public getPriceData(annualData: AnnualDataPoint[], startingYear: number, selectedPurchaseType: keyof AnnualDataPoint): ValueInflationPoint[] {
         let priceData: ValueInflationPoint[] = [];
         annualData.forEach(dataPoint => {
             if (dataPoint.year >= startingYear) {
-                let thisDataPoint = this.getPriceDataPoint(dataPoint, priceData, wageType, wageFactor);
+                let thisDataPoint = this.getPriceDataPoint(dataPoint, priceData, selectedPurchaseType);
                 priceData.push(thisDataPoint);
             }
         });
         return priceData;
     };
     
-    private getPriceDataPoint(dataPoint: AnnualDataPoint, priceData: ValueInflationPoint[], wageType: keyof AnnualDataPoint, wageFactor: number): ValueInflationPoint {
+    private getPriceDataPoint(dataPoint: AnnualDataPoint, priceData: ValueInflationPoint[], selectedPurchaseType: keyof AnnualDataPoint): ValueInflationPoint {
         let thisDataPoint: ValueInflationPoint = {
             year: dataPoint.year,
             cpiValue: dataPoint.cpiValue,
-            dollarValue: dataPoint[wageType] * wageFactor,
+            dollarValue: dataPoint[selectedPurchaseType],
             inflationAdjustedDollarValue: 0
         };
 
         if (priceData.length === 0) {
-            thisDataPoint.inflationAdjustedDollarValue = thisDataPoint.dollarValue;
+            thisDataPoint.inflationAdjustedDollarValue = dataPoint[selectedPurchaseType];
         }
         else {
             let previousDataPoint: ValueInflationPoint = priceData[priceData.length - 1];

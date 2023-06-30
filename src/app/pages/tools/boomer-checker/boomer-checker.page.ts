@@ -16,6 +16,7 @@ import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ModalConfig } from 'src/app/datamodels/modal-config.model';
 import { PageFilters } from 'src/app/datamodels/page-filters.model';
 import { WageBracket } from 'src/app/datamodels/wage-bracket.model';
+import { PriceChartService } from 'src/app/services/price-chart.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   title = 'Boomer Checker';
   _dataArrayConverter: DataArrayConverterService;
   _wageChartService: WageChartService;
+  _priceChartService: PriceChartService;
   _dataFormatter: DataFormatterService;
 
   //////////////////////////////
@@ -75,6 +77,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   set selectedTimeFrame(value: TimeFrame) {
     this._selectedTimeFrame = value;
     this.getPrices();
+    this.drawCharts();
   }
 
   _selectedWageBracket: WageBracket = this.wageBrackets[0]; // Minimum Wage
@@ -132,10 +135,12 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   constructor(
     dataArrayConverter: DataArrayConverterService
     ,wageChartService: WageChartService
+    ,priceChartService: PriceChartService
     ,dataFormatter: DataFormatterService
   ) {
     this._dataArrayConverter = dataArrayConverter;
     this._wageChartService = wageChartService;
+    this._priceChartService = priceChartService;
     if (this.allAnnualData && this.allAnnualData.length > 0) {
       this.currentAnnualData = this.allAnnualData[this.allAnnualData.length - 1];
     }
@@ -161,15 +166,18 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   public panelOpened(panelName: string) {
-    if (panelName === 'priceInflationPanel' && this.priceInflationChart) {
-      this.priceInflationChart.playAnimation();
-    }
-    else if (panelName === 'wageDataPanel' && this.wageDataChart) {
-      this.wageDataChart.playAnimation();
-    }
-    else if (panelName === 'workTimePanel' && this.workTimeContainer?.workTimeChart) {
-      this.workTimeContainer.workTimeChart.playAnimation();
-    }
+    setTimeout(() => {
+      if (panelName === 'priceInflationPanel' && this.priceInflationChart) {
+        this.priceInflationChart.playAnimation();
+      }
+      else if (panelName === 'wageDataPanel' && this.wageDataChart) {
+        this.wageDataChart.playAnimation();
+      }
+      else if (panelName === 'workTimePanel' && this.workTimeContainer?.workTimeChart) {
+        this.workTimeContainer.workTimeChart.playAnimation();
+      }
+    }, 101);
+    
   }
 
   public openFilterPanel() {
@@ -236,7 +244,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawPriceChart(): void {
-    let priceData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.pageFilters.selectedPurchaseType.key );
+    let priceData: ValueInflationPoint[] = this._priceChartService.getPriceData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.pageFilters.selectedPurchaseType.key);
     this.priceInflationDataSeries = [];
     this.priceInflationDataSeries.push({
       name: 'Actual Cost',
@@ -255,7 +263,9 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   }
 
   private drawWageDataChart(): void {
-    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.selectedWageBracket.key );
+    const wageFactorType = this.selectedWageBracket.name === 'Minimum Wage' ? 'annualFactor' : 'hourlyFactor';
+    const wageFactor = this._selectedTimeFrame[wageFactorType];
+    let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.selectedWageBracket.key, wageFactor);
     this.wageDataSeries = [];
     this.wageDataSeries.push({
       name: 'Actual Wage',
