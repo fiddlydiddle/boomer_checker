@@ -72,9 +72,11 @@ export class LineChartRaceComponent implements AfterViewInit {
       }
 
     ngAfterViewInit(): void {
-        this.htmlElement = this.element.nativeElement;
-        this.host = d3.select(this.htmlElement);
-        this.drawStaticChart();
+        setTimeout(() => {
+            this.htmlElement = this.element.nativeElement;
+            this.host = d3.select(this.htmlElement);
+            this.drawStaticChart();
+        }, 100);
     }
 
     public toggleAnimation() {
