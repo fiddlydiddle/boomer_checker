@@ -1,5 +1,5 @@
 <div class="col-12 d-flex justify-content-center mt-1">
-    <table class="table-sm comparison-table no-borders col-12 col-sm-10">
+    <table class="table-sm table-default comparison-table col-12 col-sm-10">
         <thead>
             <th class="w-35"></th>
             <th class="text-end w-25">{{ startYear }}</th>
@@ -11,14 +11,12 @@
                 <td class="fw-bold text-end">Minimum Wage</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.minWageWorkTime, 2) }}</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.minWageWorkTime, 2) }}</td>
-                <td class="text-end">
-                    <span *ngIf="percentDifferences.minWageDifference >= 0" class="text-danger">
-                        <span class="fas fa-arrow-up"></span>
-                        {{ absoluteValue(percentDifferences.minWageDifference).toFixed(2) }}%
+                <td class="text-end fw-bold">
+                    <span *ngIf="endingWorkTimes.minWageWorkTime > startingWorkTimes.minWageWorkTime" class="text-danger">
+                        +{{ _dataFormatter.calculatePercentage(endingWorkTimes.minWageWorkTime, startingWorkTimes.minWageWorkTime, true) }}%
                     </span>
-                    <span *ngIf="percentDifferences.minWageDifference < 0" class="text-success">
-                        <span class="fas fa-arrow-down"></span>
-                        {{ absoluteValue(percentDifferences.minWageDifference).toFixed(2) }}%
+                    <span *ngIf="endingWorkTimes.minWageWorkTime <= startingWorkTimes.minWageWorkTime" class="text-success">
+                        -{{ _dataFormatter.calculatePercentage(endingWorkTimes.minWageWorkTime, startingWorkTimes.minWageWorkTime, true) }}%
                     </span>
                 </td>
             </tr>
@@ -26,14 +24,12 @@
                 <td class="fw-bold text-end">Median Wage</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.medianWageWorkTime, 2) }}</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.medianWageWorkTime, 2) }}</td>
-                <td class="text-end">
-                    <span *ngIf="percentDifferences.medianWageDifference >= 0" class="text-danger">
-                        <span class="fas fa-arrow-up"></span>
-                        {{ absoluteValue(percentDifferences.medianWageDifference).toFixed(2) }}%
+                <td class="text-end fw-bold">
+                    <span *ngIf="endingWorkTimes.medianWageWorkTime > startingWorkTimes.minWageWorkTime" class="text-danger">
+                        +{{ _dataFormatter.calculatePercentage(endingWorkTimes.medianWageWorkTime, startingWorkTimes.medianWageWorkTime, true) }}%
                     </span>
-                    <span *ngIf="percentDifferences.medianWageDifference < 0" class="text-success">
-                        <span class="fas fa-arrow-down"></span>
-                        {{ absoluteValue(percentDifferences.medianWageDifference).toFixed(2) }}%
+                    <span *ngIf="endingWorkTimes.medianWageWorkTime <= startingWorkTimes.minWageWorkTime" class="text-success">
+                        -{{ _dataFormatter.calculatePercentage(endingWorkTimes.medianWageWorkTime, startingWorkTimes.medianWageWorkTime, true) }}%
                     </span>
                 </td>
             </tr>
@@ -41,26 +37,15 @@
                 <td class="fw-bold text-end">Top 5% Wage</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.top5PctWorkTime, 2) }}</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.top5PctWorkTime, 2) }}</td>
-                <td class="text-end">
-                    <span *ngIf="percentDifferences.top5PctWageDifference >= 0" class="text-danger">
-                        <span class="fas fa-arrow-up"></span>
-                        {{ absoluteValue(percentDifferences.top5PctWageDifference).toFixed(2) }}%
+                <td class="text-end fw-bold">
+                    <span *ngIf="endingWorkTimes.top5PctWorkTime > startingWorkTimes.top5PctWorkTime" class="text-danger">
+                        +{{ _dataFormatter.calculatePercentage(endingWorkTimes.top5PctWorkTime, startingWorkTimes.top5PctWorkTime, true) }}%
                     </span>
-                    <span *ngIf="percentDifferences.top5PctWageDifference < 0" class="text-success">
-                        <span class="fas fa-arrow-down"></span>
-                        {{ absoluteValue(percentDifferences.top5PctWageDifference).toFixed(2) }}%
+                    <span *ngIf="endingWorkTimes.top5PctWorkTime <= startingWorkTimes.top5PctWorkTime" class="text-success">
+                        -{{ _dataFormatter.calculatePercentage(endingWorkTimes.top5PctWorkTime, startingWorkTimes.top5PctWorkTime, true) }}%
                     </span>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-
-<!-- <wage-comparison
-    id="wage-comparison"
-    [selectedYear]="1980"
-    [data]="startingAnnualData"
-    [timeFrame]="_selectedTimeFrame"
-    [visible]="false"
-    >
-</wage-comparison> -->

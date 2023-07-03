@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PageFilters } from "src/app/datamodels/page-filters.model";
 import { PurchaseType } from "src/app/datamodels/purchase-type.model";
-import { TimeFrame } from "src/app/datamodels/timeframe.model";
-
+import purchaseTypesJSON from '../../datafiles/purchase-types.json';
 
 @Component({
     selector: 'filter-panel',
@@ -14,10 +13,6 @@ export class FilterPanelComponent implements OnInit {
     //////////////////////////////
     //        Properties        //
     //////////////////////////////
-    _filters: PageFilters = {
-        selectedStartingYear: 0,
-        selectedPurchaseType: { name: 'Year\'s University Tuition', altName: 'University Tuition', key: 'averageUniversityTuition', defaultTimeFrame: { name: 'Hours', altName: 'Hourly', hourlyFactor: .0004807692308, annualFactor: 1 } }
-    }
     @Input()
         get filters() {
             return this._filters;
@@ -29,11 +24,16 @@ export class FilterPanelComponent implements OnInit {
     @Output() filtersChange: EventEmitter<PageFilters> = new EventEmitter<PageFilters>();
     
     @Input() allowedYears!: number[];
-    @Input() purchaseTypes!: PurchaseType[];
+
+    purchaseTypes: PurchaseType[] = purchaseTypesJSON as unknown as PurchaseType[];
+    _filters: PageFilters = {
+        selectedStartingYear: 0,
+        selectedPurchaseType: this.purchaseTypes[0]
+    }
 
     filterSelections: PageFilters = {
         selectedStartingYear: 0,
-        selectedPurchaseType: { name: 'Year\'s University Tuition', altName: 'University Tuition', key: 'averageUniversityTuition', defaultTimeFrame: { name: 'Hours', altName: 'Hourly', hourlyFactor: .0004807692308, annualFactor: 1 } }
+        selectedPurchaseType: this.purchaseTypes[0]
     };
 
     constructor() {}
