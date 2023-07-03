@@ -5,5 +5,7 @@ export interface PurchaseType {
     name: string;
     altName: string;
     key: keyof AnnualDataPoint;
-    defaultTimeFrame: TimeFrame
+    defaultTimeFrame: TimeFrame;
+    sourceName: string;
+    sourceUrl: string;
 }

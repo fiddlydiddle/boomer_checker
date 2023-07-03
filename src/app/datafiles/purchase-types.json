@@ -1,0 +1,93 @@
+[
+    { 
+        "name": "Year's University Tuition",
+        "altName": "University Tuition", 
+        "key": "averageUniversityTuition", 
+        "defaultTimeFrame": { 
+            "name": "Years",
+            "altName": "Annual",
+            "hourlyFactor": 1,
+            "annualFactor": 2080 
+        },
+        "sourceName": "NCES (Public Universities)",
+        "sourceUrl": "https://nces.ed.gov/programs/digest/d17/tables/dt17_330.10.asp"
+    },
+    { 
+        "name": "House",
+        "altName": "Home Prices",
+        "key": "medianHomePrice",
+        "defaultTimeFrame": { 
+            "name": "Years",
+            "altName": "Annual",
+            "hourlyFactor": 1,
+            "annualFactor": 2080 
+        },
+        "sourceName": "St. Louis Fed",
+        "sourceUrl": "https://fred.stlouisfed.org/series/MSPUS"
+    },
+    { 
+        "name": "Month's Rent",
+        "altName": "Rent",
+        "key": "medianRent",
+        "defaultTimeFrame": { 
+            "name": "Weeks",
+            "altName": "Weekly",
+            "hourlyFactor": 0.025,
+            "annualFactor": 40 
+        },
+        "sourceName": "IPropertyManagement.com",
+        "sourceUrl": "https://ipropertymanagement.com/research/average-rent-by-year"
+    },
+    { 
+        "name": "Year's Healthcare",
+        "altName": "Healthcare",
+        "key": "averageHealthcareCost",
+        "defaultTimeFrame": { 
+            "name": "Years",
+            "altName": "Annual",
+            "hourlyFactor": 1,
+            "annualFactor": 2080 
+        },
+        "sourceName": "CMS",
+        "sourceUrl": "https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/NationalHealthExpendData/NationalHealthAccountsHistorical"
+    },
+    { 
+        "name": "Year's Child Care",
+        "altName": "Raising Children",
+        "key": "averageChildCost",
+        "defaultTimeFrame": { 
+            "name": "Years",
+            "altName": "Annual",
+            "hourlyFactor": 1,
+            "annualFactor": 2080 
+        },
+        "sourceName": "USDA",
+        "sourceUrl": "https://www.fns.usda.gov/resource/2015-expenditures-children-families"
+    },
+    { 
+        "name": "Year's Food",
+        "altName": "Food",
+        "key": "averageFoodCost",
+        "defaultTimeFrame": { 
+            "name": "Years",
+            "altName": "Annual",
+            "hourlyFactor": 1,
+            "annualFactor": 2080 
+        },
+        "sourceName": "USDA",
+        "sourceUrl": "https://www.ers.usda.gov/data-products/food-expenditure-series/"
+    },
+    { 
+        "name": "Gallon of Gas",
+        "altName": "Gasoline",
+        "key": "averageGasPrice",
+        "defaultTimeFrame": { 
+            "name": "Hours",
+            "altName": "Hourly",
+            "hourlyFactor": 0.0004807692308,
+            "annualFactor": 1 
+        },
+        "sourceName": "St. Louis Fed",
+        "sourceUrl": "https://fred.stlouisfed.org/series/APU00007471A"
+    }
+]

@@ -7,6 +7,7 @@ import { WorkTimeChartModel } from "src/app/datamodels/work-time-chart.model";
 import { DataArrayConverterService } from "src/app/services/data-array-converter.service";
 import { LineChartSeries } from "src/app/datamodels/d3-charts/line-chart-series.model";
 import { LineChartRaceComponent } from "../d3-charts/line-chart-race/line-chart-race.component";
+import purchaseTypesJSON from '../../datafiles/purchase-types.json';
 
 @Component({
     selector: 'work-time-chart',
@@ -37,11 +38,8 @@ export class WorkTimeChartComponent implements OnInit, OnChanges {
         }
     @Output() selectedTimeFrameChange: EventEmitter<TimeFrame> = new EventEmitter<TimeFrame>();
 
-    private _purchaseType: PurchaseType = { 
-        name: 'Year\'s University Tuition',
-        altName: 'University Tuition',
-        key: 'averageUniversityTuition',
-        defaultTimeFrame: { name: 'Years', altName: 'Annual', hourlyFactor: 1, annualFactor: 2080 } };
+    private purchaseTypes: PurchaseType[] = purchaseTypesJSON as unknown as PurchaseType[];
+    private _purchaseType: PurchaseType = this.purchaseTypes[0];
     @Input()
         get purchaseType() {
             return this._purchaseType;

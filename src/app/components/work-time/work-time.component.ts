@@ -40,15 +40,11 @@ export class WorkTimeComponent implements OnInit, OnChanges {
 
     startingWorkTimes: WorkTimeModel = { minWageWorkTime: 0, medianWageWorkTime: 0, top5PctWorkTime: 0};
     endingWorkTimes: WorkTimeModel = { minWageWorkTime: 0, medianWageWorkTime: 0, top5PctWorkTime: 0};
-    percentDifferences: any = {
-        minWageDifference: 0,
-        medianWageDifference: 0,
-        top5PctWageDifference: 0
-    }
-    wageComparisonVisible: boolean = false
+    wageComparisonVisible: boolean = false;
+    _dataFormatter: DataFormatterService;
 
-    constructor(public _dataFormatter: DataFormatterService) {
-        
+    constructor(public dataFormatter: DataFormatterService) {
+        this._dataFormatter = dataFormatter;
     }
 
     ngOnInit(): void {
@@ -86,7 +82,6 @@ export class WorkTimeComponent implements OnInit, OnChanges {
     private getData(): void {
         this.startingWorkTimes = this.calcWorkTimes(this.purchaseStartingPrice, this.startingAnnualData);
         this.endingWorkTimes = this.calcWorkTimes(this.purchaseCurrentPrice, this.endingAnnualData);
-        this.percentDifferences = this.calcDifferences();
     }
 
     private calcWorkTimes(purchasePrice: number, annualData: AnnualDataPoint): WorkTimeModel {
@@ -95,18 +90,6 @@ export class WorkTimeComponent implements OnInit, OnChanges {
             medianWageWorkTime: purchasePrice / (this.selectedTimeFrame.hourlyFactor * annualData.medianWage3rdQuintile),
             top5PctWorkTime: purchasePrice / (this.selectedTimeFrame.hourlyFactor * annualData.medianWageTop5Pct)
         };
-    }
-
-    private calcDifferences(): any {
-        let _minWageDifference: string = (((this.endingWorkTimes.minWageWorkTime / this.startingWorkTimes.minWageWorkTime) - 1) * 100).toFixed(2);
-        let _medianWageDifference: string = (((this.endingWorkTimes.medianWageWorkTime / this.startingWorkTimes.medianWageWorkTime) - 1) * 100).toFixed(2);
-        let _top5PctDifference: string = (((this.endingWorkTimes.top5PctWorkTime / this.startingWorkTimes.top5PctWorkTime) - 1) * 100).toFixed(2);
-
-        return {
-            minWageDifference: _minWageDifference,
-            medianWageDifference: _medianWageDifference,
-            top5PctWageDifference: _top5PctDifference
-        }
     }
 }
   

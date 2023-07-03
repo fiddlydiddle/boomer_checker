@@ -62,6 +62,13 @@
                     </strong>
                     when adjusted for inflation.
                 </div>
+                <div class="citation mt-2">
+                    Data sourced from
+                    <a href="{{ pageFilters.selectedPurchaseType.sourceUrl }}" target="_blank">
+                        {{ pageFilters.selectedPurchaseType.sourceName }}
+                        <span class="fas fa-external-link"></span>
+                    </a>
+                </div>
             </div>
         </div>
     </mat-expansion-panel>
@@ -111,7 +118,7 @@
                     <select [(ngModel)]="selectedTimeFrame" class="fw-500">
                         <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
                     </select> 
-                    of work required to purchase a {{ pageFilters.selectedPurchaseType.name }}
+                    of work required to pay for a {{ pageFilters.selectedPurchaseType.name }}
                 </span>
             </div>
             <div class="mt-2 justify-content-center">
@@ -140,15 +147,3 @@
         </div>
     </mat-expansion-panel>
 </div>
-<modal 
-    #modal
-    [modalConfig]="filterModalConfig"
->
-    <filter-panel
-        #filterPanel
-        [(filters)]="pageFilters"
-        [allowedYears]="allowedYears"
-        [purchaseTypes]="purchaseTypes"
-    >
-    </filter-panel>
-</modal>

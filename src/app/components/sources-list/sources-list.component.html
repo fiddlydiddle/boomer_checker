@@ -1,38 +1,25 @@
 <ul>
     <li>
         <label class="fw-bold">Income:&nbsp;</label>
-        <a href="https://www.census.gov/data/tables/time-series/demo/income-poverty/historical-income-households.html">Census.gov (Table H-3)</a>
+        <a href="https://www.census.gov/data/tables/time-series/demo/income-poverty/historical-income-households.html" target="_blank">
+            Census.gov (Table H-3)
+            <span class="fas fa-external-link"></span>
+        </a>
     </li>
     <li>
         <label class="fw-bold">Minimum Wage:&nbsp;</label>
-        <a href="https://www.dol.gov/agencies/whd/minimum-wage/history/chart">Department of Labor</a>
+        <a href="https://www.dol.gov/agencies/whd/minimum-wage/history/chart" target="_blank">
+            Department of Labor
+            <span class="fas fa-external-link"></span>
+        </a>
     </li>
-    <li>
-        <label class="fw-bold">University Tuition:&nbsp;</label>
-        <a href="https://nces.ed.gov/programs/digest/d17/tables/dt17_330.10.asp">NCES (Public Universities)</a>
-    </li>
-    <li>
-        <label class="fw-bold">Home Prices:&nbsp;</label>
-        <a href="https://fred.stlouisfed.org/series/MSPUS">St. Louis Fed</a>
-    </li>
-    <li>
-        <label class="fw-bold">Rent:&nbsp;</label>
-        <a href="https://ipropertymanagement.com/research/average-rent-by-year">IPropertyManagement.com</a>
-    </li>
-    <li>
-        <label class="fw-bold">Healthcare:&nbsp;</label>
-        <a href="https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/NationalHealthExpendData/NationalHealthAccountsHistorical">CMS</a>
-    </li>
-    <li>
-        <label class="fw-bold">Raising Children:&nbsp;</label>
-        <a href="https://www.fns.usda.gov/resource/2015-expenditures-children-families">USDA</a>
-    </li>
-    <li>
-        <label class="fw-bold">Food:&nbsp;</label>
-        <a href="https://www.ers.usda.gov/data-products/food-expenditure-series/">USDA</a>
-    </li>
-    <li>
-        <label class="fw-bold">Gasoline:&nbsp;</label>
-        <a href="https://fred.stlouisfed.org/series/APU00007471A">St. Louis Fed</a>
-    </li>
+    <ng-container *ngFor="let purchaseType of purchaseTypes">
+        <li>
+            <label class="fw-bold">{{ purchaseType.name }}:&nbsp;</label>
+            <a href="{{ purchaseType.sourceUrl }}" target="_blank">
+                {{ purchaseType.sourceName }}
+                <span class="fas fa-external-link"></span>
+            </a>
+        </li>
+    </ng-container>
 </ul>

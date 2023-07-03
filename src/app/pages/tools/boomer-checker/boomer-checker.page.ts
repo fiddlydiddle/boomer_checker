@@ -5,6 +5,7 @@ import { PurchaseType } from 'src/app/datamodels/purchase-type.model';
 import { TimeFrame } from 'src/app/datamodels/timeframe.model';
 import { DataArrayConverterService } from 'src/app/services/data-array-converter.service';
 import annualData from '../../../datafiles/annual-data.json';
+import purchaseTypesJSON from '../../../datafiles/purchase-types.json';
 import { WageChartService } from 'src/app/services/wage-chart.service';
 import { DataFormatterService } from 'src/app/services/data-formatter.service';
 import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
@@ -57,15 +58,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     { name: 'Weeks', altName: 'Weekly', hourlyFactor: .025, annualFactor: 40 },
     { name: 'Years', altName: 'Annual', hourlyFactor: 1, annualFactor: 2080 },
   ];
-  purchaseTypes: PurchaseType[] = [
-    { name: 'Year\'s University Tuition', altName: 'University Tuition', key: 'averageUniversityTuition', defaultTimeFrame: this.timeFrames[2] },
-    { name: 'House', altName: 'Home Prices', key: 'medianHomePrice', defaultTimeFrame: this.timeFrames[2] },
-    { name: 'Month\'s Rent', altName: 'Rent', key: 'medianRent', defaultTimeFrame: this.timeFrames[1] },
-    { name: 'Year\'s Healthcare', altName: 'Healthcare', key: 'averageHealthcareCost', defaultTimeFrame: this.timeFrames[2] },
-    { name: 'Year\'s Child Care', altName: 'Raising Children', key: 'averageChildCost', defaultTimeFrame: this.timeFrames[2] },
-    { name: 'Year\'s Food', altName: 'Food', key: 'averageFoodCost', defaultTimeFrame: this.timeFrames[2] },
-    { name: 'Gallon of Gas', altName: 'Gasoline', key: 'averageGasPrice', defaultTimeFrame: this.timeFrames[0] },
-  ];
+  purchaseTypes: PurchaseType[] = purchaseTypesJSON as unknown as PurchaseType[];
   wageBrackets: WageBracket[] = [
     { name: 'Minimum Wage', key: 'minWage' },
     { name: 'Median Wage', key: 'medianWage3rdQuintile' },

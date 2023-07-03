@@ -85,6 +85,16 @@ div.panel-container {
     max-width: 625px;
 }
 
+.citation {
+    text-align: center;
+    font-style: italic;
+    color: $dark;
+
+    a {
+        color: $dark;
+    }
+}
+
 .fa-info-circle {
     cursor: pointer;
     color: mediumblue;
@@ -114,7 +124,21 @@ body {
     }
 }
 
-.table {
+.table, .table-sm {
+    &.table-default {
+        border: none;
+
+        thead {
+            border-bottom: 1px solid black;
+        }
+
+        tbody {
+            tr, td {
+                border: none;
+            }
+        }
+    }
+
     &.red-dashed-border {
         border: 2px dashed red;
         border-radius: 15px;
