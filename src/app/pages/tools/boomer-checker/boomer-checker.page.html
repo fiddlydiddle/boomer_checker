@@ -18,6 +18,7 @@
         </div>
     </div>
 </div>
+<!-- Costs over time panel -->
 <div class="panel-container row mt-1">
     <mat-expansion-panel #priceInflationPanel [expanded]="false" (opened)="panelOpened('priceInflationPanel')">
         <mat-expansion-panel-header>
@@ -58,7 +59,13 @@
                 <div class="alert alert-warning max-width m-auto mt-3">
                     Since {{ pageFilters.selectedStartingYear }} the price of a {{ pageFilters.selectedPurchaseType.name }} has 
                     <strong>
-                        increased by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseInflationAdjustedPrice, true) }}%
+                        <span *ngIf="purchaseInflationAdjustedPrice <= purchaseCurrentPrice">
+                            increased&nbsp;
+                        </span>
+                        <span *ngIf="purchaseInflationAdjustedPrice > purchaseCurrentPrice">
+                            decreased&nbsp;
+                        </span>
+                        by {{ _dataFormatter.calculatePercentage(purchaseCurrentPrice, purchaseInflationAdjustedPrice, true) }}%
                     </strong>
                     when adjusted for inflation.
                 </div>
@@ -73,6 +80,7 @@
         </div>
     </mat-expansion-panel>
 </div>
+<!-- Wage-data panel -->
 <div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('wageDataPanel')">
         <mat-expansion-panel-header>
@@ -107,42 +115,24 @@
         </div>
     </mat-expansion-panel>
 </div>
+<!-- Work-Time Panel -->
 <div class="panel-container row mt-3">
     <mat-expansion-panel [expanded]="false" (opened)="panelOpened('workTimePanel')">
         <mat-expansion-panel-header>
             <mat-panel-title><strong>Time Spent Saving</strong></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="section-content col-12">
-            <div class="section-header d-flex justify-content-center">
-                <span>
-                    <select [(ngModel)]="selectedTimeFrame" class="fw-500">
-                        <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
-                    </select> 
-                    of work required to pay for a {{ pageFilters.selectedPurchaseType.name }}
-                </span>
-            </div>
-            <div class="mt-2 justify-content-center">
-                <work-time-chart
-                    #workTimeContainer
-                    [startYear]="pageFilters.selectedStartingYear"
-                    [endYear]="currentYear"
-                    [annualData]="allAnnualData"
-                    [purchaseType]="pageFilters.selectedPurchaseType"
-                    [timeFrames]="timeFrames"
-                    [(selectedTimeFrame)]="selectedTimeFrame">
-                </work-time-chart>
-            </div>
             <work-time
                 #workTime
-                [startYear]="pageFilters.selectedStartingYear"
-                [endYear]="currentYear"
+                [pageFilters]="pageFilters"
+                [currentYear]="currentYear"
                 [purchaseStartingPrice]="purchaseStartingPrice"
                 [purchaseCurrentPrice]="purchaseCurrentPrice"
                 [startingAnnualData]="startingAnnualData"
                 [endingAnnualData]="currentAnnualData"
-                [purchaseType]="pageFilters.selectedPurchaseType"
+                [allAnnualData]="allAnnualData"
                 [timeFrames]="timeFrames"
-                [(selectedTimeFrame)]="selectedTimeFrame">
+                [selectedTimeFrame]="selectedTimeFrame">
             </work-time>
         </div>
     </mat-expansion-panel>
