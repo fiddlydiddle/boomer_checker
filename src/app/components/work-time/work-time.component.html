@@ -1,10 +1,29 @@
+<div class="section-header d-flex justify-content-center">
+    <span>
+        <select [(ngModel)]="selectedTimeFrame" class="fw-500">
+            <option *ngFor="let timeFrame of timeFrames" [ngValue]="timeFrame">{{timeFrame.name}}</option>
+        </select> 
+        of work required to pay for a {{ pageFilters.selectedPurchaseType.name }}
+    </span>
+</div>
+<div class="mt-2 justify-content-center">
+    <work-time-chart
+        #workTimeChartContainer
+        [startYear]="pageFilters.selectedStartingYear"
+        [endYear]="currentYear"
+        [annualData]="allAnnualData"
+        [purchaseType]="pageFilters.selectedPurchaseType"
+        [timeFrames]="timeFrames"
+        [selectedTimeFrame]="selectedTimeFrame">
+    </work-time-chart>
+</div>
 <div class="col-12 d-flex justify-content-center mt-1">
     <table class="table-sm table-default comparison-table col-12 col-sm-10">
         <thead>
             <th class="w-35"></th>
-            <th class="text-end w-25">{{ startYear }}</th>
-            <th class="text-end w-25">{{ endYear }}</th>
-            <th class="text-end w-25">% Change</th>
+            <th class="text-end w-25">{{ pageFilters.selectedStartingYear }}</th>
+            <th class="text-end w-25">{{ currentYear }}</th>
+            <th class="text-end w-25">Change</th>
         </thead>
         <tbody>
             <tr>
@@ -15,7 +34,7 @@
                     <span *ngIf="endingWorkTimes.minWageWorkTime > startingWorkTimes.minWageWorkTime" class="text-danger">
                         +{{ _dataFormatter.calculatePercentage(endingWorkTimes.minWageWorkTime, startingWorkTimes.minWageWorkTime, true) }}%
                     </span>
-                    <span *ngIf="endingWorkTimes.minWageWorkTime <= startingWorkTimes.minWageWorkTime" class="text-success">
+                    <span *ngIf="endingWorkTimes.minWageWorkTime <= startingWorkTimes.minWageWorkTime" class="text-primary">
                         -{{ _dataFormatter.calculatePercentage(endingWorkTimes.minWageWorkTime, startingWorkTimes.minWageWorkTime, true) }}%
                     </span>
                 </td>
@@ -25,10 +44,10 @@
                 <td class="text-end">{{ _dataFormatter.formatNumber(startingWorkTimes.medianWageWorkTime, 2) }}</td>
                 <td class="text-end">{{ _dataFormatter.formatNumber(endingWorkTimes.medianWageWorkTime, 2) }}</td>
                 <td class="text-end fw-bold">
-                    <span *ngIf="endingWorkTimes.medianWageWorkTime > startingWorkTimes.minWageWorkTime" class="text-danger">
+                    <span *ngIf="endingWorkTimes.medianWageWorkTime > startingWorkTimes.medianWageWorkTime" class="text-danger">
                         +{{ _dataFormatter.calculatePercentage(endingWorkTimes.medianWageWorkTime, startingWorkTimes.medianWageWorkTime, true) }}%
                     </span>
-                    <span *ngIf="endingWorkTimes.medianWageWorkTime <= startingWorkTimes.minWageWorkTime" class="text-success">
+                    <span *ngIf="endingWorkTimes.medianWageWorkTime <= startingWorkTimes.medianWageWorkTime" class="text-primary">
                         -{{ _dataFormatter.calculatePercentage(endingWorkTimes.medianWageWorkTime, startingWorkTimes.medianWageWorkTime, true) }}%
                     </span>
                 </td>
@@ -41,7 +60,7 @@
                     <span *ngIf="endingWorkTimes.top5PctWorkTime > startingWorkTimes.top5PctWorkTime" class="text-danger">
                         +{{ _dataFormatter.calculatePercentage(endingWorkTimes.top5PctWorkTime, startingWorkTimes.top5PctWorkTime, true) }}%
                     </span>
-                    <span *ngIf="endingWorkTimes.top5PctWorkTime <= startingWorkTimes.top5PctWorkTime" class="text-success">
+                    <span *ngIf="endingWorkTimes.top5PctWorkTime <= startingWorkTimes.top5PctWorkTime" class="text-primary">
                         -{{ _dataFormatter.calculatePercentage(endingWorkTimes.top5PctWorkTime, startingWorkTimes.top5PctWorkTime, true) }}%
                     </span>
                 </td>

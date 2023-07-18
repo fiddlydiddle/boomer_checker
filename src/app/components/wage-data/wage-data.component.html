@@ -33,10 +33,10 @@
             <tr>
                 <th></th>
                 <th class="align-bottom">
-                    {{ startYear }} Wage<br />
+                    {{ startYear }}<br />
                     <small class="fw-normal">Inflation-Adjusted</small>
                 </th>
-                <th class="align-bottom">{{ endYear }} Wage</th>
+                <th class="align-bottom">{{ endYear }}</th>
                 <th class="align-bottom">Change</th>
             </tr>
         </thead>
@@ -62,7 +62,7 @@
                     <span *ngIf="wageBracketWages[1].currentWage < wageBracketWages[1].inflationAdjustedInitialWage" class="text-danger">
                         -{{ _dataFormatter.calculatePercentage(wageBracketWages[1].currentWage, wageBracketWages[1].inflationAdjustedInitialWage, true) }}%
                     </span>
-                    <span *ngIf="wageBracketWages[1].currentWage >= wageBracketWages[1].inflationAdjustedInitialWage" class="text-success">
+                    <span *ngIf="wageBracketWages[1].currentWage >= wageBracketWages[1].inflationAdjustedInitialWage" class="text-primary">
                         +{{ _dataFormatter.calculatePercentage(wageBracketWages[1].currentWage, wageBracketWages[1].inflationAdjustedInitialWage, true) }}%
                     </span>
                 </td>
@@ -75,7 +75,7 @@
                     <span *ngIf="wageBracketWages[2].currentWage < wageBracketWages[2].inflationAdjustedInitialWage" class="text-danger">
                         -{{ _dataFormatter.calculatePercentage(wageBracketWages[2].currentWage, wageBracketWages[2].inflationAdjustedInitialWage, true) }}%
                     </span>
-                    <span *ngIf="wageBracketWages[2].currentWage >= wageBracketWages[2].inflationAdjustedInitialWage" class="text-success">
+                    <span *ngIf="wageBracketWages[2].currentWage >= wageBracketWages[2].inflationAdjustedInitialWage" class="text-primary">
                         +{{ _dataFormatter.calculatePercentage(wageBracketWages[2].currentWage, wageBracketWages[2].inflationAdjustedInitialWage, true) }}%
                     </span>
                 </td>

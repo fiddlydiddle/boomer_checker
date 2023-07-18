@@ -32,7 +32,6 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
   @ViewChild('priceInflationPanel', {static: false}) priceInflationPanel: MatExpansionPanel | undefined;
   @ViewChild('priceInflationChart', {static: false}) priceInflationChart: LineChartRaceComponent | undefined;
   @ViewChild('wageDataChart', {static: false}) wageDataChart: LineChartRaceComponent | undefined;
-  @ViewChild('workTimeContainer', {static: false}) workTimeContainer: WorkTimeChartComponent | undefined;
   @ViewChild('modal') private modalComponent: ModalComponent | undefined;
   @ViewChild('filterPanel') private filterPanelComponent: FilterPanelComponent | undefined;
 
@@ -166,8 +165,8 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
       else if (panelName === 'wageDataPanel' && this.wageDataChart) {
         this.wageDataChart.playAnimation();
       }
-      else if (panelName === 'workTimePanel' && this.workTimeContainer?.workTimeChart) {
-        this.workTimeContainer.workTimeChart.playAnimation();
+      else if (panelName === 'workTimePanel' && this.workTime?.workTimeChartContainer?.workTimeChart) {
+        this.workTime.workTimeChartContainer.workTimeChart.playAnimation();
       }
     }, 101);
     
@@ -231,7 +230,7 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     this.priceInflationChartTitle = '';
     this.priceInflationChart?.stopAnimation();
     this.wageDataChart?.stopAnimation();
-    this.workTimeContainer?.workTimeChart?.stopAnimation();
+    this.workTime?.workTimeContainer?.workTimeChart?.stopAnimation();
     this.drawPriceChart();
     this.drawWageDataChart();
   }
