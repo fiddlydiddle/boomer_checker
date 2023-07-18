@@ -181,10 +181,10 @@ export class LineChartRaceComponent implements AfterViewInit {
             lines.push(path);
         });
 
-        this.addTitleAndLegend();
-
         // Set iterator to max value so circles and labels will be in the right spot
         this.iteration = this._data[0].dataPoints.length - 1;
+
+        this.addTitleAndLegend();
 
         this.updateTipCircles();
 
@@ -234,6 +234,8 @@ export class LineChartRaceComponent implements AfterViewInit {
             .range([this.height, 20]);
 
         this.updateAxes();
+
+        this.updateTimeLabel();
 
         this.makeLines();
 
@@ -343,10 +345,23 @@ export class LineChartRaceComponent implements AfterViewInit {
             .select(legendHtmlElement)
             .append('svg')
                 .attr('id', `legend${this.chartIdentifierGUID}`)
-                .attr('width', chartWidth)
+                .attr('width', chartWidth * .65)
                 .attr('height', this._data.length * (this.chartOptions.legend.ySpacing + 5))
                 .selectAll('.legendItem')
                 .data(this._data);
+                
+        d3.select(`#time-label${this.chartIdentifierGUID}`).remove();
+        const timeLabel = d3
+            .select(legendHtmlElement)
+            .append('div')
+                .attr('id', `time-label${this.chartIdentifierGUID}`)
+                .style('display', 'inline-block')
+                .style('width', '33%')
+                .style('vertical-align', 'bottom')
+                .style('text-align', 'right')
+                .style('font-size', '24px')
+                .style('padding-right', '30px')
+                .text(this._data[0]?.dataPoints[this.iteration]?.year);
 
         //Create legend items
         legend
@@ -466,6 +481,13 @@ export class LineChartRaceComponent implements AfterViewInit {
 
                 return formattedNumber;
             });
+    }
+
+    private updateTimeLabel() {
+        const currentXValue = this._data[0]?.dataPoints[this.iteration]?.year;
+        d3  
+            .select(`#time-label${this.chartIdentifierGUID}`)
+            .text(currentXValue);
     }
 
     private newGuid() {
