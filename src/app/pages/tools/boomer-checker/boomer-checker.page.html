@@ -137,3 +137,20 @@
         </div>
     </mat-expansion-panel>
 </div>
+<!-- Budget Breakdown Panel -->
+<div class="panel-container row mt-3">
+    <mat-expansion-panel [expanded]="false" (opened)="panelOpened('budgetBreakdownPanel')">
+        <mat-expansion-panel-header>
+            <mat-panel-title><strong>Monthly Budget Breakdown</strong></mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="section-content col-12">
+            <budget-breakdown
+                [startYear]="pageFilters.selectedStartingYear"
+                [endYear]="currentYear"
+                [startingAnnualData]="startingAnnualData"
+                [endingAnnualData]="currentAnnualData"
+                >
+            </budget-breakdown>
+        </div>
+    </mat-expansion-panel>
+</div>

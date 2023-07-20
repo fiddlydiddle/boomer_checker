@@ -10,7 +10,8 @@
             "annualFactor": 2080 
         },
         "sourceName": "NCES (Public Universities)",
-        "sourceUrl": "https://nces.ed.gov/programs/digest/d21/tables/dt21_330.10.asp"
+        "sourceUrl": "https://nces.ed.gov/programs/digest/d21/tables/dt21_330.10.asp",
+        "sortOrder": 6
     },
     { 
         "name": "House",
@@ -23,7 +24,8 @@
             "annualFactor": 2080 
         },
         "sourceName": "St. Louis Fed",
-        "sourceUrl": "https://fred.stlouisfed.org/series/MSPUS"
+        "sourceUrl": "https://fred.stlouisfed.org/series/MSPUS",
+        "sortOrder": null
     },
     { 
         "name": "Month's Rent",
@@ -36,7 +38,8 @@
             "annualFactor": 40 
         },
         "sourceName": "IPropertyManagement.com",
-        "sourceUrl": "https://ipropertymanagement.com/research/average-rent-by-year"
+        "sourceUrl": "https://ipropertymanagement.com/research/average-rent-by-year",
+        "sortOrder": 2
     },
     { 
         "name": "Year's Healthcare",
@@ -49,7 +52,8 @@
             "annualFactor": 2080 
         },
         "sourceName": "CMS",
-        "sourceUrl": "https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/NationalHealthExpendData/NationalHealthAccountsHistorical"
+        "sourceUrl": "https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/NationalHealthExpendData/NationalHealthAccountsHistorical",
+        "sortOrder": 4
     },
     { 
         "name": "Year's Child Care",
@@ -62,7 +66,8 @@
             "annualFactor": 2080 
         },
         "sourceName": "USDA",
-        "sourceUrl": "https://www.fns.usda.gov/resource/2015-expenditures-children-families"
+        "sourceUrl": "https://www.fns.usda.gov/resource/2015-expenditures-children-families",
+        "sortOrder": 6
     },
     { 
         "name": "Year's Food",
@@ -75,7 +80,8 @@
             "annualFactor": 2080 
         },
         "sourceName": "USDA",
-        "sourceUrl": "https://www.ers.usda.gov/data-products/food-expenditure-series/"
+        "sourceUrl": "https://www.ers.usda.gov/data-products/food-expenditure-series/",
+        "sortOrder":  1
     },
     { 
         "name": "Gallon of Gas",
@@ -88,6 +94,7 @@
             "annualFactor": 1 
         },
         "sourceName": "St. Louis Fed",
-        "sourceUrl": "https://fred.stlouisfed.org/series/APU00007471A"
+        "sourceUrl": "https://fred.stlouisfed.org/series/APU00007471A",
+        "sortOrder": null
     }
 ]

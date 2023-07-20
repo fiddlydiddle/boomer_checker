@@ -19,6 +19,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { SourcesListComponent } from './components/sources-list/sources-list.component';
+import { BudgetBreakdownComponent } from './components/budget-breakdown/budget-breakdown.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { SourcesListComponent } from './components/sources-list/sources-list.com
     LineChartRaceComponent,
     ModalComponent,
     FilterPanelComponent,
-    SourcesListComponent
+    SourcesListComponent,
+    BudgetBreakdownComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { SourcesListComponent } from './components/sources-list/sources-list.com
     BrowserAnimationsModule,
     GoogleChartsModule,
     AngularMaterialModule,
+    MatCheckboxModule,
     NgbModule
   ],
   providers: [],

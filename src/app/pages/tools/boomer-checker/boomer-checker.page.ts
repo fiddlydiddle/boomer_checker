@@ -11,7 +11,6 @@ import { DataFormatterService } from 'src/app/services/data-formatter.service';
 import { LineChartSeries } from 'src/app/datamodels/d3-charts/line-chart-series.model';
 import { LineChartRaceComponent } from 'src/app/components/d3-charts/line-chart-race/line-chart-race.component';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { WorkTimeChartComponent } from 'src/app/components/work-time-chart/work-time-chart.component';
 import { FilterPanelComponent } from 'src/app/components/filter-panel/filter-panel.component';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ModalConfig } from 'src/app/datamodels/modal-config.model';
@@ -169,7 +168,6 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
         this.workTime.workTimeChartContainer.workTimeChart.playAnimation();
       }
     }, 101);
-    
   }
 
   public openFilterPanel() {

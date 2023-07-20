@@ -54,6 +54,10 @@ div.panel-container {
     div.mat-expansion-panel-body {
         padding: 0 10px 16px;
     }
+
+    .mat-expansion-panel-header.mat-expanded {
+        height: 48px;
+    }
 }
 
 .w-5 {
