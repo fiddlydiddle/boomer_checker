@@ -30,7 +30,7 @@ export class WageDataComponent implements OnInit, OnChanges {
         { key: 'minWage' as keyof AnnualDataPoint, initialWage: 0, inflationAdjustedInitialWage: 0, currentWage: 0 },
         { key: 'medianWage3rdQuintile' as keyof AnnualDataPoint, initialWage: 0, inflationAdjustedInitialWage: 0, currentWage: 0 },
         { key: 'medianWageTop5Pct' as keyof AnnualDataPoint, initialWage: 0, inflationAdjustedInitialWage: 0, currentWage: 0 }
-    ]
+    ];
     
     constructor(public _dataFormatter:DataFormatterService) {}
 

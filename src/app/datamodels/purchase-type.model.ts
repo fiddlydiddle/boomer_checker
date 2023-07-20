@@ -8,4 +8,5 @@ export interface PurchaseType {
     defaultTimeFrame: TimeFrame;
     sourceName: string;
     sourceUrl: string;
+    sortOrder: number | null;
 }

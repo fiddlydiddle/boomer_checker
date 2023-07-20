@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-center">
+            <ul class="list-unstyled">
+                <li *ngFor="let purchaseType of purchaseTypes">
+                    <mat-checkbox
+                        [color]="'primary'"
+                        [checked]="purchaseType.checked"
+                        (change)="purchaseTypeToggled($event, purchaseType)"
+                    >
+                    {{ purchaseType.altName }}
+                    </mat-checkbox>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content-center">
+            <select class="text-center" [(ngModel)]="selectedWageBracket" (ngModelChange)="selectedWageBracketChanged($event)">
+                <option *ngFor="let wageBracket of wageBrackets" [ngValue]="wageBracket">{{ wageBracket.name }}</option>
+            </select>  
+        </div>
+    </div>
+    <div class="col-12">
+        <table class="table table-default">
+            <thead class="border-bottom-0">
+                <tr>
+                    <th class="border-bottom-0"></th>
+                    <th class="text-end">
+                        {{ startYear }}<br />
+                        <small class="fw-normal">Inflation-Adjusted</small>
+                    </th>
+                    <th class="text-end">2020</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-end fw-bold">Monthly Wage</td>
+                    <td class="text-end fw-bold">{{ dataFormatter.formatCurrency(getBudgetValue(startingBudgetValues, selectedWageBracket.key)) }}</td>
+                    <td class="text-end fw-bold">{{ dataFormatter.formatCurrency(getBudgetValue(endingBudgetValues, selectedWageBracket.key)) }}</td>
+                </tr>
+                <ng-container *ngFor="let purchaseType of purchaseTypes">
+                    <tr *ngIf="purchaseType.checked">
+                        <td class="text-end">{{ purchaseType.altName }}</td>
+                        <td class="text-end">-{{ dataFormatter.formatCurrency(getBudgetValue(startingBudgetValues, purchaseType.key)) }}</td>
+                        <td class="text-end">-{{ dataFormatter.formatCurrency(getBudgetValue(endingBudgetValues, purchaseType.key)) }}</td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td class="text-end fw-bold">Remaining Budget</td>
+                    <td class="text-end fw-bold">
+                        <span *ngIf="calculateRemainingBudget(startingBudgetValues, getBudgetValue(startingBudgetValues, selectedWageBracket.key)) < 0" class="text-danger">
+                            {{ dataFormatter.formatCurrency(calculateRemainingBudget(startingBudgetValues, getBudgetValue(startingBudgetValues, selectedWageBracket.key))) }}
+                        </span>
+                        <span *ngIf="calculateRemainingBudget(startingBudgetValues, getBudgetValue(startingBudgetValues, selectedWageBracket.key)) >= 0" class="text-success">
+                            {{ dataFormatter.formatCurrency(calculateRemainingBudget(startingBudgetValues, getBudgetValue(startingBudgetValues, selectedWageBracket.key))) }}
+                        </span>
+                    </td>
+                    <td class="text-end fw-bold">
+                        <span *ngIf="calculateRemainingBudget(endingBudgetValues, getBudgetValue(endingBudgetValues, selectedWageBracket.key)) < 0" class="text-danger">
+                            {{ dataFormatter.formatCurrency(calculateRemainingBudget(endingBudgetValues, getBudgetValue(endingBudgetValues, selectedWageBracket.key))) }}
+                        </span>
+                        <span *ngIf="calculateRemainingBudget(endingBudgetValues, getBudgetValue(endingBudgetValues, selectedWageBracket.key)) >= 0" class="text-success">
+                            {{ dataFormatter.formatCurrency(calculateRemainingBudget(endingBudgetValues, getBudgetValue(endingBudgetValues, selectedWageBracket.key))) }}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
