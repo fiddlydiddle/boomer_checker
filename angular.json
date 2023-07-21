@@ -107,11 +107,8 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
-            "prerender": false,
-            "ssr": false,
-            "browserTarget": "BoomerChecker:build:production",
-            "firebaseProject": "boomerchecker",
-            "firebaseHostingSite": "boomerchecker"
+            "version": 2,
+            "browserTarget": "BoomerChecker:build:production"
           }
         }
       }

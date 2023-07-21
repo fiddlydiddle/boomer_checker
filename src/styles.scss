@@ -115,7 +115,7 @@ body {
 }
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
 .modal.page-filter-modal {
     align-items: center;
@@ -157,5 +157,16 @@ body {
         thead, tbody, tr, td {
             border: none;
         }
+    }
+}
+
+////////////////////////////////
+/// Angular Material overrides
+////////////////////////////////
+div.mdc-checkbox {
+    padding-right: 3px;
+
+    div.mdc-checkbox__ripple{
+        display: none;
     }
 }
