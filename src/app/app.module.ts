@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WageDataComponent } from './components/wage-data/wage-data.component';
 import { WorkTimeComponent } from './components/work-time/work-time.component';
-import { GoogleChartsModule } from 'angular-google-charts';
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { WorkTimeChartComponent } from './components/work-time-chart/work-time-chart.component';
 import { BoomerCheckerComponent } from './pages/tools/boomer-checker/boomer-checker.page';
@@ -43,7 +42,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    GoogleChartsModule,
     AngularMaterialModule,
     MatCheckboxModule,
     NgbModule
