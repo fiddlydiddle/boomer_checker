@@ -130,17 +130,23 @@ export class LineChartRaceComponent implements AfterViewInit {
 
         // Get all xValues and yValues for calculating the axis sizes
         const seriesXValues: number[] = [];
-        this._data.forEach(series => {
-            return series.dataPoints.map(dataPoint => {
-                seriesXValues.push(dataPoint.year);
+        this._data
+            .filter(series => series.active)
+            .forEach(series => {
+                return series.dataPoints.map(dataPoint => {
+                    seriesXValues.push(dataPoint.year);
+                });
             });
-        });
+
         const seriesYValues: number[] = [0];
-        this._data.forEach(series => {
-            return series.dataPoints.map(dataPoint => {
-                seriesYValues.push(dataPoint.value);
+        this._data
+            .filter(series => series.active)
+            .forEach(series => {
+                return series.dataPoints.map(dataPoint => {
+                    seriesYValues.push(dataPoint.value);
+                });
             });
-        });
+
         const chartWidth = this.host.node()?.getBoundingClientRect().width || this.defaultWidth;
         this.xScale = d3.scaleTime()
             .domain(d3.extent(seriesXValues) as [number, number])
@@ -165,21 +171,23 @@ export class LineChartRaceComponent implements AfterViewInit {
 
         // Add lines
         const lines: any = [];
-        this._data.forEach((dataSeries, index) => {
-            const path = this.svg.append('path')
-                .datum(dataSeries.dataPoints)
-                .attr('fill', 'none')
-                .attr('stroke', this.chartOptions.colors[index])
-                .attr('stroke-width', 1.5)
-                .attr('class', dataSeries.name)
-                .attr('d', d3.line()
-                    .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
-                    .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); })
-                    .curve(d3.curveCardinal) as any
-                );
+        this._data
+            .filter(series => series.active)
+            .forEach((dataSeries, index) => {
+                const path = this.svg.append('path')
+                    .datum(dataSeries.dataPoints)
+                    .attr('fill', 'none')
+                    .attr('stroke', this.chartOptions.colors[dataSeries.index])
+                    .attr('stroke-width', 1.5)
+                    .attr('class', dataSeries.name)
+                    .attr('d', d3.line()
+                        .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
+                        .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); })
+                        .curve(d3.curveCardinal) as any
+                    );
 
-            lines.push(path);
-        });
+                lines.push(path);
+            });
 
         // Set iterator to max value so circles and labels will be in the right spot
         this.iteration = this._data[0].dataPoints.length - 1;
@@ -218,11 +226,13 @@ export class LineChartRaceComponent implements AfterViewInit {
             .range([this.margin.left, chartWidth - this.margin.left - this.margin.right - 15]);
 
         // Create the Y axis:
-        const maxValueOfEachSeries = this._data.map((series) => {
-            const seriesChunk = series.dataPoints.slice(0, this.iteration + 2);
-            const seriesValues = seriesChunk.map(dataPoint => dataPoint.value);
-            return Math.max(...seriesValues);
-        });
+        const maxValueOfEachSeries = this._data
+            .filter(series => series.active)
+            .map((series) => {
+                const seriesChunk = series.dataPoints.slice(0, this.iteration + 2);
+                const seriesValues = seriesChunk.map(dataPoint => dataPoint.value);
+                return Math.max(...seriesValues);
+            });
         var overallMaxValue = Math.max(...maxValueOfEachSeries, 2);
 
         if (overallMaxValue > this.yAxisUpperBound) {
@@ -282,39 +292,48 @@ export class LineChartRaceComponent implements AfterViewInit {
 
     private makeLines() {
         if (this.iteration === 1) {
-            this._data.forEach((dataSeries, index) => {
-                this.svg.append('path')
-                    .datum(dataSeries.dataPoints)
-                    .attr("clip-path", `url(#lineClip${this.chartIdentifierGUID}`)
-                    .attr('fill', 'none')
-                    .attr('stroke', this.chartOptions.colors[index])
-                    .attr('stroke-width', 1.5)
-                    .attr('class', dataSeries.className)
-                    .attr('d', d3.line()
-                        .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
-                        .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); }) as any
-                    );
-            });
+            this._data
+                .filter(dataSeries => dataSeries.active)
+                .forEach((dataSeries, index) => {
+                    if (dataSeries.active) {
+                        this.svg.append('path')
+                            .datum(dataSeries.dataPoints)
+                            .attr("clip-path", `url(#lineClip${this.chartIdentifierGUID}`)
+                            .attr('fill', 'none')
+                            .attr('stroke', this.chartOptions.colors[dataSeries.index])
+                            .attr('stroke-width', 1.5)
+                            .attr('class', dataSeries.className)
+                            .attr('d', d3.line()
+                                .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
+                                .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); }) as any
+                            );
+                    }
+                });
         }
         else {
-            this._data.forEach(dataSeries => {
-                // generate line paths
-                const line = this.svg.selectAll(`.${dataSeries.className}`)
-                    .datum(dataSeries.dataPoints)
-                    .attr('class', dataSeries.className);
+            this._data
+                .filter(dataSeries => dataSeries.active)
+                .forEach(dataSeries => {
+                    if (dataSeries.active) {
+                        // generate line paths
+                        const line = this.svg.selectAll(`.${dataSeries.className}`)
+                            .datum(dataSeries.dataPoints)
+                            .attr('class', dataSeries.className);
 
-                // transition from previous paths to new paths
-                line
-                    .attr("clip-path", `url(#lineClip${this.chartIdentifierGUID}`)
-                    .transition()
-                    .ease(d3.easeLinear)
-                    .duration(this.duration)
-                    .attr('stroke-width', 1.5)
-                    .attr('d', d3.line()
-                        .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
-                        .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); }) as any
-                    )
-            });
+                        // transition from previous paths to new paths
+                        line
+                            .attr("clip-path", `url(#lineClip${this.chartIdentifierGUID}`)
+                            .transition()
+                            .ease(d3.easeLinear)
+                            .duration(this.duration)
+                            .attr('stroke-width', 1.5)
+                            .attr('d', d3.line()
+                                .x((d) => { return this.xScale(((d as unknown) as { year: number }).year); })
+                                .y((d) => { return this.yScale(((d as unknown) as { value: number }).value); }) as any
+                            );
+                    }
+                    
+                });
         }
     }
 
@@ -370,11 +389,15 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr('class', 'legendItem')
             .attr('width', this.chartOptions.legend.itemSize)
             .attr('height', this.chartOptions.legend.itemSize)
-            .style('fill', (dataSeries, index) => this.chartOptions.colors[index])
+            .style('fill', (dataSeries) => this.chartOptions.colors[dataSeries.index])
             .attr('transform', (dataSeries, index) => {
                 const x = this.chartOptions.legend.xOffset;
                 const y = this.chartOptions.legend.yOffset + this.chartOptions.legend.itemSize + (this.chartOptions.legend.ySpacing * index);
                 return `translate(${x}, ${y})`;
+            })
+            .style('cursor', 'pointer')
+            .on('click', (event, dataSeries) => {
+                this.toggleLegendItem(dataSeries);
             });
 
         //Create legend labels
@@ -386,12 +409,17 @@ export class LineChartRaceComponent implements AfterViewInit {
                 const y = this.chartOptions.legend.yOffset + this.chartOptions.legend.itemSize + 10 + (this.chartOptions.legend.ySpacing * index);
                 return `translate(${x}, ${y})`;
             })
-            .text(dataSeries => dataSeries.name);  
+            .text(dataSeries => dataSeries.name)
+            .style('cursor', 'pointer')
+            .style('text-decoration', (dataSeries) => dataSeries.active ? 'none' : 'line-through')
+            .on('click', (event, dataSeries) => {
+                this.toggleLegendItem(dataSeries);
+            });
     }
 
     private updateTipCircles() {
         // Generate new circles
-        const circles = this.svg.selectAll(".circle").data(this._data);
+        const circles = this.svg.selectAll(".circle").data(this._data.filter(series => series.active));
             
         // Transition from previous circles to new
         circles
@@ -399,7 +427,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .append("circle")
             .attr("class","circle")
             .attr("fill", "white")
-            .attr("stroke", (dataSeries, index) => this.chartOptions.colors[index])
+            .attr("stroke", (dataSeries) => this.chartOptions.colors[dataSeries.index])
             .attr("stroke-width", this.chartOptions.tipCircles.lineWidth)
             .attr("cx", dataSeries => this.xScale(dataSeries.dataPoints[this.iteration].year))
             .attr("cy", dataSeries => this.yScale(dataSeries.dataPoints[this.iteration].value))
@@ -419,13 +447,13 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr("cy", dataSeries => this.yScale(dataSeries.dataPoints[this.iteration].value))
             .attr("r", this.chartOptions.tipCircles.radius)
             .attr("fill", "white")
-            .attr("stroke", (dataSeries, index) => this.chartOptions.colors[index])
+            .attr("stroke", (dataSeries) => this.chartOptions.colors[dataSeries.index])
             .attr("stroke-width", this.chartOptions.tipCircles.lineWidth);
     }
 
     private updateCircleLabels() {
         //generate labels
-        const labels = this.svg.selectAll(".label").data(this._data);
+        const labels = this.svg.selectAll(".label").data(this._data.filter(series => series.active));
 
         //transition from previous labels to new labels
         labels
@@ -434,7 +462,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr("class","label")
             .attr("font-size","18px")
             .attr("clip-path", "url(#clip)")
-            .style("fill", (dataSeries, index) => this.chartOptions.colors[index])
+            .style("fill", (dataSeries) => this.chartOptions.colors[dataSeries.index])
             .transition()
             .ease(d3.easeLinear)
             .attr("x", (dataSeries) => this.xScale(dataSeries.dataPoints[this.iteration].year) + this.chartOptions.tipCircles.labels.xOffset)
@@ -464,7 +492,7 @@ export class LineChartRaceComponent implements AfterViewInit {
             .attr("x", (dataSeries) => this.xScale(dataSeries.dataPoints[this.iteration].year) + this.chartOptions.tipCircles.labels.xOffset)
             .attr("y", (dataSeries) => this.yScale(dataSeries.dataPoints[this.iteration].value) + this.chartOptions.tipCircles.labels.yOffset)
             .attr("font-size","18px")
-            .style("fill", (dataSeries, index) => this.chartOptions.colors[index])
+            .style("fill", (dataSeries) => this.chartOptions.colors[dataSeries.index])
             .style('text-anchor', 'start')
             .text(dataSeries => {
                 let numericValue = dataSeries.dataPoints[this.iteration].value;
@@ -494,5 +522,10 @@ export class LineChartRaceComponent implements AfterViewInit {
         return ([1e7] as any + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c: any) =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
+    }
+
+    private toggleLegendItem(dataSeries: LineChartSeries) {
+        dataSeries.active = !dataSeries.active;
+        this.drawStaticChart();
     }
 }

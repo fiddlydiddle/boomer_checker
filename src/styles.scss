@@ -32,16 +32,40 @@ $BoomerChecker-theme: mat.define-light-theme((color: (primary: $BoomerChecker-pr
 /* You can add global styles to this file, and also import other style files */
 $light: #ffffff;
 $dark: #565656;
+$black: #000000;
 
-body.dark-mode {
-    background-color: $dark;
+body {
+    &.light-mode {
+        background-image: url('./assets/images/background-wallpaper.svg');
+        background-size: cover;
 
-    main {
-        color: #eeeeee;
+        main {
+            color: $black;
+        }
+
+        .footer {
+            a {
+                color: $black;
+            }
+        }
     }
 
-    mat-expansion-panel {
-        background-color: $light;
+    &.dark-mode {
+        background-color: $dark;
+
+        main {
+            color: $light;
+
+            .footer {
+                a {
+                    color: $light;
+                }
+            }
+        }
+
+        mat-expansion-panel {
+            background-color: $light;
+        }
     }
 }
 

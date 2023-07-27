@@ -237,18 +237,22 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     let priceData: ValueInflationPoint[] = this._priceChartService.getPriceData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.pageFilters.selectedPurchaseType.key);
     this.priceInflationDataSeries = [];
     this.priceInflationDataSeries.push({
+      index: 0,
       name: 'Actual Cost',
       className: 'actual-value',
       dataPoints: priceData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.dollarValue };
-      })
+      }),
+      active: true
     });
     this.priceInflationDataSeries.push({
+      index: 1,
       name: 'Inflation-Adjusted Cost',
       className: 'inflation-adjusted-value',
       dataPoints: priceData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
-      })
+      }),
+      active: true
     });
   }
 
@@ -258,18 +262,22 @@ export class BoomerCheckerComponent implements OnInit, AfterViewInit {
     let wageData: ValueInflationPoint[] = this._wageChartService.getWageData(this.allAnnualData, this.pageFilters.selectedStartingYear, this.selectedWageBracket.key, wageFactor);
     this.wageDataSeries = [];
     this.wageDataSeries.push({
+      index: 0,
       name: 'Actual Wage',
       className: 'actual-value',
       dataPoints: wageData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.dollarValue };
-      })
+      }),
+      active: true
     });
     this.wageDataSeries.push({
+      index: 1,
       name: 'Inflation-Adjusted Wage',
       className: 'inflation-adjusted-value',
       dataPoints: wageData.map(dataPoint => {
         return { year: dataPoint.year, value: dataPoint.inflationAdjustedDollarValue };
-      })
+      }),
+      active: true
     });
   }
 }
